@@ -7,6 +7,7 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
+    padding-top: 4rem;
     color: #333;
     --type-first: Helvetica, Arial, sans-serif;
     --type-second: 'Spectral', Georgia;
@@ -33,5 +34,9 @@ export default createGlobalStyle`
     font-size: 1rem;
     font-family: var(--type-first);
     color: #333;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
