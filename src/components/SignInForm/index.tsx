@@ -28,16 +28,8 @@ const SignInForm: React.FC = () => {
     <S.Box>
       <S.Title>Login</S.Title>
       <S.Form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          onChange={({ target }) => setUsername(target.value)}
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={({ target }) => setPassword(target.value)}
-        />
+        <Input label="Usuário" type="text" name="username" />
+        <Input label="Senha" type="password" name="password" />
 
         <button>Entrar</button>
       </S.Form>
