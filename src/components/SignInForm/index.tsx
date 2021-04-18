@@ -31,7 +31,7 @@ const SignInForm: React.FC = () => {
         <Input label="Usuário" type="text" name="username" />
         <Input label="Senha" type="password" name="password" />
 
-        <button>Entrar</button>
+        <Button>Entrar</Button>
       </S.Form>
       <Link to="/login/signup">Cadastro</Link>
     </S.Box>
