@@ -1,31 +1,42 @@
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
+import { TOKEN_POST, USER_GET } from '../../services/api';
 import Button from '../Button';
 import Input from '../Input';
-
 import * as S from './styles';
 
 const SignInForm: React.FC = () => {
   const username = useForm();
   const password = useForm();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    const token = window.localStorage.getItem('token');
+    if (token) {
+      getUser(token);
+    }
+  }, []);
+
+  const getUser = async (token: string) => {
+    const { url, options } = USER_GET(token);
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log(data);
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (username.validate() && password.validate()) {
-      fetch('https://dogsapi.origamid.dev/json/jwt-auth/v1/token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((json) => {
-          console.log(json);
-        });
+      const { url, options } = TOKEN_POST({
+        username: username.value,
+        password: password.value
+      });
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+      window.localStorage.setItem('token', data.token);
+      getUser(data.token);
     }
   };
 
