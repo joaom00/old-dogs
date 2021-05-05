@@ -1,8 +1,8 @@
-import { FormEvent, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContext';
+import { FormEvent } from 'react';
+import { useAuth } from '../../contexts/UserContext';
 import useForm from '../../hooks/useForm';
 import Button from '../Button';
+import Error from '../Error';
 import Input from '../Input';
 import * as S from './styles';
 
@@ -10,7 +10,7 @@ const SignInForm: React.FC = () => {
   const username = useForm();
   const password = useForm();
 
-  const { userLogin } = useContext(UserContext);
+  const { userLogin, isError, isLoading } = useAuth();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,9 +27,23 @@ const SignInForm: React.FC = () => {
         <Input label="Usuário" type="text" name="username" {...username} />
         <Input label="Senha" type="password" name="password" {...password} />
 
-        <Button>Entrar</Button>
+        {isLoading ? (
+          <Button disabled>Carregando...</Button>
+        ) : (
+          <Button>Entrar</Button>
+        )}
+
+        <Error error={isError} />
       </S.Form>
-      <Link to="/login/signup">Cadastro</Link>
+      <S.ForgotPasswordLink to="/login/forgot-password">
+        Perdeu a Senha?
+      </S.ForgotPasswordLink>
+
+      <S.SignUpContainer>
+        <h2>Cadastre-se</h2>
+        <p>Ainda não possui conta? Cadastre-se no site.</p>
+        <S.SignUpLink to="/login/signup">Cadastro</S.SignUpLink>
+      </S.SignUpContainer>
     </S.Box>
   );
 };

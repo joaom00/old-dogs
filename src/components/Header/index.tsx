@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
+import { ReactComponent as DogsLogoImg } from '../../assets/dogs.svg';
+import { useAuth } from '../../contexts/UserContext';
 import * as S from './styles';
 
-import { ReactComponent as DogsLogoImg } from '../../assets/dogs.svg';
-import { useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
-
 const Header: React.FC = () => {
-  const { user } = useContext(UserContext);
-
+  const { user, userLogout } = useAuth();
   return (
     <S.Box>
       <S.Links>
@@ -16,7 +13,7 @@ const Header: React.FC = () => {
         </Link>
         {user ? (
           <S.Link to="/conta">
-            {user.nome} <S.UserImg />{' '}
+            {user.nome} <S.UserImg /> <button onClick={userLogout}>Sair</button>
           </S.Link>
         ) : (
           <S.Link to="/login">
