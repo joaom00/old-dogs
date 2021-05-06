@@ -6,17 +6,23 @@ import ForgotPasswordForm from '../../components/ForgotPasswordForm';
 import ResetPasswordForm from '../../components/ResetPasswordForm';
 import { useAuth } from '../../contexts/UserContext';
 
+import * as S from './styles';
+
 const Login: React.FC = () => {
   const { isLogged } = useAuth();
 
   if (isLogged) return <Navigate to="/conta" />;
   return (
-    <Routes>
-      <Route path="/" element={<SignInForm />} />
-      <Route path="signup" element={<SignUpForm />} />
-      <Route path="forgot-password" element={<ForgotPasswordForm />} />
-      <Route path="reset-password" element={<ResetPasswordForm />} />
-    </Routes>
+    <S.LoginSection>
+      <S.Forms>
+        <Routes>
+          <Route path="/" element={<SignInForm />} />
+          <Route path="signup" element={<SignUpForm />} />
+          <Route path="forgot-password" element={<ForgotPasswordForm />} />
+          <Route path="reset-password" element={<ResetPasswordForm />} />
+        </Routes>
+      </S.Forms>
+    </S.LoginSection>
   );
 };
 
