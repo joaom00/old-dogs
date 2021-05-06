@@ -19,12 +19,13 @@ const useForm = (type?: keyof TypesProps) => {
   const [error, setError] = useState('');
 
   const validate = (value: string) => {
-    if (!type) return;
+    if (!type) return true;
     if (!value.length) {
       setError('Preencha um valor');
+      return false;
     } else if (types[type] && !types[type].regex.test(value)) {
       setError(types[type].message);
-      return false
+      return false;
     } else {
       setError('');
     }
