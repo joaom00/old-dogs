@@ -8,6 +8,8 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import { UserContextProvider } from './contexts/UserContext';
+import Profile from './pages/Profile';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App: React.FC = () => {
   return (
@@ -16,7 +18,8 @@ const App: React.FC = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login/*" element={<Login />} />
+          <Route path="login/*" element={<Login />} />
+          <ProtectedRoute path="conta/*" element={<Profile />} />
         </Routes>
         <Footer />
 
