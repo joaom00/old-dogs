@@ -1,57 +1,7 @@
-export const API_URL = 'https://dogsapi.origamid.dev/json';
+import axios from 'axios';
 
-export function TOKEN_POST(body: {
-  [key: string]: string;
-}): { url: string; options: RequestInit } {
-  return {
-    url: API_URL + '/jwt-auth/v1/token',
-    options: {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    }
-  };
-}
+const api = axios.create({
+  baseURL: 'http://localhost:3333'
+})
 
-export function TOKEN_VALIDATE_POST(
-  token: string
-): { url: string; options: RequestInit } {
-  return {
-    url: API_URL + '/jwt-auth/v1/token/validate',
-    options: {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
-  };
-}
-
-export function USER_GET(token: string): { url: string; options: RequestInit } {
-  return {
-    url: API_URL + '/api/user',
-    options: {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }
-  };
-}
-
-export function USER_POST(body: {
-  [key: string]: string;
-}): { url: string; options: RequestInit } {
-  return {
-    url: API_URL + '/api/user',
-    options: {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    }
-  };
-}
+export default api;
