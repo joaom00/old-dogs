@@ -4,7 +4,11 @@ import * as S from './styles';
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
-  return <S.Button {...props}>{children}</S.Button>;
+  return (
+    <S.Button type="button" {...props}>
+      {children}
+    </S.Button>
+  );
 };
 
 export default Button;
