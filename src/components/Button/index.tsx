@@ -1,11 +1,13 @@
 import { ButtonHTMLAttributes } from 'react';
 import * as S from './styles';
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  mt?: number;
+};
 
-const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ mt, children, ...props }) => {
   return (
-    <S.Button type="button" {...props}>
+    <S.Button mt={mt} type="button" {...props}>
       {children}
     </S.Button>
   );
