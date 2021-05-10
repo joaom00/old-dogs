@@ -1,16 +1,17 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from './routes';
 
-import { UserContextProvider } from './contexts/UserContext';
+import AppProvider from './contexts';
+
+import Routes from './routes';
 
 import GlobalStyle from './styles/global';
 
 const App: React.FC = () => {
   return (
     <Router>
-      <UserContextProvider>
+      <AppProvider>
         <Routes />
-      </UserContextProvider>
+      </AppProvider>
 
       <GlobalStyle />
     </Router>
