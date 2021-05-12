@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import convertPixelToRem from '../../utils/convertPixelToRem';
 
-export const Box = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -21,8 +21,12 @@ export const Input = styled.input`
   background: none;
   padding: ${convertPixelToRem(16)} ${convertPixelToRem(24)};
   border-radius: 8px;
+  font-family: inherit;
+  color: #14142b;
+  font-size: ${convertPixelToRem(16)};
 
   &:focus {
-    border: 1px solid #ffbb12;
+    outline: none;
+    border-color: #ffbb12;
   }
 `;

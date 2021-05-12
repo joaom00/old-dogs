@@ -7,10 +7,10 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 
 const Input: React.FC<InputProps> = ({ name, label, ...rest }) => {
   return (
-    <S.Box>
+    <S.Wrapper>
       <S.Label htmlFor={name}>{label}</S.Label>
       <S.Input id={name} {...rest} />
-    </S.Box>
+    </S.Wrapper>
   );
 };
 
