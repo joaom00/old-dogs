@@ -1,37 +1,32 @@
 import styled from 'styled-components';
+import convertPixelToRem from '../../utils/convertPixelToRem';
 
-export const Box = styled.div`
-  margin-bottom: 1rem;
-`;
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 
-export const Label = styled.label`
-  display: block;
-  font-size: 1rem;
-  line-height: 1;
-  padding-bottom: 0.5rem;
-`;
-
-export const Input = styled.input`
-  border: 1px solid #eee;
-  display: block;
-  width: 100%;
-  font-size: 1rem;
-  padding: 0.8rem;
-  border-radius: 0.4rem;
-  background: #eee;
-  transition: 0.2s;
-
-  &:hover,
-  &:focus {
-    outline: none;
-    border-color: #fb1;
-    background: white;
-    box-shadow: 0 0 0 3px #fea;
+  & + & {
+    margin-top: ${convertPixelToRem(32)};
   }
 `;
 
-export const ErrorMessage = styled.p`
-  color: #f31;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+export const Label = styled.label`
+  font-size: ${convertPixelToRem(16)};
+  color: #6e7191;
+  margin-bottom: ${convertPixelToRem(8)};
+`;
+
+export const Input = styled.input`
+  border: 1px solid #d9dbe9;
+  background: none;
+  padding: ${convertPixelToRem(16)} ${convertPixelToRem(24)};
+  border-radius: 8px;
+  font-family: inherit;
+  color: #14142b;
+  font-size: ${convertPixelToRem(16)};
+
+  &:focus {
+    outline: none;
+    border-color: #ffbb12;
+  }
 `;

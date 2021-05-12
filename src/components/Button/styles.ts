@@ -1,26 +1,24 @@
 import styled from 'styled-components';
+import convertPixelToRem from '../../utils/convertPixelToRem';
 
-export const Button = styled.button`
-  font-size: 1rem;
-  font-family: var(--type-first);
-  cursor: pointer;
+type ButtonProps = {
+  mt?: number;
+};
+
+export const Button = styled.button<ButtonProps>`
+  width: 100%;
+  background: #ffbb12;
+  color: #14142b;
+  border-radius: 8px;
+  font-size: ${convertPixelToRem(16)};
+  font-weight: 700;
+  outline: none;
   border: none;
-  border-radius: 0.4rem;
-  background: #fb1;
-  color: #764701;
-  min-width: 8rem;
-  padding: 0.8rem 1.2rem;
-  box-sizing: border-box;
-  transition: 0.1s;
+  padding: ${convertPixelToRem(16)} 0;
+  transition: filter 0.2s;
+  margin-top: ${({ mt }) => (mt ? convertPixelToRem(mt) : '0px')};
 
-  &:hover,
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: wait;
+  &:hover {
+    filter: brightness(0.95);
   }
 `;
