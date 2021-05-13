@@ -63,7 +63,7 @@ const SignInForm: React.FC = () => {
               Não tem conta? <S.SignUpLink to="/signup">Crie uma</S.SignUpLink>
             </p>
             <S.ForgotPasswordLink to="/forgot-password">
-              Esqueceu sua senha?
+              Esqueci minha senha
             </S.ForgotPasswordLink>
           </S.LinksWrapper>
         </S.SignInForm>

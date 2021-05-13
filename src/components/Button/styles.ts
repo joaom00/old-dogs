@@ -15,10 +15,15 @@ export const Button = styled.button<ButtonProps>`
   outline: none;
   border: none;
   padding: ${convertPixelToRem(16)} 0;
-  transition: filter 0.2s;
+  transition: all 0.1s;
   margin-top: ${({ mt }) => (mt ? convertPixelToRem(mt) : '0px')};
 
   &:hover {
     filter: brightness(0.95);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #fea, 0 0 0 4px #ffbb12;
   }
 `;

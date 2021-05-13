@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
 
   & + & {
-    margin-top: ${convertPixelToRem(32)};
+    margin-top: ${convertPixelToRem(24)};
   }
 `;
 
