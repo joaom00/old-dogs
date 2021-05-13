@@ -9,7 +9,7 @@ const Input: React.FC<InputProps> = ({ name, label, ...rest }) => {
   return (
     <S.Wrapper>
       <S.Label htmlFor={name}>{label}</S.Label>
-      <S.Input id={name} {...rest} />
+      <S.Input id={name} name={name} {...rest} />
     </S.Wrapper>
   );
 };
