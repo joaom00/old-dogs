@@ -13,11 +13,6 @@ const animeLeft = keyframes`
 
 export const Wrapper = styled.section`
   height: 100vh;
-
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: ${animeLeft} 0.3s forwards;
-
   display: flex;
 `;
 
@@ -30,6 +25,10 @@ export const SignInFormWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: ${animeLeft} 0.4s forwards;
 
   @media (min-width: 768px) and (max-width: 1024px) {
     padding-left: ${convertPixelToRem(0)};

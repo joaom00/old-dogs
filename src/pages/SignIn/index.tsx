@@ -1,14 +1,13 @@
 import { FormEvent, useState } from 'react';
-
-import logoImg from '../../assets/dogs.svg';
+import { useHistory } from 'react-router';
+import useAuth from '../../hooks/useAuth';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import useAuth from '../../hooks/useAuth';
+import logoImg from '../../assets/dogs.svg';
 
 import * as S from './styles';
-import { useHistory } from 'react-router';
 
 const SignInForm: React.FC = () => {
   const { signIn } = useAuth();
