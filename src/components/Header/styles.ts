@@ -1,39 +1,39 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import convertPixelToRem from '../../utils/convertPixelToRem';
 
-import { ReactComponent as UserIconImg } from '../../assets/usuario.svg';
-
-export const Box = styled.header`
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  background: white;
-
+export const Wrapper = styled.header`
   width: 100%;
-
-  position: fixed;
-  top: 0;
-  z-index: 100;
-`;
-
-export const Links = styled.nav`
-  max-width: 50rem;
-  height: 4rem;
-  padding: 0 1rem;
+  max-width: ${convertPixelToRem(975)};
   margin: 0 auto;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  padding: ${convertPixelToRem(24)} ${convertPixelToRem(32)};
 `;
 
-export const Link = styled(NavLink)`
-  color: #333;
-  display: flex;
-  align-items: center;
+export const Search = styled.input`
+  border: 1px solid #d9dbe9;
+  border-radius: 4px;
+
+  padding: ${convertPixelToRem(8)} ${convertPixelToRem(16)};
+  width: ${convertPixelToRem(194)};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
-export const UserImg = styled(UserIconImg)`
-  display: inline-block;
-  width: 14px;
-  height: 17px;
-  margin-left: 0.5rem;
+export const Icons = styled.span`
+  margin-right: ${convertPixelToRem(24)};
+
+  a + a {
+    margin-left: ${convertPixelToRem(16)};
+  }
+`;
+
+export const UserImage = styled(Link)`
+  color: #14142b;
 `;
