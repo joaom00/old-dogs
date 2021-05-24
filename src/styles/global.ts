@@ -1,6 +1,37 @@
 import { createGlobalStyle } from 'styled-components';
 
-export default createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: optional;
+  src: url('/fonts/inter-v3-latin-500.woff2') format('woff2')
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: url('/fonts/inter-v3-latin-regular.woff2') format('woff2')
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: optional;
+  src: url('/fonts/inter-v3-latin-700.woff2') format('woff2')
+}
+
+@font-face {
+  font-family: 'Spectral';
+  font-style: normal;
+  font-weight: 700;
+  font-display: optional;
+  src: url('/fonts/spectral-v7-latin-700.woff2') format('woff2')
+}
+
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -28,6 +59,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
   line-height: 1;
+  font-size: ${(props) => props.theme.font.sizes.medium}
 }
 ol, ul {
 	list-style: none;
@@ -49,6 +81,12 @@ table {
 *:before,
 *:after {
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 html,
@@ -56,7 +94,7 @@ input,
 button,
 select,
 option {
-  font-family: Inter;
+  font-family: ${(props) => props.theme.font.family};
 }
 
 button {
@@ -67,3 +105,5 @@ a {
   text-decoration: none;
 }
 `;
+
+export default GlobalStyles;
