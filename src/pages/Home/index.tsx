@@ -6,7 +6,7 @@ import examplaImg from '../../assets/photo.png';
 
 import * as S from './styles';
 
-const Home: React.FC = () => {
+const Home = () => {
   return (
     <>
       <Header />

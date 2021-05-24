@@ -1,81 +1,86 @@
-import styled from 'styled-components';
-import convertPixelToRem from '../../utils/convertPixelToRem';
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div``;
 
 export const Main = styled.main`
-  width: 100%;
-  max-width: ${convertPixelToRem(616)};
-  margin: ${convertPixelToRem(32)} auto 0 auto;
+  ${({ theme }) => css`
+    width: 100%;
+    max-width: 61.6rem;
+    margin: ${theme.spacings.medium} auto 0 auto;
+  `}
 `;
 
 export const Post = styled.div`
-  border: 1px solid #d9dbe9;
-  overflow: hidden;
+  ${({ theme }) => css`
+    border: 1px solid ${theme.colors.gray.line};
+    overflow: hidden;
 
-  & + & {
-    margin-top: ${convertPixelToRem(32)};
-  }
+    & + & {
+      margin-top: ${theme.spacings.medium};
+    }
+  `}
 `;
 
 export const PostImage = styled.div`
   object-fit: cover;
-  /* width: ${convertPixelToRem(614)};
-  height: ${convertPixelToRem(614)};
-
-  img {
-    max-width: ${convertPixelToRem(614)};
-  } */
 `;
 
 export const PostInfoWrapper = styled.div`
-  padding: ${convertPixelToRem(16)};
+  ${({ theme }) => css`
+    padding: ${theme.spacings.xsmall};
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `}
 `;
 
 export const UserImage = styled.img`
-  background-size: cover;
-  width: ${convertPixelToRem(32)};
-  height: ${convertPixelToRem(32)};
-  border-radius: 50%;
+  ${({ theme }) => css`
+    background-size: cover;
+    width: ${theme.spacings.medium};
+    height: ${theme.spacings.medium};
+    border-radius: 50%;
+  `}
 `;
 
 export const PostInfo = styled.div`
-  display: flex;
-  align-items: center;
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
 
-  span {
-    margin-left: ${convertPixelToRem(8)};
+    span {
+      margin-left: ${theme.spacings.xxsmall};
 
-    p:first-child {
-      font-weight: bold;
-      font-size: ${convertPixelToRem(14)};
-      line-height: 19px;
-      color: #14142b;
+      p:first-child {
+        font-weight: ${theme.font.bold};
+        font-size: ${theme.font.sizes.small};
+        line-height: 1.9rem;
+        color: ${theme.colors.gray.titleActive};
+      }
+
+      p:last-child {
+        font-weight: ${theme.font.normal};
+        font-size: ${theme.font.sizes.xsmall};
+        line-height: 1.5rem;
+        color: ${theme.colors.gray.placeholder};
+      }
+
+      p + p {
+        margin-top: 0.4rem;
+      }
     }
-
-    p:last-child {
-      font-weight: 400;
-      font-size: ${convertPixelToRem(12)};
-      line-height: 15px;
-      color: #a0a3bd;
-    }
-
-    p + p {
-      margin-top: ${convertPixelToRem(4)};
-    }
-  }
+  `}
 `;
 
 export const Icons = styled.div`
-  svg {
-    cursor: pointer;
-  }
+  ${({ theme }) => css`
+    svg {
+      cursor: pointer;
+    }
 
-  svg + svg {
-    margin-left: ${convertPixelToRem(16)};
-  }
+    svg + svg {
+      margin-left: ${theme.spacings.xsmall};
+    }
+  `}
 `;
