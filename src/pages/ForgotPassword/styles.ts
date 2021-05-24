@@ -1,6 +1,6 @@
+import styled, { css, keyframes } from 'styled-components';
+
 import { Link } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
-import convertPixelToRem from '../../utils/convertPixelToRem';
 
 import backgroundImg from '../../assets/login.jpg';
 
@@ -17,95 +17,105 @@ export const Wrapper = styled.section`
 `;
 
 export const ForgotPasswordFormWrapper = styled.div`
-  padding: ${convertPixelToRem(64)} ${convertPixelToRem(32)}
-    ${convertPixelToRem(0)} ${convertPixelToRem(32)};
+  ${({ theme }) => css`
+    padding: ${theme.spacings.xxxlarge} ${theme.spacings.medium} 0
+      ${theme.spacings.medium};
 
-  width: 100%;
-  max-width: ${convertPixelToRem(600)};
+    width: 100%;
+    max-width: 600px;
 
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: ${animeLeft} 0.3s forwards;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: ${animeLeft} 0.4s forwards;
 
-  @media (min-width: 768px) and (max-width: 1024px) {
-    padding-left: ${convertPixelToRem(0)};
-    max-width: 100vw;
-    align-items: center;
-  }
+    @media ${theme.media.between('medium', 'large')} {
+      padding-left: 0;
+      max-width: 100vw;
+      align-items: center;
+    }
 
-  @media (min-width: 1024px) {
-    padding-left: ${convertPixelToRem(0)};
-  }
+    @media ${theme.media.greaterThan('large')} {
+      padding-left: 0;
+    }
+  `}
 `;
 
 export const LinkToSignInPage = styled(Link)`
-  display: flex;
-  align-items: center;
-  color: #6e7191;
-  transition: all 0.2s;
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    color: ${theme.colors.gray.label};
+    transition: all 0.2s;
 
-  &:hover {
-    filter: brightness(0.7);
-  }
+    &:hover {
+      filter: brightness(0.7);
+    }
 
-  svg {
-    margin-right: ${convertPixelToRem(8)};
-  }
+    svg {
+      margin-right: ${theme.spacings.xxsmall};
+    }
 
-  @media (min-width: 768px) and (max-width: 1024px) {
-    align-self: flex-start;
-    padding-left: ${convertPixelToRem(165)};
-  }
+    @media ${theme.media.between('medium', 'large')} {
+      align-self: flex-start;
+      padding-left: 16.5rem;
+    }
 
-  @media (min-width: 1024px) {
-    margin-left: ${convertPixelToRem(80)};
-  }
+    @media ${theme.media.greaterThan('large')} {
+      margin-left: 8rem;
+    }
+  `}
 `;
 
 export const ForgotPasswordForm = styled.form`
-  margin-top: ${convertPixelToRem(80)};
+  ${({ theme }) => css`
+    margin-top: 8rem;
 
-  @media (min-width: 1024px) {
-    margin-left: ${convertPixelToRem(80)};
-  }
+    width: 100%;
+    max-width: 40rem;
 
-  width: 100%;
-  max-width: ${convertPixelToRem(400)};
+    @media ${theme.media.greaterThan('medium')} {
+      margin-left: 8rem;
+    }
+  `}
 `;
 
 export const Title = styled.legend`
-  font-family: Spectral;
-  color: #14142b;
-  font-size: ${convertPixelToRem(36)};
-  margin-bottom: ${convertPixelToRem(8)};
-  line-height: 46px;
+  ${({ theme }) => css`
+    font-family: ${theme.font.heading};
+    font-weight: ${theme.font.bold};
+    color: ${theme.colors.gray.titleActive};
+    font-size: ${theme.font.sizes.xlarge};
+    margin-bottom: ${theme.spacings.xxsmall};
+    line-height: ${theme.spacings.xlarge};
+    position: relative;
 
-  position: relative;
-
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 1.2rem;
-    height: 1.2rem;
-    background: #fb1;
-    bottom: 8px;
-    left: -5px;
-    border-radius: 0.2rem;
-    z-index: -1;
-  }
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 1.2rem;
+      height: 1.2rem;
+      background: ${theme.colors.primary[500]};
+      bottom: 0.8rem;
+      left: -0.5rem;
+      border-radius: 0.2rem;
+      z-index: -1;
+    }
+  `}
 `;
 
 export const Description = styled.p`
-  color: #a0a3bd;
-  font-style: normal;
-  font-weight: 500;
-  font-size: ${convertPixelToRem(16)};
-  line-height: 26px;
-  margin-bottom: ${convertPixelToRem(48)};
+  ${({ theme }) => css`
+    color: ${theme.colors.gray.placeholder};
+    font-style: normal;
+    font-weight: ${theme.font.medium};
+    font-size: ${theme.font.sizes.medium};
+    line-height: 2.6rem;
+    margin-bottom: ${theme.spacings.xlarge};
+  `}
 `;
 
 export const Background = styled.div`

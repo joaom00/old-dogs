@@ -8,7 +8,7 @@ import Input from '../../components/Input';
 
 import * as S from './styles';
 
-const ForgotPassword: React.FC = () => {
+const ForgotPassword = () => {
   const history = useHistory();
 
   const [email, setEmail] = useState('');
@@ -44,9 +44,7 @@ const ForgotPassword: React.FC = () => {
             />
           </fieldset>
 
-          <Button type="submit" mt={48}>
-            Enviar email
-          </Button>
+          <Button type="submit">Enviar email</Button>
         </S.ForgotPasswordForm>
       </S.ForgotPasswordFormWrapper>
       <S.Background />
