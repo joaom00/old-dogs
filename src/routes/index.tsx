@@ -8,7 +8,7 @@ import ForgotPassword from '../pages/ForgotPassword';
 
 import Home from '../pages/Home';
 
-const Routes: React.FC = () => (
+const Routes = () => (
   <Switch>
     <Route path="/signup" component={SignUp} />
     <Route path="/signin" component={SignIn} />

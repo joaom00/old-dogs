@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import api from '../services/api';
 
 type User = {
@@ -6,6 +6,10 @@ type User = {
   name: string;
   email: string;
   avatar: string | undefined;
+};
+
+type AuthProviderProps = {
+  children: React.ReactNode;
 };
 
 type AuthState = {
@@ -26,7 +30,7 @@ export type AuthContextData = {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = ({ children }) => {
+const AuthProvider = ({ children }: AuthProviderProps) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('Dogs:token');
     const user = localStorage.getItem('Dogs:user');

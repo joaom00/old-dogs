@@ -1,6 +1,10 @@
 import { AuthProvider } from './AuthContext';
 
-const AppProvider: React.FC = ({ children }) => (
+type AppProviderProps = {
+  children: React.ReactNode;
+};
+
+const AppProvider = ({ children }: AppProviderProps) => (
   <AuthProvider>{children}</AuthProvider>
 );
 
