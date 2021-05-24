@@ -1,32 +1,37 @@
-import styled from 'styled-components';
-import convertPixelToRem from '../../utils/convertPixelToRem';
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
 
-  & + & {
-    margin-top: ${convertPixelToRem(24)};
-  }
+    & + & {
+      margin-top: ${theme.spacings.small};
+    }
+  `}
 `;
 
 export const Label = styled.label`
-  font-size: ${convertPixelToRem(16)};
-  color: #6e7191;
-  margin-bottom: ${convertPixelToRem(8)};
+  ${({ theme }) => css`
+    font-size: ${theme.font.sizes.medium};
+    color: ${theme.colors.gray.label};
+    margin-bottom: ${theme.spacings.xxsmall};
+  `}
 `;
 
 export const Input = styled.input`
-  border: 1px solid #d9dbe9;
-  background: none;
-  padding: ${convertPixelToRem(16)} ${convertPixelToRem(24)};
-  border-radius: 8px;
-  font-family: inherit;
-  color: #14142b;
-  font-size: ${convertPixelToRem(16)};
+  ${({ theme }) => css`
+    border: 1px solid ${theme.colors.gray.line};
+    background: none;
+    padding: ${theme.spacings.xsmall} ${theme.spacings.small};
+    border-radius: ${theme.spacings.xxsmall};
+    font-family: inherit;
+    color: ${theme.colors.gray.titleActive};
+    font-size: ${theme.font.sizes.medium};
 
-  &:focus {
-    outline: none;
-    border-color: #ffbb12;
-  }
+    &:focus {
+      outline: none;
+      border-color: ${theme.colors.primary[500]};
+    }
+  `}
 `;
