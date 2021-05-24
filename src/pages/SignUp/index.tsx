@@ -8,7 +8,7 @@ import Input from '../../components/Input';
 
 import * as S from './styles';
 
-const SignUpForm: React.FC = () => {
+const SignUpForm = () => {
   const history = useHistory();
 
   const [username, setUsername] = useState('');
@@ -60,9 +60,7 @@ const SignUpForm: React.FC = () => {
             />
           </fieldset>
 
-          <Button type="submit" mt={48}>
-            Criar conta
-          </Button>
+          <Button type="submit">Criar conta</Button>
         </S.SignUpForm>
       </S.SignUpFormWrapper>
       <S.Background />
