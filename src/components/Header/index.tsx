@@ -1,18 +1,14 @@
 import { FiHome, FiBookmark, FiUser } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
 
-import logoImg from '../../assets/dogs.svg';
-// import useAuth from '../../hooks/useAuth';
+import { Link } from 'react-router-dom';
+import Logo from '../Logo';
 
 import * as S from './styles';
 
-const Header: React.FC = () => {
-  // const { user } = useAuth();
-
+const Header = () => {
   return (
     <S.Wrapper>
-      <img src={logoImg} alt="" />
-      <S.Search placeholder="Procurar..." />
+      <Logo />
       <div>
         <S.Icons>
           <Link to="/">
