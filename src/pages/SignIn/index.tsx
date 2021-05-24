@@ -5,11 +5,10 @@ import useAuth from '../../hooks/useAuth';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import logoImg from '../../assets/dogs.svg';
-
 import * as S from './styles';
+import Logo from '../../components/Logo';
 
-const SignInForm: React.FC = () => {
+const SignInForm = () => {
   const { signIn } = useAuth();
   const history = useHistory();
 
@@ -27,10 +26,9 @@ const SignInForm: React.FC = () => {
   return (
     <S.Wrapper>
       <S.SignInFormWrapper>
-        <S.Logo>
-          <img src={logoImg} alt="" />
-          <p>Dogs</p>
-        </S.Logo>
+        <Logo color="yellow" size="large">
+          Dogs
+        </Logo>
         <S.SignInForm onSubmit={handleSubmit}>
           <fieldset>
             <S.Title>Iniciar sessão</S.Title>
@@ -53,9 +51,7 @@ const SignInForm: React.FC = () => {
             />
           </fieldset>
 
-          <Button type="submit" mt={48}>
-            Entrar
-          </Button>
+          <Button type="submit">Entrar</Button>
 
           <S.LinksWrapper>
             <p>
