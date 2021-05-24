@@ -1,29 +1,36 @@
-import styled from 'styled-components';
-import convertPixelToRem from '../../utils/convertPixelToRem';
+import styled, { css } from 'styled-components';
 
-type ButtonProps = {
-  mt?: number;
-};
+import { ForgotPasswordForm } from '../../pages/ForgotPassword/styles';
+import { SignInForm } from '../../pages/SignIn/styles';
+import { SignUpForm } from '../../pages/SignUp/styles';
 
-export const Button = styled.button<ButtonProps>`
-  width: 100%;
-  background: #ffbb12;
-  color: #14142b;
-  border-radius: 8px;
-  font-size: ${convertPixelToRem(16)};
-  font-weight: 700;
-  outline: none;
-  border: none;
-  padding: ${convertPixelToRem(16)} 0;
-  transition: all 0.1s;
-  margin-top: ${({ mt }) => (mt ? convertPixelToRem(mt) : '0px')};
-
-  &:hover {
-    filter: brightness(0.95);
-  }
-
-  &:focus {
+export const Button = styled.button`
+  ${({ theme }) => css`
+    width: 100%;
+    background: ${theme.colors.primary[500]};
+    color: ${theme.colors.primary[800]};
+    border-radius: ${theme.spacings.xxsmall};
+    font-size: ${theme.font.sizes.medium};
+    font-weight: ${theme.font.bold};
     outline: none;
-    box-shadow: 0 0 0 3px #fea, 0 0 0 4px #ffbb12;
-  }
+    border: none;
+    padding: ${theme.spacings.xsmall} 0;
+    transition: all 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+
+    &:hover {
+      filter: brightness(0.95);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px ${theme.colors.primary[200]},
+        0 0 0 4px ${theme.colors.primary[500]};
+    }
+
+    ${SignInForm} &, ${SignUpForm} &, ${ForgotPasswordForm} & {
+      margin-top: ${theme.spacings.xlarge};
+    }
+  `}
 `;
