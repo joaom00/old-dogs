@@ -1,3 +1,13 @@
+type DefaultBreakpoints = typeof defaultBreakpoints;
+
+const defaultBreakpoints = {
+  small: '640px',
+  medium: '768px',
+  large: '1024px',
+  xlarge: '1280px',
+  huge: '1536px'
+};
+
 const theme = {
   grid: {
     container: '97.5rem'
@@ -12,7 +22,8 @@ const theme = {
     medium: '3.2rem',
     large: '4rem',
     xlarge: '4.8rem',
-    xxlarge: '5.6rem'
+    xxlarge: '5.6rem',
+    xxxlarge: '6.4rem'
   },
   font: {
     family:
@@ -59,6 +70,20 @@ const theme = {
     overlay: 30,
     modal: 40,
     alwaysOnTop: 50
+  },
+  media: {
+    lessThan(breakpoint: keyof DefaultBreakpoints) {
+      return `(max-width: ${defaultBreakpoints[breakpoint]})`;
+    },
+    greaterThan(breakpoint: keyof DefaultBreakpoints) {
+      return `(min-width: ${defaultBreakpoints[breakpoint]})`;
+    },
+    between(
+      firstBreakpoint: keyof DefaultBreakpoints,
+      secondBreakpoint: keyof DefaultBreakpoints
+    ) {
+      return `(min-width: ${defaultBreakpoints[firstBreakpoint]}) and (max-width: ${defaultBreakpoints[secondBreakpoint]})`;
+    }
   }
 } as const;
 
