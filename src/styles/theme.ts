@@ -50,7 +50,7 @@ const theme = {
       line: '#D9DBE9',
       inputBackground: '#EFF0F6',
       background: '#F7F7FC',
-      offWhite: '#D9DBE9'
+      offWhite: '#FCFCFC'
     },
     primary: {
       '100': '#FFF1D0',

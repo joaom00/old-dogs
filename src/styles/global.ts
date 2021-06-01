@@ -4,30 +4,30 @@ const GlobalStyles = createGlobalStyle`
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 500;
-  font-display: optional;
-  src: url('/fonts/inter-v3-latin-500.woff2') format('woff2')
+  font-weight: 400;
+  font-display: swap;
+  src: local('Inter Regular'), local('Inter-Regular'), url('/fonts/inter-v3-latin-regular.woff2') format('woff2')
 }
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 400;
-  font-display: optional;
-  src: url('/fonts/inter-v3-latin-regular.woff2') format('woff2')
+  font-weight: 500;
+  font-display: swap;
+  src: local('Inter Medium'), local('Inter-Medium'), url('/fonts/inter-v3-latin-500.woff2') format('woff2')
 }
 @font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
-  font-display: optional;
-  src: url('/fonts/inter-v3-latin-700.woff2') format('woff2')
+  font-display: swap;
+  src: local('Inter Bold'), local('Inter-Bold'), url('/fonts/inter-v3-latin-700.woff2') format('woff2')
 }
 
 @font-face {
   font-family: 'Spectral';
   font-style: normal;
   font-weight: 700;
-  font-display: optional;
+  font-display: swap;
   src: url('/fonts/spectral-v7-latin-700.woff2') format('woff2')
 }
 
@@ -59,7 +59,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
   line-height: 1;
-  font-size: ${(props) => props.theme.font.sizes.medium}
+  font-size: ${({ theme }) => theme.font.sizes.medium};
+  background-color: ${({ theme }) => theme.colors.gray.offWhite};
 }
 ol, ul {
 	list-style: none;
