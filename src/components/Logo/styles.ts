@@ -3,6 +3,7 @@ import styled, { css, DefaultTheme } from 'styled-components';
 import { SignInFormWrapper } from '../../pages/SignIn/styles';
 
 import { LogoProps } from '.';
+import { Link } from 'react-router-dom';
 
 const modifiers = {
   black: (theme: DefaultTheme) => css`
@@ -22,7 +23,7 @@ const modifiers = {
   `
 };
 
-export const Wrapper = styled.div<LogoProps>`
+export const Wrapper = styled(Link)<LogoProps>`
   ${({ theme, color, size }) => css`
     display: flex;
     align-items: center;

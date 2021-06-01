@@ -1,13 +1,27 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div`
-  ${({ theme }) => css`
+type WrapperProps = {
+  sideBySide: boolean;
+};
+
+const modifiers = {
+  sideBySide: () => css`
+    display: grid;
+    grid-template-columns: 41rem 39.7rem;
+    align-items: center;
+  `
+};
+
+export const Wrapper = styled.div<WrapperProps>`
+  ${({ theme, sideBySide }) => css`
     display: flex;
     flex-direction: column;
 
     & + & {
       margin-top: ${theme.spacings.small};
     }
+
+    ${sideBySide && modifiers.sideBySide};
   `}
 `;
 
@@ -19,7 +33,32 @@ export const Label = styled.label`
   `}
 `;
 
-export const Input = styled.input`
+export const InputWrapper = styled.div`
+  position: relative;
+`;
+
+export const ShowHidePasswordButton = styled.span`
+  ${({ theme }) => css`
+    position: absolute;
+    top: 50%;
+    right: ${theme.spacings.xsmall};
+    transform: translateY(-50%);
+    text-transform: uppercase;
+    color: ${theme.colors.gray.placeholder};
+    font-size: ${theme.font.sizes.xsmall};
+    font-weight: ${theme.font.bold};
+    letter-spacing: 0.08em;
+    cursor: pointer;
+  `}
+`;
+
+type InputStyleProps = {
+  showPassword: boolean;
+};
+
+export const Input = styled.input.attrs<InputStyleProps>(({ showPassword }) => ({
+  type: showPassword ? 'text' : 'password'
+}))<InputStyleProps>`
   ${({ theme }) => css`
     border: 1px solid ${theme.colors.gray.line};
     background: none;
@@ -28,6 +67,7 @@ export const Input = styled.input`
     font-family: inherit;
     color: ${theme.colors.gray.titleActive};
     font-size: ${theme.font.sizes.medium};
+    width: 100%;
 
     &:focus {
       outline: none;

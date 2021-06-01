@@ -1,15 +1,26 @@
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, useState } from 'react';
 import * as S from './styles';
 
-type InputProps = {
+export type InputProps = {
   label: string;
+  passwordInput?: boolean;
+  sideBySide?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-const Input = ({ name, label, ...rest }: InputProps) => {
+const Input = ({ name, label, passwordInput = false, sideBySide = false, ...rest }: InputProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
-    <S.Wrapper>
+    <S.Wrapper sideBySide={sideBySide}>
       <S.Label htmlFor={name}>{label}</S.Label>
-      <S.Input id={name} name={name} {...rest} />
+      <S.InputWrapper>
+        <S.Input id={name} name={name} {...rest} showPassword={showPassword} />
+        {passwordInput && (
+          <S.ShowHidePasswordButton aria-hidden="true" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? 'esconder' : 'mostrar'}
+          </S.ShowHidePasswordButton>
+        )}
+      </S.InputWrapper>
     </S.Wrapper>
   );
 };

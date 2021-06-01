@@ -2,14 +2,15 @@ import { ButtonHTMLAttributes } from 'react';
 import * as S from './styles';
 
 type ButtonProps = {
+  fullWidth?: boolean;
   children: React.ReactNode;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button = ({ children, ...props }: ButtonProps) => {
+const Button = ({ fullWidth = false, children, ...props }: ButtonProps) => {
   return (
-    <S.Button type="button" {...props}>
+    <S.Wrapper fullWidth={fullWidth} type="button" {...props}>
       {children}
-    </S.Button>
+    </S.Wrapper>
   );
 };
 

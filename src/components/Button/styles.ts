@@ -4,9 +4,18 @@ import { ForgotPasswordForm } from '../../pages/ForgotPassword/styles';
 import { SignInForm } from '../../pages/SignIn/styles';
 import { SignUpForm } from '../../pages/SignUp/styles';
 
-export const Button = styled.button`
-  ${({ theme }) => css`
+type WrapperProps = {
+  fullWidth: boolean;
+};
+
+const modifiers = {
+  fullWidth: () => css`
     width: 100%;
+  `
+};
+
+export const Wrapper = styled.button<WrapperProps>`
+  ${({ theme, fullWidth }) => css`
     background: ${theme.colors.primary[500]};
     color: ${theme.colors.primary[800]};
     border-radius: ${theme.spacings.xxsmall};
@@ -18,6 +27,9 @@ export const Button = styled.button`
     transition: all 0.1s;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    width: 28.4rem;
+
+    ${fullWidth && modifiers.fullWidth};
 
     &:hover {
       filter: brightness(0.95);

@@ -75,22 +75,6 @@ export const PostContentWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const CommentsWrapper = styled.div`
-  ${({ theme }) => css`
-    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall} ${theme.spacings.xsmall};
-    overflow-y: scroll;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    & + & {
-      margin-top: ${theme.spacings.small};
-    }
-  `}
-`;
-
 export const PostHeader = styled.header`
   ${({ theme }) => css`
     border-bottom: 1px solid ${theme.colors.gray.line};
@@ -120,8 +104,25 @@ export const PostDescriptions = styled.p`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.xsmall};
     font-weight: ${theme.font.medium};
-    line-height: 1.5rem;
+    line-height: 2.2rem;
     margin-top: ${theme.spacings.small};
+  `}
+`;
+
+export const CommentsWrapper = styled.div`
+  ${({ theme }) => css`
+    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall}
+      ${theme.spacings.xsmall};
+    overflow-y: scroll;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    & + & {
+      margin-top: ${theme.spacings.small};
+    }
   `}
 `;
 
