@@ -1,29 +1,29 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState, useCallback } from 'react';
+import { useHistory } from 'react-router';
 import api from '../services/api';
 
 type User = {
   id: number;
-  name: string;
+  name: string | null;
+  username: string;
   email: string;
-  avatar: string | undefined;
+  followers: number;
+  following: number;
+  avatarUrl: string | undefined;
 };
 
 type AuthProviderProps = {
   children: React.ReactNode;
 };
 
-type AuthState = {
-  token: string;
-  user: User;
-};
-
 type SignInCredentials = {
-  email: string;
+  emailOrUsername: string;
   password: string;
 };
 
 export type AuthContextData = {
   user: User;
+  isAuthenticated: boolean;
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => void;
 };
@@ -31,46 +31,59 @@ export type AuthContextData = {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('Dogs:token');
-    const user = localStorage.getItem('Dogs:user');
+  const history = useHistory();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User>({} as User);
 
-    if (token && user) {
-      return {
-        token,
-        user: JSON.parse(user)
-      };
-    }
-
-    return {} as AuthState;
-  });
-
-  async function signIn({ email, password }: SignInCredentials) {
+  async function signIn({ emailOrUsername, password }: SignInCredentials) {
     const response = await api.post('sessions', {
-      email,
+      emailOrUsername,
       password
     });
 
     const { user, token } = response.data;
 
-    localStorage.setItem('Dogs:token', token);
-    localStorage.setItem('Dogs:user', JSON.stringify(user));
+    localStorage.setItem('@Dogs::token', token);
 
-    setData({ token, user });
+    api.defaults.headers.authorization = `Bearer ${token}`;
+
+    setUser(user);
+    setIsAuthenticated(true);
   }
 
-  function signOut() {
-    localStorage.removeItem('Dogs:token');
-    localStorage.removeItem('Dogs:user');
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@Dogs::token');
+    setUser({} as User);
+    history.push('/signin');
+  }, [history]);
 
-    setData({} as AuthState);
+  useEffect(() => {
+    async function getUser() {
+      const token = localStorage.getItem('@Dogs::token');
+      if (token) {
+        try {
+          api.defaults.headers.authorization = `Bearer ${token}`;
+          const { data } = await api.get('profile');
+          setUser(data);
+          setIsAuthenticated(true);
+        } catch {
+          signOut();
+          setIsAuthenticated(false);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    getUser();
+  }, [signOut]);
+
+  if (isLoading) {
+    return <p>Carregando...</p>;
   }
 
-  return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>{children}</AuthContext.Provider>;
 };
 
 export { AuthContext, AuthProvider };
