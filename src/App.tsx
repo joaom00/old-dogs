@@ -15,9 +15,8 @@ const App = () => {
         <AppProvider>
           <Routes />
         </AppProvider>
-
-        <GlobalStyles />
       </Router>
+      <GlobalStyles />
     </ThemeProvider>
   );
 };
