@@ -55,12 +55,15 @@ const SignUpForm = () => {
               type="password"
               name="password"
               label="Senha"
+              passwordInput
               value={password}
               onChange={({ target }) => setPassword(target.value)}
             />
           </fieldset>
 
-          <Button type="submit">Criar conta</Button>
+          <Button fullWidth type="submit">
+            Criar conta
+          </Button>
         </S.SignUpForm>
       </S.SignUpFormWrapper>
       <S.Background />

@@ -1,18 +1,16 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div``;
-
-export const Main = styled.main`
+export const Wrapper = styled.ul`
   ${({ theme }) => css`
+    position: relative;
     width: 100%;
     max-width: 61.6rem;
     margin: ${theme.spacings.medium} auto 0 auto;
   `}
 `;
 
-export const Post = styled.div`
+export const Post = styled.li`
   ${({ theme }) => css`
-    border: 1px solid ${theme.colors.gray.line};
     overflow: hidden;
 
     & + & {
@@ -22,12 +20,19 @@ export const Post = styled.div`
 `;
 
 export const PostImage = styled.div`
-  object-fit: cover;
+  cursor: pointer;
+  img {
+    width: 100%;
+    max-height: 60rem;
+    object-fit: cover;
+  }
 `;
 
 export const PostInfoWrapper = styled.div`
   ${({ theme }) => css`
     padding: ${theme.spacings.xsmall};
+    border: 1px solid ${theme.colors.gray.line};
+    border-top-width: 0;
 
     display: flex;
     justify-content: space-between;
@@ -41,6 +46,7 @@ export const UserImage = styled.img`
     width: ${theme.spacings.medium};
     height: ${theme.spacings.medium};
     border-radius: 50%;
+    background-position: center;
   `}
 `;
 
@@ -75,6 +81,7 @@ export const PostInfo = styled.div`
 
 export const Icons = styled.div`
   ${({ theme }) => css`
+    display: flex;
     svg {
       cursor: pointer;
     }
@@ -82,5 +89,40 @@ export const Icons = styled.div`
     svg + svg {
       margin-left: ${theme.spacings.xsmall};
     }
+  `}
+`;
+
+export const Likes = styled.div`
+  ${({ theme }) => css`
+    margin-right: ${theme.spacings.xsmall};
+    display: flex;
+    align-items: center;
+    color: ${theme.colors.gray.body};
+  `}
+`;
+
+export const TotalLikes = styled.span`
+  ${({ theme }) => css`
+    margin-right: ${theme.spacings.xxsmall};
+    font-size: ${theme.font.sizes.xsmall};
+    font-weight: ${theme.font.medium};
+    color: ${theme.colors.gray.label};
+  `}
+`;
+
+export const Comments = styled.div`
+  ${({ theme }) => css`
+    color: ${theme.colors.gray.body};
+    display: flex;
+    align-items: center;
+  `}
+`;
+
+export const TotalComments = styled.span`
+  ${({ theme }) => css`
+    margin-right: ${theme.spacings.xxsmall};
+    font-size: ${theme.font.sizes.xsmall};
+    font-weight: ${theme.font.medium};
+    color: ${theme.colors.gray.label};
   `}
 `;

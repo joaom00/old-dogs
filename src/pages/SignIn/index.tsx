@@ -12,13 +12,13 @@ const SignInForm = () => {
   const { signIn } = useAuth();
   const history = useHistory();
 
-  const [email, setEmail] = useState('');
+  const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    await signIn({ email, password });
+    await signIn({ emailOrUsername, password });
 
     history.push('/');
   }
@@ -32,34 +32,33 @@ const SignInForm = () => {
         <S.SignInForm onSubmit={handleSubmit}>
           <fieldset>
             <S.Title>Iniciar sessão</S.Title>
-            <S.Description>
-              Já possui uma conta? Faça login aqui embaixo.
-            </S.Description>
+            <S.Description>Já possui uma conta? Faça login aqui embaixo.</S.Description>
             <Input
-              type="email"
-              name="email"
-              label="E-mail"
-              value={email}
-              onChange={({ target }) => setEmail(target.value)}
+              type="text"
+              name="emailOrUsername"
+              label="E-mail ou Nome de usuário"
+              value={emailOrUsername}
+              onChange={({ target }) => setEmailOrUsername(target.value)}
             />
             <Input
               type="password"
               name="password"
               label="Senha"
+              passwordInput
               value={password}
               onChange={({ target }) => setPassword(target.value)}
             />
           </fieldset>
 
-          <Button type="submit">Entrar</Button>
+          <Button fullWidth type="submit">
+            Entrar
+          </Button>
 
           <S.LinksWrapper>
             <p>
               Não tem conta? <S.SignUpLink to="/signup">Crie uma</S.SignUpLink>
             </p>
-            <S.ForgotPasswordLink to="/forgot-password">
-              Esqueci minha senha
-            </S.ForgotPasswordLink>
+            <S.ForgotPasswordLink to="/forgot-password">Esqueci minha senha</S.ForgotPasswordLink>
           </S.LinksWrapper>
         </S.SignInForm>
       </S.SignInFormWrapper>

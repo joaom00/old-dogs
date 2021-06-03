@@ -18,8 +18,7 @@ export const Wrapper = styled.section`
 
 export const SignInFormWrapper = styled.div`
   ${({ theme }) => css`
-    padding: ${theme.spacings.xxxlarge} ${theme.spacings.medium} 0
-      ${theme.spacings.medium};
+    padding: ${theme.spacings.xxxlarge} ${theme.spacings.medium} 0 ${theme.spacings.medium};
 
     width: 100%;
     max-width: 600px;

@@ -1,82 +1,113 @@
-import { FiHeart, FiBookmark } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
+import { FiHeart, FiMessageCircle } from 'react-icons/fi';
 
-import Header from '../../components/Header';
-
-import examplaImg from '../../assets/photo.png';
+import examplaImg from '../../assets/login.jpg';
+import Modal from '../../components/Modal';
 
 import * as S from './styles';
 
 const Home = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleOpenModal() {
+    setIsOpen((oldValue) => !oldValue);
+  }
+
+  useEffect(() => {
+    const body = document.querySelector('body');
+    if (body) body.style.overflow = isOpen ? 'hidden' : 'auto';
+  }, [isOpen]);
+
   return (
-    <>
-      <Header />
-      <S.Main>
-        <S.Post>
-          <S.PostImage>
-            <img width="614" height="614" src={examplaImg} alt="" />
-          </S.PostImage>
-          <S.PostInfoWrapper>
-            <S.PostInfo>
-              <S.UserImage
-                style={{
-                  backgroundImage: `url(${examplaImg})`
-                }}
-              />
-              <span>
-                <p>dog</p>
-                <p>2 hrs ago</p>
-              </span>
-            </S.PostInfo>
-            <S.Icons>
+    <S.Wrapper>
+      <Modal setIsOpen={handleOpenModal} isOpen={isOpen} />
+      <S.Post>
+        <S.PostImage>
+          <img src={examplaImg} alt="" role="button" onClick={handleOpenModal} />
+        </S.PostImage>
+        <S.PostInfoWrapper>
+          <S.PostInfo>
+            <S.UserImage
+              style={{
+                backgroundImage: `url(${examplaImg})`
+              }}
+            />
+            <span>
+              <p>dog</p>
+              <p>2 hrs ago</p>
+            </span>
+          </S.PostInfo>
+          <S.Icons>
+            <S.Likes>
+              <S.TotalLikes>130</S.TotalLikes>
               <FiHeart size={24} />
-              <FiBookmark size={24} />
-            </S.Icons>
-          </S.PostInfoWrapper>
-        </S.Post>
+            </S.Likes>
+            <S.Comments>
+              <S.TotalComments>12</S.TotalComments>
+              <FiMessageCircle size={24} onClick={handleOpenModal} />
+            </S.Comments>
+          </S.Icons>
+        </S.PostInfoWrapper>
+      </S.Post>
 
-        <S.Post>
-          <img src={examplaImg} width="614" height="614" alt="" />
-          <S.PostInfoWrapper>
-            <S.PostInfo>
-              <S.UserImage
-                style={{
-                  backgroundImage: `url(${examplaImg})`
-                }}
-              />
-              <span>
-                <p>dog</p>
-                <p>2 hrs ago</p>
-              </span>
-            </S.PostInfo>
-            <S.Icons>
+      <S.Post>
+        <S.PostImage>
+          <img src={examplaImg} alt="" role="button" onClick={handleOpenModal} />
+        </S.PostImage>
+        <S.PostInfoWrapper>
+          <S.PostInfo>
+            <S.UserImage
+              style={{
+                backgroundImage: `url(${examplaImg})`
+              }}
+            />
+            <span>
+              <p>dog</p>
+              <p>2 hrs ago</p>
+            </span>
+          </S.PostInfo>
+          <S.Icons>
+            <S.Likes>
+              <S.TotalLikes>130</S.TotalLikes>
               <FiHeart size={24} />
-              <FiBookmark size={24} />
-            </S.Icons>
-          </S.PostInfoWrapper>
-        </S.Post>
+            </S.Likes>
+            <S.Comments>
+              <S.TotalComments>12</S.TotalComments>
+              <FiMessageCircle size={24} onClick={handleOpenModal} />
+            </S.Comments>
+          </S.Icons>
+        </S.PostInfoWrapper>
+      </S.Post>
 
-        <S.Post>
-          <img src={examplaImg} width="614" height="614" alt="" />
-          <S.PostInfoWrapper>
-            <S.PostInfo>
-              <S.UserImage
-                style={{
-                  backgroundImage: `url(${examplaImg})`
-                }}
-              />
-              <span>
-                <p>dog</p>
-                <p>2 hrs ago</p>
-              </span>
-            </S.PostInfo>
-            <S.Icons>
+      <S.Post>
+        <S.PostImage>
+          <img src={examplaImg} alt="" role="button" onClick={handleOpenModal} />
+        </S.PostImage>
+        <S.PostInfoWrapper>
+          <S.PostInfo>
+            <S.UserImage
+              style={{
+                backgroundImage: `url(${examplaImg})`
+              }}
+            />
+            <span>
+              <p>dog</p>
+              <p>2 hrs ago</p>
+            </span>
+          </S.PostInfo>
+          <S.Icons>
+            <S.Likes>
+              <S.TotalLikes>130</S.TotalLikes>
               <FiHeart size={24} />
-              <FiBookmark size={24} />
-            </S.Icons>
-          </S.PostInfoWrapper>
-        </S.Post>
-      </S.Main>
-    </>
+            </S.Likes>
+            <S.Comments>
+              <S.TotalComments>12</S.TotalComments>
+              <FiMessageCircle size={24} onClick={handleOpenModal} />
+            </S.Comments>
+          </S.Icons>
+        </S.PostInfoWrapper>
+      </S.Post>
+    </S.Wrapper>
   );
 };
 

@@ -44,7 +44,9 @@ const ForgotPassword = () => {
             />
           </fieldset>
 
-          <Button type="submit">Enviar email</Button>
+          <Button fullWidth type="submit">
+            Enviar email
+          </Button>
         </S.ForgotPasswordForm>
       </S.ForgotPasswordFormWrapper>
       <S.Background />
