@@ -1,11 +1,11 @@
 import { FiHome } from 'react-icons/fi';
 import { BiUserCircle } from 'react-icons/bi';
 
-import { Link } from 'react-router-dom';
 import Logo from '../Logo';
 
-import * as S from './styles';
 import useAuth from '../../hooks/useAuth';
+
+import * as S from './styles';
 
 const Header = () => {
   const { user } = useAuth();
@@ -14,16 +14,14 @@ const Header = () => {
     <S.Wrapper>
       <S.HeaderWrapper>
         <Logo /> {user.username}
-        <div>
-          <S.Icons>
-            <Link to="/">
-              <FiHome size={24} color="#14142B" />
-            </Link>
-          </S.Icons>
-          <S.UserImage to="/profile">
-            <BiUserCircle size={24} color="#14142B" />
-          </S.UserImage>
-        </div>
+        <ul>
+          <S.Home to="/">
+            <FiHome size={24} />
+          </S.Home>
+          <S.Profile to="/profile">
+            <BiUserCircle size={24} />
+          </S.Profile>
+        </ul>
       </S.HeaderWrapper>
     </S.Wrapper>
   );

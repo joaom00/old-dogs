@@ -8,7 +8,7 @@ export const Wrapper = styled.header`
   `}
 `;
 
-export const HeaderWrapper = styled.div`
+export const HeaderWrapper = styled.nav`
   ${({ theme }) => css`
     width: 100%;
     max-width: ${theme.grid.container};
@@ -22,17 +22,21 @@ export const HeaderWrapper = styled.div`
   `}
 `;
 
-export const Icons = styled.span`
+export const Home = styled(Link)`
   ${({ theme }) => css`
     margin-right: ${theme.spacings.small};
 
     a + a {
       margin-left: ${theme.spacings.xsmall};
     }
+
+    svg {
+      color: ${theme.colors.gray.body};
+    }
   `}
 `;
 
-export const UserImage = styled(Link)`
+export const Profile = styled(Link)`
   ${({ theme }) => css`
     color: ${theme.colors.gray.titleActive};
   `}
