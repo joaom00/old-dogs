@@ -37,8 +37,8 @@ export const ProfileImage = styled.img`
     width: 8.4rem;
     height: 8.4rem;
     border-radius: 50%;
-    box-shadow: 0 0 0 3px ${theme.colors.gray.offWhite},
-      0 0 0 6px ${theme.colors.primary[600]};
+    border: 1px solid ${theme.colors.gray.line};
+    object-fit: cover;
 
     @media ${theme.media.greaterThan('medium')} {
       width: 18.4rem;
@@ -60,6 +60,11 @@ export const Username = styled.h3`
     font-weight: ${theme.font.bold};
     font-size: ${theme.font.sizes.large};
     color: ${theme.colors.gray.titleActive};
+
+    svg {
+      margin-left: ${theme.spacings.small};
+      color: ${theme.colors.gray.label};
+    }
 
     @media ${theme.media.greaterThan('medium')} {
       font-size: ${theme.font.sizes.xlarge};
@@ -99,7 +104,7 @@ export const Data = styled.p`
   `}
 `;
 
-export const Feed = styled.div`
+export const Feed = styled.ul`
   ${({ theme }) => css`
     max-width: ${theme.grid.container};
     width: 100%;

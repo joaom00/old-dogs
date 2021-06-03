@@ -1,4 +1,7 @@
-import photo from '../../assets/photo.png';
+import { Link } from 'react-router-dom';
+import { FiSettings } from 'react-icons/fi';
+
+import photo from '../../assets/login.jpg';
 
 import * as S from './styles';
 
@@ -9,7 +12,12 @@ const Profile = () => {
         <S.Profile>
           <S.ProfileImage src={photo} />
           <S.ProfileInfoWrapper>
-            <S.Username>dog</S.Username>
+            <S.Username>
+              dog
+              <Link to="/editprofile">
+                <FiSettings size={24} />
+              </Link>
+            </S.Username>
             <S.ProfileInfo>
               <S.Data>
                 <S.Strong>6</S.Strong>
@@ -29,14 +37,33 @@ const Profile = () => {
       </S.ProfileWrapper>
 
       <S.Feed>
-        <img src={photo} alt="" />
-        <img src={photo} alt="" />
-        <img src={photo} alt="" />
-        <img src={photo} alt="" />
-        <img src={photo} alt="" />
-        <img src={photo} alt="" />
-        <img src={photo} alt="" />
-        <img src={photo} alt="" />
+        <li>
+          <img src={photo} alt="" />
+        </li>
+        <li>
+          <img src={photo} alt="" />
+        </li>
+        <li>
+          <img src={photo} alt="" />
+        </li>
+        <li>
+          <img src={photo} alt="" />
+        </li>
+        <li>
+          <img src={photo} alt="" />
+        </li>
+        <li>
+          <img src={photo} alt="" />
+        </li>
+        <li>
+          <img src={photo} alt="" />
+        </li>
+        <li>
+          <img src={photo} alt="" />
+        </li>
+        <li>
+          <img src={photo} alt="" />
+        </li>
       </S.Feed>
     </S.Wrapper>
   );
