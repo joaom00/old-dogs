@@ -1,5 +1,4 @@
 import React, { createContext, useEffect, useState, useCallback } from 'react';
-import { useHistory } from 'react-router';
 import api from '../services/api';
 
 type User = {
@@ -31,9 +30,8 @@ export type AuthContextData = {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const history = useHistory();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<User>({} as User);
 
   async function signIn({ emailOrUsername, password }: SignInCredentials) {
@@ -55,14 +53,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const signOut = useCallback(() => {
     localStorage.removeItem('@Dogs::token');
     setUser({} as User);
-    history.push('/signin');
-  }, [history]);
+    setIsAuthenticated(false);
+  }, []);
 
   useEffect(() => {
     async function getUser() {
       const token = localStorage.getItem('@Dogs::token');
       if (token) {
         try {
+          setIsLoading(true);
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get('profile');
           setUser(data);
@@ -83,7 +82,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     return <p>Carregando...</p>;
   }
 
-  return <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export { AuthContext, AuthProvider };
