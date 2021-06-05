@@ -42,6 +42,7 @@ const theme = {
     }
   },
   colors: {
+    error: '#FF6347',
     gray: {
       titleActive: '#14142B',
       body: '#4E4B66',
@@ -78,10 +79,7 @@ const theme = {
     greaterThan(breakpoint: keyof DefaultBreakpoints) {
       return `(min-width: ${defaultBreakpoints[breakpoint]})`;
     },
-    between(
-      firstBreakpoint: keyof DefaultBreakpoints,
-      secondBreakpoint: keyof DefaultBreakpoints
-    ) {
+    between(firstBreakpoint: keyof DefaultBreakpoints, secondBreakpoint: keyof DefaultBreakpoints) {
       return `(min-width: ${defaultBreakpoints[firstBreakpoint]}) and (max-width: ${defaultBreakpoints[secondBreakpoint]})`;
     }
   }

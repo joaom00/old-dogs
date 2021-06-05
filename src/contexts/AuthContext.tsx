@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState, useCallback } from 'react';
 import api from '../services/api';
 
-type User = {
+export type User = {
   id: number;
   name: string | null;
   username: string;
@@ -82,11 +82,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     return <p>Carregando...</p>;
   }
 
-  return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>{children}</AuthContext.Provider>;
 };
 
 export { AuthContext, AuthProvider };
