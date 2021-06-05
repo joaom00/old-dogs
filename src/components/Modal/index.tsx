@@ -1,133 +1,43 @@
-import photo from '../../assets/login.jpg';
+import { Link } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
 
+import Comment from '../Comment';
+
+import usePost from '../../hooks/usePost';
+import usePostComments from '../../hooks/usePostComments';
+
 import * as S from './styles';
-import { Link } from 'react-router-dom';
 
 type ModalProps = {
+  postId: string;
   isOpen: boolean;
-  setIsOpen: () => void;
+  handleOpenModal: (value: boolean) => void;
 };
 
-const Modal = ({ setIsOpen, isOpen }: ModalProps) => {
+const Modal = ({ postId, handleOpenModal, isOpen }: ModalProps) => {
+  const { data: postData } = usePost(postId);
+  const { data: comments } = usePostComments(postId);
+
   return (
     <S.Wrapper aria-hidden={!isOpen} aria-label="modal" isOpen={isOpen}>
-      <S.Close role="button" aria-label="fechar modal" onClick={setIsOpen}>
+      <S.Close role="button" aria-label="fechar modal" onClick={() => handleOpenModal(false)}>
         <FiX size={32} />
       </S.Close>
       <S.Modal>
-        <img src={photo} width="600px" height="600px" alt="Foto de fulano" />
+        <img src={postData?.photoUrl} width="600px" height="600px" alt={`Foto de ${postData?.user.name}`} />
         <S.PostContentWrapper>
           <S.PostHeader>
             <Link to="/">
-              <img src={photo} alt="Foto de perfil de fulano" />
+              <img src={postData?.user.avatarUrl} alt={`Foto de perfil de ${postData?.user.name}`} />
             </Link>
-            <p>dog</p>
+            <p>{postData?.user.username}</p>
           </S.PostHeader>
           <S.CommentsWrapper>
-            <S.PostDescriptions>
-              Hello chums 👋 <br />
-              We are back with a fresh challenge for this month, this time we
-              teamed up with our good friends from @odamastudio (must follow
-              them) with some really cool prize for the winners!
-            </S.PostDescriptions>
-            <S.CommentWrapper>
-              <Link to="/">
-                <img src={photo} alt="Foto de perfil de fulano" />
-              </Link>
-              <S.Comment>
-                <S.Content>
-                  <S.Username to="/">odmastudio</S.Username>
-                  Lets rock guys! 🔥🔥
-                </S.Content>
-                <S.CommentInfo>
-                  <S.CommentDate>1h</S.CommentDate>
-                  <S.ReplyComment to="/">
-                    Responder - 10 Respostas
-                  </S.ReplyComment>
-                </S.CommentInfo>
-              </S.Comment>
-            </S.CommentWrapper>
+            <S.PostDescriptions>{postData?.description}</S.PostDescriptions>
 
-            <S.CommentWrapper>
-              <img src={photo} />
-              <S.Comment>
-                <S.Content>
-                  <S.Username to="/">odmastudio</S.Username>
-                  Lets rock guys! 🔥🔥
-                </S.Content>
-                <S.CommentInfo>
-                  <S.CommentDate>1h</S.CommentDate>
-                  <S.ReplyComment to="/">
-                    Responder - 10 Respostas
-                  </S.ReplyComment>
-                </S.CommentInfo>
-              </S.Comment>
-            </S.CommentWrapper>
-
-            <S.CommentWrapper>
-              <img src={photo} />
-              <S.Comment>
-                <S.Content>
-                  <S.Username to="/">odmastudio</S.Username>
-                  Lets rock guys! 🔥🔥
-                </S.Content>
-                <S.CommentInfo>
-                  <S.CommentDate>1h</S.CommentDate>
-                  <S.ReplyComment to="/">
-                    Responder - 10 Respostas
-                  </S.ReplyComment>
-                </S.CommentInfo>
-              </S.Comment>
-            </S.CommentWrapper>
-
-            <S.CommentWrapper>
-              <img src={photo} />
-              <S.Comment>
-                <S.Content>
-                  <S.Username to="/">odmastudio</S.Username>
-                  Lets rock guys! 🔥🔥
-                </S.Content>
-                <S.CommentInfo>
-                  <S.CommentDate>1h</S.CommentDate>
-                  <S.ReplyComment to="/">
-                    Responder - 10 Respostas
-                  </S.ReplyComment>
-                </S.CommentInfo>
-              </S.Comment>
-            </S.CommentWrapper>
-
-            <S.CommentWrapper>
-              <img src={photo} />
-              <S.Comment>
-                <S.Content>
-                  <S.Username to="/">odmastudio</S.Username>
-                  Lets rock guys! 🔥🔥
-                </S.Content>
-                <S.CommentInfo>
-                  <S.CommentDate>1h</S.CommentDate>
-                  <S.ReplyComment to="/">
-                    Responder - 10 Respostas
-                  </S.ReplyComment>
-                </S.CommentInfo>
-              </S.Comment>
-            </S.CommentWrapper>
-
-            <S.CommentWrapper>
-              <img src={photo} />
-              <S.Comment>
-                <S.Content>
-                  <S.Username to="/">odmastudio</S.Username>
-                  Lets rock guys! 🔥🔥
-                </S.Content>
-                <S.CommentInfo>
-                  <S.CommentDate>1h</S.CommentDate>
-                  <S.ReplyComment to="/">
-                    Responder - 10 Respostas
-                  </S.ReplyComment>
-                </S.CommentInfo>
-              </S.Comment>
-            </S.CommentWrapper>
+            {comments?.map((comment) => (
+              <Comment key={comment.id} comment={comment} />
+            ))}
           </S.CommentsWrapper>
 
           <S.NewCommentInputWrapper>
