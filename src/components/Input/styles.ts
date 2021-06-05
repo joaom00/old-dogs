@@ -35,6 +35,14 @@ export const Label = styled.label`
   `}
 `;
 
+export const Error = styled.span`
+  ${({ theme }) => css`
+    font-size: ${theme.font.sizes.xsmall};
+    color: ${theme.colors.error};
+    margin-left: ${theme.spacings.xxsmall};
+  `}
+`;
+
 export const InputWrapper = styled.div`
   position: relative;
 `;
@@ -55,14 +63,21 @@ export const ShowHidePasswordButton = styled.span`
 `;
 
 type InputStyleProps = {
+  error?: boolean;
   passwordInput?: boolean;
   showPassword?: boolean;
+};
+
+const inputModifiers = {
+  error: (theme: DefaultTheme) => css`
+    border-color: ${theme.colors.error};
+  `
 };
 
 export const Input = styled.input.attrs<InputStyleProps>(({ passwordInput = false, showPassword }) => ({
   type: passwordInput ? (showPassword ? 'text' : 'password') : 'text'
 }))<InputStyleProps>`
-  ${({ theme }) => css`
+  ${({ theme, error }) => css`
     border: 1px solid ${theme.colors.gray.line};
     background: none;
     padding: ${theme.spacings.xsmall} ${theme.spacings.small};
@@ -76,5 +91,7 @@ export const Input = styled.input.attrs<InputStyleProps>(({ passwordInput = fals
       outline: none;
       border-color: ${theme.colors.primary[500]};
     }
+
+    ${error && inputModifiers.error(theme)}
   `}
 `;
