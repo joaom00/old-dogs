@@ -7,22 +7,42 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 
 import * as S from './styles';
+import { FieldErros, signUpValidate } from '../../utils/validations';
+
+type FieldValues = {
+  username: string;
+  email: string;
+  password: string;
+};
 
 const SignUpForm = () => {
   const history = useHistory();
+  const [fieldError, setFieldError] = useState<FieldErros>({});
+  const [values, setValues] = useState<FieldValues>({
+    username: '',
+    email: '',
+    password: ''
+  });
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  function handleInput(field: string, value: string) {
+    setValues((oldValues) => ({ ...oldValues, [field]: value }));
+  }
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    await api.post('users', {
-      username,
-      email,
-      password
-    });
+    setFieldError({});
+
+    const errors = signUpValidate(values);
+
+    if (Object.keys(errors).length) {
+      setFieldError(errors);
+      return;
+    }
+
+    setFieldError({});
+
+    await api.post('users', { ...values });
 
     history.push('/signin');
   }
@@ -41,23 +61,23 @@ const SignUpForm = () => {
               type="text"
               name="username"
               label="Nome de Usuário"
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
+              onInputChange={(value) => handleInput('username', value)}
+              error={fieldError.username}
             />
             <Input
               type="email"
               name="email"
               label="E-mail"
-              value={email}
-              onChange={({ target }) => setEmail(target.value)}
+              onInputChange={(value) => handleInput('email', value)}
+              error={fieldError.email}
             />
             <Input
               type="password"
               name="password"
               label="Senha"
+              onInputChange={(value) => handleInput('password', value)}
+              error={fieldError.password}
               passwordInput
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
             />
           </fieldset>
 
