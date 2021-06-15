@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { AuthContext, AuthContextData } from '../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext';
 
-const useAuth = (): AuthContextData => {
+const useAuth = () => {
   const context = useContext(AuthContext);
 
   if (context === undefined) {
