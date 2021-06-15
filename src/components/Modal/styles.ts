@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 type WrapperProps = {
@@ -111,6 +110,7 @@ export const PostDescriptions = styled.p`
 
 export const CommentsWrapper = styled.div`
   ${({ theme }) => css`
+    position: relative;
     padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall} ${theme.spacings.xsmall};
     overflow-y: scroll;
     scrollbar-width: none;

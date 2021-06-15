@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
 
@@ -5,39 +6,59 @@ import Comment from '../Comment';
 
 import usePost from '../../hooks/usePost';
 import usePostComments from '../../hooks/usePostComments';
+import useModal from '../../hooks/useModal';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 
 import * as S from './styles';
 
-type ModalProps = {
-  postId: string;
-  isOpen: boolean;
-  handleOpenModal: (value: boolean) => void;
-};
+const Modal = () => {
+  const { isOpen, postId, closeModal } = useModal();
+  const postQuery = usePost(postId);
+  const commentsQuery = usePostComments(postId);
 
-const Modal = ({ postId, handleOpenModal, isOpen }: ModalProps) => {
-  const { data: postData } = usePost(postId);
-  const { data: comments } = usePostComments(postId);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  useIntersectionObserver({
+    target: loadMoreRef,
+    onIntersect: commentsQuery.fetchNextPage,
+    enabled: commentsQuery.hasNextPage
+  });
 
   return (
     <S.Wrapper aria-hidden={!isOpen} aria-label="modal" isOpen={isOpen}>
-      <S.Close role="button" aria-label="fechar modal" onClick={() => handleOpenModal(false)}>
+      <S.Close role="button" aria-label="fechar modal" onClick={closeModal}>
         <FiX size={32} />
       </S.Close>
       <S.Modal>
-        <img src={postData?.photoUrl} width="600px" height="600px" alt={`Foto de ${postData?.user.name}`} />
+        <img
+          src={postQuery.data?.photoUrl}
+          width="600px"
+          height="600px"
+          alt={`Foto de ${postQuery.data?.user.name}`}
+        />
         <S.PostContentWrapper>
           <S.PostHeader>
-            <Link to="/">
-              <img src={postData?.user.avatarUrl} alt={`Foto de perfil de ${postData?.user.name}`} />
+            <Link to={`/${postQuery.data?.user.username}`}>
+              <img
+                src={postQuery.data?.user.avatarUrl}
+                alt={`Foto de perfil de ${postQuery.data?.user.name}`}
+              />
             </Link>
-            <p>{postData?.user.username}</p>
+            <p>{postQuery.data?.user.username}</p>
           </S.PostHeader>
           <S.CommentsWrapper>
-            <S.PostDescriptions>{postData?.description}</S.PostDescriptions>
+            <S.PostDescriptions>
+              {postQuery.data?.description}
+            </S.PostDescriptions>
 
-            {comments?.map((comment) => (
-              <Comment key={comment.id} comment={comment} />
+            {commentsQuery.data?.pages.map((page, index) => (
+              <React.Fragment key={index}>
+                {page.comments.map((comment) => (
+                  <Comment key={comment.id} comment={comment} />
+                ))}
+              </React.Fragment>
             ))}
+            <div ref={loadMoreRef}></div>
           </S.CommentsWrapper>
 
           <S.NewCommentInputWrapper>

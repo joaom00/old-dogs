@@ -41,3 +41,12 @@ export const Profile = styled(Link)`
     color: ${theme.colors.gray.titleActive};
   `}
 `;
+
+export const UserImage = styled.img`
+  ${({ theme }) => css`
+    width: ${theme.spacings.small};
+    height: ${theme.spacings.small};
+    border-radius: 50%;
+    border: 1px solid ${theme.colors.gray.line};
+  `}
+`;

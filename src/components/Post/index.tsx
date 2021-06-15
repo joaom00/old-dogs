@@ -1,35 +1,49 @@
+import { Link } from 'react-router-dom';
+import { parseISO } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns/esm';
+import ptBR from 'date-fns/locale/pt-BR';
 import { FiHeart, FiMessageCircle } from 'react-icons/fi';
+
+import useModal from '../../hooks/useModal';
+import { Post as LatestPosts } from '../../hooks/usePosts';
 
 import * as S from './styles';
 
-import { Post as LatestPost } from '../../hooks/usePosts';
-
 type PostProps = {
-  handleOpenModal: (postId: string) => void;
-  post: LatestPost;
+  post: LatestPosts;
 };
 
-const Post = ({ post, handleOpenModal }: PostProps) => {
+const Post = ({ post }: PostProps) => {
+  const { openModal } = useModal();
+
+  const formatDate = formatDistanceToNow(parseISO(post.createdAt), {
+    locale: ptBR
+  });
+
   return (
     <S.Wrapper>
-      <S.PostImage>
+      <S.PostImage onClick={() => openModal(post.id)}>
         <img
           src={post.photoUrl}
           alt={`Foto de ${post.user.name}`}
           role="button"
-          onClick={() => handleOpenModal(post.id)}
         />
       </S.PostImage>
       <S.PostInfoWrapper>
         <S.PostInfo>
-          <S.UserImage
-            style={{
-              backgroundImage: `url(${post.user.avatarUrl})`
-            }}
-          />
+          <Link to={`/${post.user.username}`}>
+            <S.UserImage
+              style={{
+                backgroundImage: `url(${post.user.avatarUrl})`
+              }}
+            />
+          </Link>
+
           <span>
-            <p>{post.user.username}</p>
-            <p>2 hrs ago</p>
+            <S.Username to={`/${post.user.username}`}>
+              {post.user.username}
+            </S.Username>
+            <S.PostCreatedDate>{formatDate}</S.PostCreatedDate>
           </span>
         </S.PostInfo>
         <S.Icons>
@@ -38,8 +52,10 @@ const Post = ({ post, handleOpenModal }: PostProps) => {
             <FiHeart size={24} />
           </S.Likes>
           <S.Comments>
-            <S.TotalComments>{post.totalComments + post.totalReplys}</S.TotalComments>
-            <FiMessageCircle size={24} onClick={() => handleOpenModal(post.id)} />
+            <S.TotalComments>
+              {post.totalComments + post.totalReplies}
+            </S.TotalComments>
+            <FiMessageCircle size={24} onClick={() => openModal(post.id)} />
           </S.Comments>
         </S.Icons>
       </S.PostInfoWrapper>

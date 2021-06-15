@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.li`
@@ -31,6 +32,21 @@ export const PostInfoWrapper = styled.div`
   `}
 `;
 
+export const PostInfo = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: ${theme.spacings.xxsmall};
+
+      p + p {
+        margin-top: 0.4rem;
+      }
+    }
+  `}
+`;
+
 export const UserImage = styled.img`
   ${({ theme }) => css`
     background-size: cover;
@@ -40,32 +56,25 @@ export const UserImage = styled.img`
   `}
 `;
 
-export const PostInfo = styled.div`
+export const Username = styled(Link)`
   ${({ theme }) => css`
-    display: flex;
-    align-items: center;
-
-    span {
-      margin-left: ${theme.spacings.xxsmall};
-
-      p:first-child {
-        font-weight: ${theme.font.bold};
-        font-size: ${theme.font.sizes.small};
-        line-height: 1.9rem;
-        color: ${theme.colors.gray.titleActive};
-      }
-
-      p:last-child {
-        font-weight: ${theme.font.normal};
-        font-size: ${theme.font.sizes.xsmall};
-        line-height: 1.5rem;
-        color: ${theme.colors.gray.placeholder};
-      }
-
-      p + p {
-        margin-top: 0.4rem;
-      }
+    font-weight: ${theme.font.bold};
+    font-size: ${theme.font.sizes.small};
+    line-height: 1.9rem;
+    color: ${theme.colors.gray.titleActive};
+    &:hover {
+      text-decoration: underline;
     }
+  `}
+`;
+
+export const PostCreatedDate = styled.p`
+  ${({ theme }) => css`
+    font-weight: ${theme.font.normal};
+    font-size: ${theme.font.sizes.xsmall};
+    line-height: 1.5rem;
+    color: ${theme.colors.gray.placeholder};
+    margin-top: 0.4rem;
   `}
 `;
 

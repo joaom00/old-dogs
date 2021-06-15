@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-
 import { Link } from 'react-router-dom';
 
 export const Wrapper = styled.div`
@@ -27,12 +26,13 @@ export const Content = styled.p`
     font-size: ${theme.font.sizes.xsmall};
     color: ${theme.colors.gray.titleActive};
     font-weight: ${theme.font.normal};
+    line-height: 2.2rem;
   `}
 `;
 
 export const Username = styled(Link)`
   ${({ theme }) => css`
-    font-weight: ${theme.font.medium};
+    font-weight: ${theme.font.bold};
     margin-right: 0.4rem;
     color: ${theme.colors.gray.titleActive};
 
@@ -52,11 +52,11 @@ export const CommentInfo = styled.div`
 
 export const CommentDate = styled.span`
   ${({ theme }) => css`
-    margin-right: ${theme.spacings.xxsmall};
+    margin-right: ${theme.spacings.xsmall};
   `}
 `;
 
-export const ReplyComment = styled(Link)`
+export const ReplyCommentButton = styled(Link)`
   ${({ theme }) => css`
     color: ${theme.colors.gray.placeholder};
   `}
