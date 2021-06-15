@@ -1,4 +1,9 @@
-import { Route as ReactDOMRoute, RouteProps as ReactDOMRouteProps, Redirect } from 'react-router-dom';
+import {
+  Route as ReactDOMRoute,
+  RouteProps as ReactDOMRouteProps,
+  Redirect
+} from 'react-router-dom';
+
 import Header from '../components/Header';
 
 import useAuth from '../hooks/useAuth';
@@ -9,7 +14,12 @@ interface RouteProps extends ReactDOMRouteProps {
   component: React.ComponentType;
 }
 
-const Route = ({ isPrivate = false, withHeader = true, component: Component, ...rest }: RouteProps) => {
+const Route = ({
+  isPrivate = false,
+  withHeader = true,
+  component: Component,
+  ...rest
+}: RouteProps) => {
   const { isAuthenticated } = useAuth();
 
   return (
