@@ -1,32 +1,42 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import Modal from '../../components/Modal';
-
-import * as S from './styles';
-import usePosts from '../../hooks/usePosts';
 import Post from '../../components/Post';
 
-const Home = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [postId, setPosId] = useState('');
-  const { data } = usePosts();
+import useModal from '../../hooks/useModal';
+import usePosts from '../../hooks/usePosts';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 
-  function handleOpenModal(postId: string) {
-    setIsOpen((oldValue) => !oldValue);
-    setPosId(postId);
-  }
+import * as S from './styles';
+
+const Home = () => {
+  const groupsQuery = usePosts();
+  const { isOpen } = useModal();
+
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const body = document.querySelector('body');
     if (body) body.style.overflow = isOpen ? 'hidden' : 'auto';
   }, [isOpen]);
 
+  useIntersectionObserver({
+    target: loadMoreRef,
+    onIntersect: groupsQuery.fetchNextPage,
+    enabled: groupsQuery.hasNextPage
+  });
+
   return (
     <S.Wrapper>
-      {isOpen && <Modal postId={postId} handleOpenModal={setIsOpen} isOpen={isOpen} />}
-      {data?.map((post) => (
-        <Post key={post.id} post={post} handleOpenModal={handleOpenModal} />
+      {isOpen && <Modal />}
+      {groupsQuery.data?.pages.map((page, index) => (
+        <React.Fragment key={index}>
+          {page.posts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+        </React.Fragment>
       ))}
+      <div ref={loadMoreRef}></div>
     </S.Wrapper>
   );
 };
