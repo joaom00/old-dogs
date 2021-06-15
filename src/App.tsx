@@ -1,6 +1,7 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import theme from './styles/theme';
 
@@ -23,6 +24,7 @@ const App = () => {
         </Router>
         <GlobalStyles />
       </ThemeProvider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 };
