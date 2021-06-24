@@ -1,19 +1,19 @@
-import React, { createContext, useState, useCallback } from 'react';
+import React, { createContext, useState, useCallback, useEffect } from 'react';
 
-type ModalProviderProps = {
+type TModalProviderProps = {
   children: React.ReactNode;
 };
 
-type ModalContextData = {
+type TModalContextData = {
   postId: string;
   isOpen: boolean;
   openModal: (postId: string) => void;
   closeModal: () => void;
 };
 
-const ModalContext = createContext<ModalContextData>({} as ModalContextData);
+const ModalContext = createContext<TModalContextData>({} as TModalContextData);
 
-const ModalProvider = ({ children }: ModalProviderProps) => {
+const ModalProvider = ({ children }: TModalProviderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [postId, setPostId] = useState('');
 
@@ -26,11 +26,12 @@ const ModalProvider = ({ children }: ModalProviderProps) => {
     setIsOpen(false);
   }, []);
 
-  return (
-    <ModalContext.Provider value={{ postId, isOpen, openModal, closeModal }}>
-      {children}
-    </ModalContext.Provider>
-  );
+  useEffect(() => {
+    const body = document.querySelector('body');
+    if (body) body.style.overflow = isOpen ? 'hidden' : 'auto';
+  }, [isOpen]);
+
+  return <ModalContext.Provider value={{ postId, isOpen, openModal, closeModal }}>{children}</ModalContext.Provider>;
 };
 
 export { ModalContext, ModalProvider };

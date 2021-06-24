@@ -1,37 +1,37 @@
 import React, { createContext, useEffect, useState } from 'react';
 import api from '../services/api';
 
-export type User = {
-  id: number;
-  name: string | null;
+export type TUser = {
+  id: string;
+  name?: string;
   username: string;
   email: string;
   posts: number;
   followers: number;
   following: number;
-  avatarUrl: string | undefined;
+  avatarUrl?: string;
 };
 
-type AuthProviderProps = {
+type TAuthProviderProps = {
   children: React.ReactNode;
 };
 
-type SignInCredentials = {
+type TSignInCredentials = {
   emailOrUsername: string;
   password: string;
 };
 
-type AuthContextData = {
-  user: User | undefined;
+type TAuthContextData = {
+  user: TUser;
   isAuthenticated: boolean;
-  signIn: (credentials: SignInCredentials) => Promise<void>;
+  signIn: (credentials: TSignInCredentials) => Promise<void>;
   signOut: () => void;
 };
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+const AuthContext = createContext<TAuthContextData>({} as TAuthContextData);
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User>();
+const AuthProvider = ({ children }: TAuthProviderProps) => {
+  const [user, setUser] = useState<TUser>({} as TUser);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -41,7 +41,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       api
         .get('profile/me')
         .then((response) => {
-          console.log(response);
           setUser(response.data);
           setIsAuthenticated(true);
         })
@@ -51,7 +50,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }, []);
 
-  async function signIn({ emailOrUsername, password }: SignInCredentials) {
+  async function signIn({ emailOrUsername, password }: TSignInCredentials) {
     const response = await api.post('sessions', {
       emailOrUsername,
       password
@@ -72,11 +71,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsAuthenticated(false);
   }
 
-  return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  if (!Object.keys(user).length) {
+    return <div>Carregando...</div>;
+  }
+
+  return <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>{children}</AuthContext.Provider>;
 };
 
 export { AuthContext, AuthProvider };
