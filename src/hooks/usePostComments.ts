@@ -1,37 +1,28 @@
 import { useInfiniteQuery } from 'react-query';
-import { User } from '../contexts/AuthContext';
+import { TUser } from '../contexts/AuthContext';
 import api from '../services/api';
 
-export type Comment = {
+export type TComment = {
   id: number;
   comment: string;
   createdAt: string;
-  totalReplies: number;
-  user: User | null;
+  user: TUser | null;
 };
 
-type APIResponse = {
+type TData = {
   currentPage: number;
   totalPages: number;
-  comments: Comment[];
+  comments: TComment[];
 };
 
-const getPostComments = async (
-  postId: string,
-  pageParam: number
-): Promise<APIResponse> => {
+const fetchPostComments = async (postId: string, pageParam: number): Promise<TData> => {
   const { data } = await api.get(`posts/${postId}/comments?page=${pageParam}`);
   return data;
 };
 
 export default function usePostComments(postId: string) {
-  return useInfiniteQuery(
-    ['post', postId, 'comments'],
-    ({ pageParam = 1 }) => getPostComments(postId, pageParam),
-    {
-      refetchOnWindowFocus: false,
-      getNextPageParam: (page) =>
-        page.currentPage < page.totalPages ? page.currentPage + 1 : undefined
-    }
-  );
+  return useInfiniteQuery(['post', postId, 'comments'], ({ pageParam = 1 }) => fetchPostComments(postId, pageParam), {
+    refetchOnWindowFocus: false,
+    getNextPageParam: (page) => (page.currentPage < page.totalPages ? page.currentPage + 1 : undefined)
+  });
 }

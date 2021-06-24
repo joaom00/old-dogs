@@ -1,6 +1,8 @@
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
-import { Post } from './usePosts';
+
+import { TPost } from './usePosts';
+
 import api from '../services/api';
 
 const getPost = async (postId: string) => {
@@ -9,7 +11,7 @@ const getPost = async (postId: string) => {
 };
 
 export default function usePost(postId: string) {
-  return useQuery<Post, AxiosError>(['post', postId], () => getPost(postId), {
+  return useQuery<TPost, AxiosError>(['posts', postId], () => getPost(postId), {
     refetchOnWindowFocus: false
   });
 }

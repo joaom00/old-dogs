@@ -1,14 +1,14 @@
 import { useInfiniteQuery } from 'react-query';
 import api from '../services/api';
-import { Post } from './usePosts';
+import { TPost } from './usePosts';
 
-type APIResponse = {
+type TData = {
   currentPage: number;
   totalPages: number;
-  posts: Post[];
+  posts: TPost[];
 };
 
-const fetchUserPosts = async (userId: string | undefined, pageParam: number): Promise<APIResponse> => {
+const fetchUserPosts = async (userId: string | undefined, pageParam: number): Promise<TData> => {
   const { data } = await api.get(`users/${userId}/posts?page=${pageParam}`);
   return data;
 };

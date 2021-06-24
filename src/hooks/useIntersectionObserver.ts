@@ -23,11 +23,8 @@ export default function useIntersectionObserver({
       return;
     }
 
-    console.log('Observer API');
-
     const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => entry.isIntersecting && onIntersect()),
+      (entries) => entries.forEach((entry) => entry.isIntersecting && onIntersect()),
       {
         root: root && root.current,
         rootMargin,

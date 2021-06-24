@@ -1,8 +1,10 @@
 import { useInfiniteQuery } from 'react-query';
-import { User } from '../contexts/AuthContext';
+
+import { TUser } from '../contexts/AuthContext';
+
 import api from '../services/api';
 
-export type Post = {
+export type TPost = {
   id: string;
   description: string;
   createdAt: string;
@@ -10,29 +12,24 @@ export type Post = {
   totalReplies: number;
   totalLikes: number;
   photoUrl: string;
-  user: User;
+  user: TUser;
 };
 
-export type APIResponse = {
+export type TData = {
   currentPage: number;
   totalPages: number;
-  posts: Post[];
+  posts: TPost[];
 };
 
-const getLatestPosts = async (pageParam: number): Promise<APIResponse> => {
+const getLatestPosts = async (pageParam: number): Promise<TData> => {
   const { data } = await api.get(`posts/latest?page=${pageParam}`);
 
   return data;
 };
 
 export default function usePosts() {
-  return useInfiniteQuery(
-    'latestPosts',
-    ({ pageParam = 1 }) => getLatestPosts(pageParam),
-    {
-      refetchOnWindowFocus: false,
-      getNextPageParam: (page) =>
-        page.currentPage < page.totalPages ? page.currentPage + 1 : undefined
-    }
-  );
+  return useInfiniteQuery('posts', ({ pageParam = 1 }) => getLatestPosts(pageParam), {
+    refetchOnWindowFocus: false,
+    getNextPageParam: (page) => (page.currentPage < page.totalPages ? page.currentPage + 1 : undefined)
+  });
 }
