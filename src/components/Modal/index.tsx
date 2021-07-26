@@ -1,28 +1,32 @@
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FormEvent, useState } from 'react';
 import { FiX } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 import Comment from '../Comment';
 
+import useCreateComment from '../../hooks/useCreateComment';
+import useModal from '../../hooks/useModal';
 import usePost from '../../hooks/usePost';
 import usePostComments from '../../hooks/usePostComments';
-import useModal from '../../hooks/useModal';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 
 import * as S from './styles';
 
 const Modal = () => {
   const { isOpen, postId, closeModal } = useModal();
+  const [comment, setComment] = useState('');
+
   const postQuery = usePost(postId);
   const commentsQuery = usePostComments(postId);
 
-  const loadMoreRef = useRef<HTMLDivElement>(null);
+  const createCommentQuery = useCreateComment();
 
-  useIntersectionObserver({
-    target: loadMoreRef,
-    onIntersect: commentsQuery.fetchNextPage,
-    enabled: commentsQuery.hasNextPage
-  });
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    if (comment) {
+      createCommentQuery.mutate({ postId, comment });
+      setComment('');
+    }
+  }
 
   return (
     <S.Wrapper aria-hidden={!isOpen} aria-label="modal" isOpen={isOpen}>
@@ -30,42 +34,65 @@ const Modal = () => {
         <FiX size={32} />
       </S.Close>
       <S.Modal>
-        <img
-          src={postQuery.data?.photoUrl}
-          width="600px"
-          height="600px"
-          alt={`Foto de ${postQuery.data?.user.name}`}
-        />
-        <S.PostContentWrapper>
-          <S.PostHeader>
-            <Link to={`/${postQuery.data?.user.username}`}>
-              <img
-                src={postQuery.data?.user.avatarUrl}
-                alt={`Foto de perfil de ${postQuery.data?.user.name}`}
-              />
-            </Link>
-            <p>{postQuery.data?.user.username}</p>
-          </S.PostHeader>
-          <S.CommentsWrapper>
-            <S.PostDescriptions>
-              {postQuery.data?.description}
-            </S.PostDescriptions>
-
-            {commentsQuery.data?.pages.map((page, index) => (
-              <React.Fragment key={index}>
-                {page.comments.map((comment) => (
-                  <Comment key={comment.id} comment={comment} />
+        {postQuery.isSuccess ? (
+          <>
+            <img
+              src={postQuery.data.photoUrl}
+              width="600px"
+              height="600px"
+              alt={`Foto de ${postQuery.data.user.name}`}
+            />
+            <S.PostContentWrapper onSubmit={handleSubmit}>
+              <S.PostHeader>
+                <Link to={`/${postQuery.data.user.username}`}>
+                  <img
+                    src={postQuery.data.user.avatarUrl}
+                    alt={`Foto de perfil de ${postQuery.data.user.name}`}
+                  />
+                </Link>
+                <p>{postQuery.data.user.username}</p>
+              </S.PostHeader>
+              <S.CommentsWrapper>
+                <Comment
+                  comment={postQuery.data.description}
+                  user={postQuery.data.user}
+                  createdAt={postQuery.data.createdAt}
+                />
+                {commentsQuery.data?.pages.map((page, index) => (
+                  <React.Fragment key={index}>
+                    {page.comments.map((comment) => (
+                      <Comment
+                        key={comment.id}
+                        comment={comment.comment}
+                        user={comment.user}
+                        createdAt={comment.createdAt}
+                      />
+                    ))}
+                  </React.Fragment>
                 ))}
-              </React.Fragment>
-            ))}
-            <div ref={loadMoreRef}></div>
-          </S.CommentsWrapper>
+                <button
+                  type="button"
+                  onClick={() => commentsQuery.fetchNextPage()}
+                >
+                  Carregar mais
+                </button>
+              </S.CommentsWrapper>
 
-          <S.NewCommentInputWrapper>
-            <S.NewCommentInput placeholder="Adicionar comentário" />
-            <S.NewCommentButton>enviar</S.NewCommentButton>
-          </S.NewCommentInputWrapper>
-        </S.PostContentWrapper>
+              <S.NewCommentInputWrapper>
+                <S.NewCommentInput
+                  value={comment}
+                  onChange={(event) => setComment(event.target.value)}
+                  placeholder="Adicionar comentário"
+                />
+                <S.NewCommentButton>
+                  {createCommentQuery.isLoading ? 'Enviando...' : 'Enviar'}
+                </S.NewCommentButton>
+              </S.NewCommentInputWrapper>
+            </S.PostContentWrapper>
+          </>
+        ) : (
+          <div>Carregando...</div>
+        )}
       </S.Modal>
     </S.Wrapper>
   );

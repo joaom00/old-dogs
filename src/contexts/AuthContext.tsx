@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
+import { useQuery, useMutation, UseMutationResult } from 'react-query';
 import api from '../services/api';
 
 export type TUser = {
@@ -12,20 +13,33 @@ export type TUser = {
   avatarUrl?: string;
 };
 
-type TAuthProviderProps = {
-  children: React.ReactNode;
-};
-
 type TSignInCredentials = {
   emailOrUsername: string;
   password: string;
 };
 
+type TData = {
+  user: TUser;
+  token: string;
+};
+
+type TAuthProviderProps = {
+  children: React.ReactNode;
+};
+
 type TAuthContextData = {
   user: TUser;
   isAuthenticated: boolean;
-  signIn: (credentials: TSignInCredentials) => Promise<void>;
+  signIn: UseMutationResult<TData, unknown, TSignInCredentials, unknown>;
   signOut: () => void;
+};
+
+const loginRequest = async ({
+  emailOrUsername,
+  password
+}: TSignInCredentials): Promise<TData> => {
+  const { data } = await api.post('sessions', { emailOrUsername, password });
+  return data;
 };
 
 const AuthContext = createContext<TAuthContextData>({} as TAuthContextData);
@@ -34,48 +48,37 @@ const AuthProvider = ({ children }: TAuthProviderProps) => {
   const [user, setUser] = useState<TUser>({} as TUser);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('@Dogs::token');
-
-    if (token) {
-      api
-        .get('profile/me')
-        .then((response) => {
-          setUser(response.data);
-          setIsAuthenticated(true);
-        })
-        .catch(() => {
-          signOut();
-        });
+  useQuery(['user'], async () => {
+    try {
+      const { data } = await api.get('profile/me');
+      setUser(data);
+      setIsAuthenticated(true);
+    } catch {
+      signOut();
     }
-  }, []);
+  });
 
-  async function signIn({ emailOrUsername, password }: TSignInCredentials) {
-    const response = await api.post('sessions', {
-      emailOrUsername,
-      password
-    });
+  const signIn = useMutation(loginRequest, {
+    onSuccess: ({ user, token }) => {
+      localStorage.setItem('@Dogs::token', token);
 
-    const { user, token } = response.data;
+      api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-    localStorage.setItem('@Dogs::token', token);
-
-    api.defaults.headers['Authorization'] = `Bearer ${token}`;
-
-    setUser(user);
-    setIsAuthenticated(true);
-  }
+      setUser(user);
+      setIsAuthenticated(true);
+    }
+  });
 
   function signOut() {
     localStorage.removeItem('@Dogs::token');
     setIsAuthenticated(false);
   }
 
-  if (!Object.keys(user).length) {
-    return <div>Carregando...</div>;
-  }
-
-  return <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export { AuthContext, AuthProvider };

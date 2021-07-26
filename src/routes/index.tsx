@@ -9,6 +9,7 @@ import ForgotPassword from '../pages/ForgotPassword';
 import Home from '../pages/Home';
 import Profile from '../pages/Profile';
 import EditProfile from '../pages/EditProfile';
+import Post from '../pages/Post';
 
 const Routes = () => {
   return (
@@ -22,8 +23,9 @@ const Routes = () => {
       />
 
       <Route exact path="/" component={Home} isPrivate />
-      <Route path="/:username" component={Profile} isPrivate />
-      <Route path="/editprofile" component={EditProfile} isPrivate />
+      <Route path="/post/:postId" component={Post} isPrivate />
+      <Route exact path="/:username" component={Profile} isPrivate />
+      <Route path="/profile/edit" component={EditProfile} isPrivate />
     </Switch>
   );
 };

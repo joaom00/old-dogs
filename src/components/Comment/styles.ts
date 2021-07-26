@@ -44,20 +44,10 @@ export const Username = styled(Link)`
 
 export const CommentInfo = styled.div`
   ${({ theme }) => css`
-    margin-top: ${theme.spacings.xsmall};
+    margin-top: ${theme.spacings.xxsmall};
     font-size: ${theme.font.sizes.xsmall};
     color: ${theme.colors.gray.placeholder};
   `}
 `;
 
-export const CommentDate = styled.span`
-  ${({ theme }) => css`
-    margin-right: ${theme.spacings.xsmall};
-  `}
-`;
-
-export const ReplyCommentButton = styled(Link)`
-  ${({ theme }) => css`
-    color: ${theme.colors.gray.placeholder};
-  `}
-`;
+export const CommentDate = styled.span``;

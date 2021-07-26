@@ -21,7 +21,7 @@ const fetchPostComments = async (postId: string, pageParam: number): Promise<TDa
 };
 
 export default function usePostComments(postId: string) {
-  return useInfiniteQuery(['post', postId, 'comments'], ({ pageParam = 1 }) => fetchPostComments(postId, pageParam), {
+  return useInfiniteQuery(['posts', postId, 'comments'], ({ pageParam = 1 }) => fetchPostComments(postId, pageParam), {
     refetchOnWindowFocus: false,
     getNextPageParam: (page) => (page.currentPage < page.totalPages ? page.currentPage + 1 : undefined)
   });

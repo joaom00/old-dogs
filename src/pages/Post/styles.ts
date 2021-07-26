@@ -1,73 +1,22 @@
 import styled, { css } from 'styled-components';
 
-type WrapperProps = {
-  isOpen: boolean;
-};
-
-const modifiers = {
-  open: () => css`
-    opacity: 1;
-  `,
-
-  close: () => css`
-    opacity: 0;
-    pointer-events: none;
-  `
-};
-
-export const Wrapper = styled.div<WrapperProps>`
-  ${({ theme, isOpen }) => css`
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: ${theme.layers.overlay};
-    background-color: rgba(0, 0, 0, 0.7);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    ${isOpen && modifiers.open}
-    ${!isOpen && modifiers.close}
-  `}
-`;
-
-export const Close = styled.div`
+export const Wrapper = styled.div`
   ${({ theme }) => css`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    text-align: right;
-    color: ${theme.colors.gray.offWhite};
-    padding-top: ${theme.spacings.small};
-    padding-right: ${theme.spacings.small};
-
-    svg {
-      cursor: pointer;
-    }
-  `}
-`;
-
-export const Modal = styled.div`
-  ${({ theme }) => css`
+    max-width: ${theme.grid.container};
+    margin: 0 auto;
     z-index: ${theme.layers.modal};
-    width: 93.5rem;
     height: 60rem;
-    background: white;
 
     display: flex;
+    flex-direction: column;
 
-    & > img {
+    > img {
       object-fit: cover;
     }
   `}
 `;
 
-export const PostContentWrapper = styled.form`
+export const PostContentWrapper = styled.div`
   flex: 1;
 
   display: flex;
@@ -111,8 +60,7 @@ export const PostDescriptions = styled.p`
 export const CommentsWrapper = styled.div`
   ${({ theme }) => css`
     position: relative;
-    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall}
-      ${theme.spacings.xsmall};
+    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall} ${theme.spacings.xsmall};
     overflow-y: scroll;
     scrollbar-width: none;
 

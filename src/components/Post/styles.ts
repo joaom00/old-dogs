@@ -2,22 +2,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.li`
-  ${({ theme }) => css`
-    overflow: hidden;
-
-    & + & {
-      margin-top: ${theme.spacings.medium};
-    }
-  `}
-`;
-
-export const PostImage = styled.div`
-  cursor: pointer;
-  img {
-    width: 100%;
-    max-height: 60rem;
-    object-fit: cover;
-  }
+  overflow: hidden;
 `;
 
 export const PostInfoWrapper = styled.div`
@@ -123,5 +108,64 @@ export const TotalComments = styled.span`
     font-size: ${theme.font.sizes.xsmall};
     font-weight: ${theme.font.medium};
     color: ${theme.colors.gray.label};
+  `}
+`;
+
+export const PostImage = styled.div`
+  ${({ theme }) => css`
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    &:hover ${Icons} {
+      opacity: 1;
+    }
+
+    img {
+      grid-area: 1/1;
+      width: 100%;
+      max-height: 60rem;
+      object-fit: cover;
+    }
+
+    ${Icons} {
+      background: rgba(0, 0, 0, 0.5);
+      grid-area: 1/1;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    ${Likes}, ${TotalLikes}, ${Comments}, ${TotalComments} {
+      color: ${theme.colors.gray.offWhite};
+    }
+
+  `}
+`;
+
+export const PostImageLink = styled(Link)`
+  ${({ theme }) => css`
+  display: grid;
+  grid-template-columns: 1fr;
+
+  &:hover ${Icons} {
+    opacity: 1;
+  }
+
+  img {
+    width: 100%;
+    grid-area: 1/1;
+  }
+
+  ${Icons} {
+    background: rgba(0, 0, 0, 0.5);
+    grid-area: 1/1;
+    justify-content: center;
+    opacity: 0;
+  }
+
+  ${Likes}, ${TotalLikes}, ${Comments}, ${TotalComments} {
+    color: ${theme.colors.gray.offWhite};
+  }
+
   `}
 `;

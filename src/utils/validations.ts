@@ -31,12 +31,12 @@ const fieldsValidations = {
     .messages({ ...errorMessages.passwordErrors })
 };
 
-export type FieldErros = {
+export type TFieldErros = {
   [key: string]: string;
 };
 
 function getFieldErros(objError: joi.ValidationResult) {
-  const errors: FieldErros = {};
+  const errors: TFieldErros = {};
 
   console.log('Erros: ', objError);
   if (objError.error) {
@@ -48,13 +48,13 @@ function getFieldErros(objError: joi.ValidationResult) {
   return errors;
 }
 
-type SignUpValues = {
+type TSignUpValues = {
   username: string;
   email: string;
   password: string;
 };
 
-export function signUpValidate(values: SignUpValues) {
+export function signUpValidate(values: TSignUpValues) {
   const schema = joi.object(fieldsValidations);
 
   return getFieldErros(schema.validate(values, { abortEarly: false }));

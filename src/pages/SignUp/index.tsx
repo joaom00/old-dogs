@@ -7,9 +7,9 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 
 import * as S from './styles';
-import { FieldErros, signUpValidate } from '../../utils/validations';
+import { TFieldErros, signUpValidate } from '../../utils/validations';
 
-type FieldValues = {
+type TFieldValues = {
   username: string;
   email: string;
   password: string;
@@ -17,8 +17,8 @@ type FieldValues = {
 
 const SignUpForm = () => {
   const history = useHistory();
-  const [fieldError, setFieldError] = useState<FieldErros>({});
-  const [values, setValues] = useState<FieldValues>({
+  const [fieldError, setFieldError] = useState<TFieldErros>({});
+  const [values, setValues] = useState<TFieldValues>({
     username: '',
     email: '',
     password: ''

@@ -37,7 +37,6 @@ export const ProfileImage = styled.img`
     width: 8.4rem;
     height: 8.4rem;
     border-radius: 50%;
-    border: 1px solid ${theme.colors.gray.line};
     object-fit: cover;
 
     @media ${theme.media.greaterThan('medium')} {
@@ -64,10 +63,6 @@ export const Username = styled.h3`
     svg {
       margin-left: ${theme.spacings.small};
       color: ${theme.colors.gray.label};
-    }
-
-    @media ${theme.media.greaterThan('medium')} {
-      font-size: ${theme.font.sizes.xlarge};
     }
   `}
 `;
@@ -115,7 +110,7 @@ export const Feed = styled.ul`
     grid-gap: 0.4rem;
 
     img {
-      max-width: 100%;
+      width: 100%;
     }
   `}
 `;

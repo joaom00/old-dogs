@@ -15,10 +15,10 @@ const SignInForm = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  async function handleSubmit(event: FormEvent) {
+  function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    await signIn({ emailOrUsername, password });
+    signIn.mutate({ emailOrUsername, password });
 
     history.push('/');
   }
@@ -32,7 +32,9 @@ const SignInForm = () => {
         <S.SignInForm onSubmit={handleSubmit}>
           <fieldset>
             <S.Title>Iniciar sessão</S.Title>
-            <S.Description>Já possui uma conta? Faça login aqui embaixo.</S.Description>
+            <S.Description>
+              Já possui uma conta? Faça login aqui embaixo.
+            </S.Description>
             <Input
               type="text"
               name="emailOrUsername"
@@ -51,14 +53,16 @@ const SignInForm = () => {
           </fieldset>
 
           <Button fullWidth type="submit">
-            Entrar
+            {signIn.isLoading ? 'Entrando...' : 'Entrar'}
           </Button>
 
           <S.LinksWrapper>
             <p>
               Não tem conta? <S.SignUpLink to="/signup">Crie uma</S.SignUpLink>
             </p>
-            <S.ForgotPasswordLink to="/forgot-password">Esqueci minha senha</S.ForgotPasswordLink>
+            <S.ForgotPasswordLink to="/forgot-password">
+              Esqueci minha senha
+            </S.ForgotPasswordLink>
           </S.LinksWrapper>
         </S.SignInForm>
       </S.SignInFormWrapper>
