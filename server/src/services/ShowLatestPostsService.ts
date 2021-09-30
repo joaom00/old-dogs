@@ -25,7 +25,6 @@ export default class ShowLatestPostsService {
         'post.comments',
         'comments'
       )
-      .loadRelationCountAndMap('post.totalReplys', 'post.replies', 'replys')
       .loadRelationCountAndMap('post.totalLikes', 'post.likes', 'likes')
       .leftJoinAndSelect('post.user', 'user')
       .orderBy('post.createdAt', 'DESC')

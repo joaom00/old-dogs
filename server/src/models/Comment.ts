@@ -4,14 +4,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import Post from './Post';
-import Reply from './Reply';
 import User from './User';
 
 @Entity('comments')
@@ -33,9 +31,6 @@ class Comment {
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
-
-  @OneToMany(() => Reply, 'commentId')
-  replies: Reply[];
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
   createdAt: Date;

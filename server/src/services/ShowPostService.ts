@@ -18,7 +18,6 @@ export default class ShowPostService {
         'post.comments',
         'comments'
       )
-      .loadRelationCountAndMap('post.totalReplys', 'post.replys', 'replys')
       .loadRelationCountAndMap('post.totalLikes', 'post.likes', 'likes')
       .getOne();
 

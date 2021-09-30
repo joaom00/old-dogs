@@ -20,7 +20,6 @@ export default class ShowPostCommentsService {
     const totalPages = Math.ceil(totalComments / 10);
 
     const comments = await createQueryBuilder(Comment, 'comment')
-      .loadRelationCountAndMap('comment.totalReplys', 'comment.replies')
       .leftJoinAndSelect('comment.user', 'user')
       .where('comment.postId = :postId', { postId })
       .orderBy('comment.createdAt', 'DESC')

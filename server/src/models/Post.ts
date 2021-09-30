@@ -12,7 +12,6 @@ import { Exclude, Expose } from 'class-transformer';
 
 import Comment from './Comment';
 import Like from './Like';
-import Reply from './Reply';
 import User from './User';
 
 @Entity('posts')
@@ -37,9 +36,6 @@ class Post {
 
   @OneToMany(() => Comment, 'postId')
   comments: Comment[];
-
-  @OneToMany(() => Reply, 'postId')
-  replies: Reply[];
 
   @OneToMany(() => Like, 'postId')
   likes: Like[];

@@ -26,7 +26,6 @@ export default class ShowPostCommentsService {
         'post.comments',
         'comments'
       )
-      .loadRelationCountAndMap('post.totalReplys', 'post.replys', 'reply')
       .loadRelationCountAndMap('post.totalLikes', 'post.likes', 'likes')
       .orderBy('post.createdAt', 'DESC')
       .skip(skip)
