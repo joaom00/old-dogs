@@ -1,4 +1,5 @@
 import Button from '../../components/Button';
+import Heading from '../../components/Heading';
 import Input from '../../components/Input';
 
 import useAuth from '../../hooks/useAuth';
@@ -16,16 +17,46 @@ const EditProfile = () => {
         </S.UserImageWrapper>
 
         <fieldset>
-          <S.Title>Seus dados</S.Title>
-          <Input initialValue={user.username} type="text" name="username" label="Nome de usuário" sideBySide />
-          <Input initialValue={user.email} type="text" name="email" label="E-mail" sideBySide />
-          <Input initialValue={user.name} type="text" name="name" label="Nome" sideBySide />
+          <Heading as="legend">Seus dados</Heading>
+          <Input
+            initialValue={user.username}
+            type="text"
+            name="username"
+            label="Nome de usuário"
+            sideBySide
+          />
+          <Input
+            initialValue={user.email}
+            type="text"
+            name="email"
+            label="E-mail"
+            sideBySide
+          />
+          <Input
+            initialValue={user.name}
+            type="text"
+            name="name"
+            label="Nome"
+            sideBySide
+          />
         </fieldset>
 
         <fieldset>
-          <S.Title>Trocar senha</S.Title>
-          <Input type="password" name="oldPassword" label="Senha atual" sideBySide passwordInput />
-          <Input type="password" name="newPassword" label="Nova senha" sideBySide passwordInput />
+          <Heading as="legend">Trocar senha</Heading>
+          <Input
+            type="password"
+            name="oldPassword"
+            label="Senha atual"
+            sideBySide
+            passwordInput
+          />
+          <Input
+            type="password"
+            name="newPassword"
+            label="Nova senha"
+            sideBySide
+            passwordInput
+          />
         </fieldset>
 
         <S.Button>
