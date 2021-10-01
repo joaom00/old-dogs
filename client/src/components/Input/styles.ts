@@ -64,8 +64,6 @@ export const ShowHidePasswordButton = styled.span`
 
 type InputStyleProps = {
   error?: boolean;
-  passwordInput?: boolean;
-  showPassword?: boolean;
 };
 
 const inputModifiers = {
@@ -74,9 +72,7 @@ const inputModifiers = {
   `
 };
 
-export const Input = styled.input.attrs<InputStyleProps>(({ passwordInput = false, showPassword }) => ({
-  type: passwordInput ? (showPassword ? 'text' : 'password') : 'text'
-}))<InputStyleProps>`
+export const Input = styled.input<InputStyleProps>`
   ${({ theme, error }) => css`
     border: 1px solid ${theme.colors.gray.line};
     background: none;

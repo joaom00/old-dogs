@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router';
-import useAuth from '../../hooks/useAuth';
+import { useAuth } from '../../contexts/AuthContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -49,7 +49,6 @@ const SignInForm = () => {
               type="password"
               name="password"
               label="Senha"
-              passwordInput
               value={password}
               onChange={({ target }) => setPassword(target.value)}
             />

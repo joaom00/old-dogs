@@ -1,8 +1,8 @@
+import { useAuth } from '../../contexts/AuthContext';
+
 import Button from '../../components/Button';
 import Heading from '../../components/Heading';
 import Input from '../../components/Input';
-
-import useAuth from '../../hooks/useAuth';
 
 import * as S from './styles';
 
@@ -48,14 +48,12 @@ const EditProfile = () => {
             name="oldPassword"
             label="Senha atual"
             sideBySide
-            passwordInput
           />
           <Input
             type="password"
             name="newPassword"
             label="Nova senha"
             sideBySide
-            passwordInput
           />
         </fieldset>
 

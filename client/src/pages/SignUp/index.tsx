@@ -77,7 +77,6 @@ const SignUpForm = () => {
               label="Senha"
               onInputChange={(value) => handleInput('password', value)}
               error={fieldError.password}
-              passwordInput
             />
           </fieldset>
 

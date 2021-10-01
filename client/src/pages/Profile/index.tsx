@@ -34,10 +34,13 @@ const Profile = () => {
         {isOpen && <Modal />}
         <S.ProfileWrapper>
           <S.Profile>
-            <S.ProfileImage src={userQuery.data.avatarUrl ?? userWithoutImage} />
+            <S.ProfileImage
+              src={userQuery.data.avatarUrl ?? userWithoutImage}
+            />
             <S.ProfileInfoWrapper>
               <S.Username>
                 {userQuery.data.username}
+                <Link to="/new-photo">Postar foto</Link>
                 <Link to="/profile/edit">
                   <FiSettings size={24} />
                 </Link>

@@ -1,4 +1,10 @@
-import { InputHTMLAttributes, ChangeEvent, useState } from 'react';
+import {
+  InputHTMLAttributes,
+  ChangeEvent,
+  useState,
+  useRef,
+  useEffect
+} from 'react';
 import * as S from './styles';
 
 export type InputProps = {
@@ -6,22 +12,30 @@ export type InputProps = {
   initialValue?: string;
   onInputChange?: (value: string) => void;
   error?: string;
-  passwordInput?: boolean;
   sideBySide?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 const Input = ({
   name,
   label,
-  initialValue = '',
   onInputChange,
   error,
-  passwordInput = false,
+  type,
+  initialValue = '',
   sideBySide = false,
   ...rest
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(initialValue);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const isPasswordInput = type === 'password';
+
+  useEffect(() => {
+    if (inputRef.current && isPasswordInput) {
+      inputRef.current.type = showPassword ? 'text' : 'password';
+    }
+  }, [showPassword, isPasswordInput]);
 
   function onChange(event: ChangeEvent<HTMLInputElement>) {
     const newValue = event.currentTarget.value;
@@ -37,24 +51,22 @@ const Input = ({
         {!!error && <S.Error>{error}</S.Error>}
       </S.Label>
       <S.InputWrapper>
-        {passwordInput ? (
-          <>
-            <S.Input
-              id={name}
-              name={name}
-              value={value}
-              onChange={onChange}
-              error={!!error}
-              passwordInput
-              showPassword={showPassword}
-              {...rest}
-            />
-            <S.ShowHidePasswordButton aria-hidden="true" onClick={() => setShowPassword(!showPassword)}>
-              {showPassword ? 'esconder' : 'mostrar'}
-            </S.ShowHidePasswordButton>
-          </>
-        ) : (
-          <S.Input id={name} name={name} value={value} onChange={onChange} error={!!error} {...rest} />
+        <S.Input
+          id={name}
+          name={name}
+          type={type}
+          ref={inputRef}
+          value={value}
+          onChange={onChange}
+          error={!!error}
+          {...rest}
+        />
+        {isPasswordInput && (
+          <S.ShowHidePasswordButton
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? 'esconder' : 'mostrar'}
+          </S.ShowHidePasswordButton>
         )}
       </S.InputWrapper>
     </S.Wrapper>
