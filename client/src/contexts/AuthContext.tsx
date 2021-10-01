@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
-import { useQuery, useMutation, UseMutationResult } from 'react-query';
+import React, { createContext, useContext, useState } from 'react';
+import { useMutation, UseMutationResult } from 'react-query';
 import api from '../services/api';
 
 export type TUser = {
@@ -29,7 +29,6 @@ type TAuthProviderProps = {
 
 type TAuthContextData = {
   user: TUser;
-  isAuthenticated: boolean;
   signIn: UseMutationResult<TData, unknown, TSignInCredentials, unknown>;
   signOut: () => void;
 };
@@ -45,40 +44,55 @@ const loginRequest = async ({
 const AuthContext = createContext<TAuthContextData>({} as TAuthContextData);
 
 const AuthProvider = ({ children }: TAuthProviderProps) => {
-  const [user, setUser] = useState<TUser>({} as TUser);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [data, setData] = useState<TData>(() => {
+    const user = localStorage.getItem('@Dogs:user');
+    const token = localStorage.getItem('@Dogs:token');
 
-  useQuery(['user'], async () => {
-    try {
-      const { data } = await api.get('profile/me');
-      setUser(data);
-      setIsAuthenticated(true);
-    } catch {
-      signOut();
+    if (user && token) {
+      api.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+      return {
+        user: JSON.parse(user),
+        token
+      };
     }
+
+    return {} as TData;
   });
 
   const signIn = useMutation(loginRequest, {
     onSuccess: ({ user, token }) => {
-      localStorage.setItem('@Dogs::token', token);
+      localStorage.setItem('@Dogs:user', JSON.stringify(user));
+      localStorage.setItem('@Dogs:token', token);
 
       api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-      setUser(user);
-      setIsAuthenticated(true);
+      setData({ user, token });
     }
   });
 
   function signOut() {
-    localStorage.removeItem('@Dogs::token');
-    setIsAuthenticated(false);
+    localStorage.removeItem('@Dogs:user');
+    localStorage.removeItem('@Dogs:token');
+
+    setData({} as TData);
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export { AuthContext, AuthProvider };
+const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  if (context === undefined) {
+    throw new Error('useAuth must be within an AuthProvider');
+  }
+
+  return context;
+};
+
+export { AuthProvider, useAuth };

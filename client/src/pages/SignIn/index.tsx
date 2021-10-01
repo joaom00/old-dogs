@@ -15,12 +15,15 @@ const SignInForm = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    signIn.mutate({ emailOrUsername, password });
-
-    history.push('/');
+    try {
+      await signIn.mutateAsync({ emailOrUsername, password });
+      history.push('/');
+    } catch (err) {
+      // TODO: show notification error
+    }
   }
 
   return (

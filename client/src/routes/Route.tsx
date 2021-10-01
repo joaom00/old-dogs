@@ -10,25 +10,25 @@ import useAuth from '../hooks/useAuth';
 
 interface RouteProps extends ReactDOMRouteProps {
   isPrivate?: boolean;
-  withHeader?: boolean;
+  noHeader?: boolean;
   component: React.ComponentType;
 }
 
 const Route = ({
   isPrivate = false,
-  withHeader = true,
+  noHeader = false,
   component: Component,
   ...rest
 }: RouteProps) => {
-  const { isAuthenticated } = useAuth();
+  const { user } = useAuth();
 
   return (
     <ReactDOMRoute
       {...rest}
       render={({ location }) => {
-        return isPrivate === isAuthenticated ? (
+        return isPrivate === !!user ? (
           <>
-            {withHeader && <Header />}
+            {!noHeader && <Header />}
             <Component />
           </>
         ) : (
