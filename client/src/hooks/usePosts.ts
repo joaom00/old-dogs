@@ -9,7 +9,6 @@ export type TPost = {
   description: string;
   createdAt: string;
   totalComments: number;
-  totalReplies: number;
   totalLikes: number;
   photoUrl: string;
   user: TUser;
@@ -28,8 +27,13 @@ const getLatestPosts = async (pageParam: number): Promise<TData> => {
 };
 
 export default function usePosts() {
-  return useInfiniteQuery('posts', ({ pageParam = 1 }) => getLatestPosts(pageParam), {
-    refetchOnWindowFocus: false,
-    getNextPageParam: (page) => (page.currentPage < page.totalPages ? page.currentPage + 1 : undefined)
-  });
+  return useInfiniteQuery(
+    'posts',
+    ({ pageParam = 1 }) => getLatestPosts(pageParam),
+    {
+      refetchOnWindowFocus: false,
+      getNextPageParam: (page) =>
+        page.currentPage < page.totalPages ? page.currentPage + 1 : undefined
+    }
+  );
 }

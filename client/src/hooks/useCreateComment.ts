@@ -6,7 +6,10 @@ type TCreateCommentData = {
   comment: string;
 };
 
-const creatComment = async ({ postId, comment }: TCreateCommentData) => {
+const creatComment = async ({
+  postId,
+  comment
+}: TCreateCommentData): Promise<TCreateCommentData> => {
   const { data } = await api.post(`posts/${postId}/comments`, { comment });
   return data;
 };
@@ -15,10 +18,10 @@ export default function useCreateComment() {
   const queryClient = useQueryClient();
   return useMutation(creatComment, {
     onError: () => {
-      // do something
+      // TODO: show notification error
     },
-    onSettled: (data, error, variables) => {
-      queryClient.invalidateQueries(['posts', variables.postId, 'comments']);
+    onSettled: (data) => {
+      queryClient.invalidateQueries(['posts', data?.postId, 'comments']);
     }
   });
 }

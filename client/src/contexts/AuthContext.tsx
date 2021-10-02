@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import api from '../services/api';
 
@@ -71,12 +71,12 @@ const AuthProvider = ({ children }: TAuthProviderProps) => {
     }
   });
 
-  function signOut() {
+  const signOut = useCallback(() => {
     localStorage.removeItem('@Dogs:user');
     localStorage.removeItem('@Dogs:token');
 
     setData({} as TData);
-  }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>

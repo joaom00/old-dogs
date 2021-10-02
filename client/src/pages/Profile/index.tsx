@@ -6,9 +6,9 @@ import Post from '../../components/Post';
 import Modal from '../../components/Modal';
 
 import useUser from '../../hooks/useUser';
-import useModal from '../../hooks/useModal';
 import useUserPosts from '../../hooks/useUserPosts';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import { useModal } from '../../contexts/ModalContext';
 
 import userWithoutImage from '../../assets/user.jpg';
 

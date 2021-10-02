@@ -12,14 +12,17 @@ const SignInForm = () => {
   const { signIn } = useAuth();
   const history = useHistory();
 
-  const [emailOrUsername, setEmailOrUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [values, setValues] = useState({ emailOrUsername: '', password: '' });
+
+  function handleInput(field: string, value: string) {
+    setValues((oldValue) => ({ ...oldValue, [field]: value }));
+  }
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
     try {
-      await signIn.mutateAsync({ emailOrUsername, password });
+      await signIn.mutateAsync(values);
       history.push('/');
     } catch (err) {
       // TODO: show notification error
@@ -42,15 +45,13 @@ const SignInForm = () => {
               type="text"
               name="emailOrUsername"
               label="E-mail ou Nome de usuário"
-              value={emailOrUsername}
-              onChange={({ target }) => setEmailOrUsername(target.value)}
+              onInputChange={(value) => handleInput('emailOrUsername', value)}
             />
             <Input
               type="password"
               name="password"
               label="Senha"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
+              onInputChange={(value) => handleInput('password', value)}
             />
           </fieldset>
 

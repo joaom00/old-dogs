@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import Comment from '../Comment';
 
 import useCreateComment from '../../hooks/useCreateComment';
-import useModal from '../../hooks/useModal';
 import usePost from '../../hooks/usePost';
 import usePostComments from '../../hooks/usePostComments';
+import { useModal } from '../../contexts/ModalContext';
 
 import * as S from './styles';
 

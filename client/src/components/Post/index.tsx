@@ -4,9 +4,8 @@ import { formatDistanceToNow } from 'date-fns/esm';
 import ptBR from 'date-fns/locale/pt-BR';
 import { FiHeart, FiMessageCircle } from 'react-icons/fi';
 
+import { useModal } from '../../contexts/ModalContext';
 import { TPost } from '../../hooks/usePosts';
-
-import useModal from '../../hooks/useModal';
 
 import * as S from './styles';
 
@@ -40,21 +39,15 @@ const Post = ({ post, withLabel = true }: PostProps) => {
                 <FiHeart size={24} />
               </S.Likes>
               <S.Comments>
-                <S.TotalComments>
-                  {post.totalComments + post.totalReplies}
-                </S.TotalComments>
+                <S.TotalComments>{post.totalComments}</S.TotalComments>
                 <FiMessageCircle size={24} onClick={() => openModal(post.id)} />
               </S.Comments>
             </S.Icons>
           )}
         </S.PostImageLink>
       ) : (
-        <S.PostImage onClick={() => openModal(post.id)}>
-          <img
-            src={post.photoUrl}
-            alt={`Foto de ${post.user?.name}`}
-            role="button"
-          />
+        <S.PostImage role="button" onClick={() => openModal(post.id)}>
+          <img src={post.photoUrl} alt={`Foto de ${post.user?.name}`} />
           {!withLabel && (
             <S.Icons>
               <S.Likes>
@@ -62,9 +55,7 @@ const Post = ({ post, withLabel = true }: PostProps) => {
                 <FiHeart size={24} />
               </S.Likes>
               <S.Comments>
-                <S.TotalComments>
-                  {post.totalComments + post.totalReplies}
-                </S.TotalComments>
+                <S.TotalComments>{post.totalComments}</S.TotalComments>
                 <FiMessageCircle size={24} onClick={() => openModal(post.id)} />
               </S.Comments>
             </S.Icons>
@@ -95,9 +86,7 @@ const Post = ({ post, withLabel = true }: PostProps) => {
               <FiHeart size={24} />
             </S.Likes>
             <S.Comments>
-              <S.TotalComments>
-                {post.totalComments + post.totalReplies}
-              </S.TotalComments>
+              <S.TotalComments>{post.totalComments}</S.TotalComments>
               <FiMessageCircle size={24} onClick={() => openModal(post.id)} />
             </S.Comments>
           </S.Icons>

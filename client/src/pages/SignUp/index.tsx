@@ -9,16 +9,10 @@ import Input from '../../components/Input';
 import * as S from './styles';
 import { TFieldErros, signUpValidate } from '../../utils/validations';
 
-type TFieldValues = {
-  username: string;
-  email: string;
-  password: string;
-};
-
 const SignUpForm = () => {
   const history = useHistory();
   const [fieldError, setFieldError] = useState<TFieldErros>({});
-  const [values, setValues] = useState<TFieldValues>({
+  const [values, setValues] = useState({
     username: '',
     email: '',
     password: ''

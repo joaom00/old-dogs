@@ -3,9 +3,9 @@ import React, { useEffect, useRef } from 'react';
 import Post from '../../components/Post';
 import Modal from '../../components/Modal';
 
-import useModal from '../../hooks/useModal';
 import usePosts from '../../hooks/usePosts';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import { useModal } from '../../contexts/ModalContext';
 
 import * as S from './styles';
 
