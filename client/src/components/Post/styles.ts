@@ -5,6 +5,63 @@ export const Wrapper = styled.li`
   overflow: hidden;
 `;
 
+export const PostImage = styled.div`
+  ${({ theme }) => css`
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    &:hover ${IconsWrapper} {
+      opacity: 1;
+    }
+
+    img {
+      grid-area: 1/1;
+      width: 100%;
+      max-height: 60rem;
+      object-fit: cover;
+    }
+
+    ${IconsWrapper} {
+      background: rgba(0, 0, 0, 0.5);
+      grid-area: 1/1;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    ${LikesWrapper}, ${Likes}, ${CommentsWrapper}, ${Comments} {
+      color: ${theme.colors.gray.offWhite};
+    }
+  `}
+`;
+
+export const PostImageLink = styled(Link)`
+  ${({ theme }) => css`
+    display: grid;
+    grid-template-columns: 1fr;
+
+    &:hover ${IconsWrapper} {
+      opacity: 1;
+    }
+
+    img {
+      width: 100%;
+      grid-area: 1/1;
+    }
+
+    ${IconsWrapper} {
+      background: rgba(0, 0, 0, 0.5);
+      grid-area: 1/1;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    ${LikesWrapper}, ${Likes}, ${CommentsWrapper}, ${Comments} {
+      color: ${theme.colors.gray.offWhite};
+    }
+  `}
+`;
+
 export const PostInfoWrapper = styled.div`
   ${({ theme }) => css`
     padding: ${theme.spacings.xsmall};
@@ -47,6 +104,7 @@ export const Username = styled(Link)`
     font-size: ${theme.font.sizes.small};
     line-height: 1.9rem;
     color: ${theme.colors.gray.titleActive};
+
     &:hover {
       text-decoration: underline;
     }
@@ -63,9 +121,10 @@ export const PostCreatedDate = styled.p`
   `}
 `;
 
-export const Icons = styled.div`
+export const IconsWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
+
     svg {
       cursor: pointer;
     }
@@ -76,7 +135,7 @@ export const Icons = styled.div`
   `}
 `;
 
-export const Likes = styled.div`
+export const LikesWrapper = styled.div`
   ${({ theme }) => css`
     margin-right: ${theme.spacings.xsmall};
     display: flex;
@@ -85,7 +144,7 @@ export const Likes = styled.div`
   `}
 `;
 
-export const TotalLikes = styled.span`
+export const Likes = styled.span`
   ${({ theme }) => css`
     margin-right: ${theme.spacings.xxsmall};
     font-size: ${theme.font.sizes.xsmall};
@@ -94,7 +153,7 @@ export const TotalLikes = styled.span`
   `}
 `;
 
-export const Comments = styled.div`
+export const CommentsWrapper = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.gray.body};
     display: flex;
@@ -102,70 +161,11 @@ export const Comments = styled.div`
   `}
 `;
 
-export const TotalComments = styled.span`
+export const Comments = styled.span`
   ${({ theme }) => css`
     margin-right: ${theme.spacings.xxsmall};
     font-size: ${theme.font.sizes.xsmall};
     font-weight: ${theme.font.medium};
     color: ${theme.colors.gray.label};
-  `}
-`;
-
-export const PostImage = styled.div`
-  ${({ theme }) => css`
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: 1fr;
-
-    &:hover ${Icons} {
-      opacity: 1;
-    }
-
-    img {
-      grid-area: 1/1;
-      width: 100%;
-      max-height: 60rem;
-      object-fit: cover;
-    }
-
-    ${Icons} {
-      background: rgba(0, 0, 0, 0.5);
-      grid-area: 1/1;
-      justify-content: center;
-      opacity: 0;
-    }
-
-    ${Likes}, ${TotalLikes}, ${Comments}, ${TotalComments} {
-      color: ${theme.colors.gray.offWhite};
-    }
-
-  `}
-`;
-
-export const PostImageLink = styled(Link)`
-  ${({ theme }) => css`
-  display: grid;
-  grid-template-columns: 1fr;
-
-  &:hover ${Icons} {
-    opacity: 1;
-  }
-
-  img {
-    width: 100%;
-    grid-area: 1/1;
-  }
-
-  ${Icons} {
-    background: rgba(0, 0, 0, 0.5);
-    grid-area: 1/1;
-    justify-content: center;
-    opacity: 0;
-  }
-
-  ${Likes}, ${TotalLikes}, ${Comments}, ${TotalComments} {
-    color: ${theme.colors.gray.offWhite};
-  }
-
   `}
 `;

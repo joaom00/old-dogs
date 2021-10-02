@@ -23,45 +23,75 @@ const Post = ({ post, withLabel = true }: PostProps) => {
     locale: ptBR
   });
 
-  return (
-    <S.Wrapper>
-      {isMobileScreen ? (
+  if (isMobileScreen) {
+    return (
+      <S.Wrapper>
         <S.PostImageLink to={`/post/${post.id}`}>
-          <img
-            src={post.photoUrl}
-            alt={`Foto de ${post.user?.name}`}
-            role="button"
-          />
-          {!withLabel && (
-            <S.Icons>
-              <S.Likes>
-                <S.TotalLikes>{post.totalLikes}</S.TotalLikes>
-                <FiHeart size={24} />
-              </S.Likes>
-              <S.Comments>
-                <S.TotalComments>{post.totalComments}</S.TotalComments>
-                <FiMessageCircle size={24} onClick={() => openModal(post.id)} />
-              </S.Comments>
-            </S.Icons>
-          )}
-        </S.PostImageLink>
-      ) : (
-        <S.PostImage role="button" onClick={() => openModal(post.id)}>
           <img src={post.photoUrl} alt={`Foto de ${post.user?.name}`} />
           {!withLabel && (
-            <S.Icons>
-              <S.Likes>
-                <S.TotalLikes>{post.totalLikes}</S.TotalLikes>
+            <S.IconsWrapper>
+              <S.LikesWrapper>
+                <S.Likes>{post.totalLikes}</S.Likes>
                 <FiHeart size={24} />
-              </S.Likes>
-              <S.Comments>
-                <S.TotalComments>{post.totalComments}</S.TotalComments>
+              </S.LikesWrapper>
+              <S.CommentsWrapper>
+                <S.Comments>{post.totalComments}</S.Comments>
                 <FiMessageCircle size={24} onClick={() => openModal(post.id)} />
-              </S.Comments>
-            </S.Icons>
+              </S.CommentsWrapper>
+            </S.IconsWrapper>
           )}
-        </S.PostImage>
-      )}
+        </S.PostImageLink>
+        {withLabel && (
+          <S.PostInfoWrapper>
+            <S.PostInfo>
+              <Link to={`/${post.user.username}`}>
+                <S.UserImage
+                  style={{
+                    backgroundImage: `url(${post.user.avatarUrl})`
+                  }}
+                />
+              </Link>
+
+              <span>
+                <S.Username to={`/${post.user.username}`}>
+                  {post.user.username}
+                </S.Username>
+                <S.PostCreatedDate>{formatDate}</S.PostCreatedDate>
+              </span>
+            </S.PostInfo>
+            <S.IconsWrapper>
+              <S.LikesWrapper>
+                <S.Likes>{post.totalLikes}</S.Likes>
+                <FiHeart size={24} />
+              </S.LikesWrapper>
+              <S.CommentsWrapper>
+                <S.Comments>{post.totalComments}</S.Comments>
+                <FiMessageCircle size={24} onClick={() => openModal(post.id)} />
+              </S.CommentsWrapper>
+            </S.IconsWrapper>
+          </S.PostInfoWrapper>
+        )}
+      </S.Wrapper>
+    );
+  }
+
+  return (
+    <S.Wrapper>
+      <S.PostImage role="button" onClick={() => openModal(post.id)}>
+        <img src={post.photoUrl} alt={`Foto de ${post.user?.name}`} />
+        {!withLabel && (
+          <S.IconsWrapper>
+            <S.LikesWrapper>
+              <S.Likes>{post.totalLikes}</S.Likes>
+              <FiHeart size={24} />
+            </S.LikesWrapper>
+            <S.CommentsWrapper>
+              <S.Comments>{post.totalComments}</S.Comments>
+              <FiMessageCircle size={24} onClick={() => openModal(post.id)} />
+            </S.CommentsWrapper>
+          </S.IconsWrapper>
+        )}
+      </S.PostImage>
       {withLabel && (
         <S.PostInfoWrapper>
           <S.PostInfo>
@@ -80,16 +110,16 @@ const Post = ({ post, withLabel = true }: PostProps) => {
               <S.PostCreatedDate>{formatDate}</S.PostCreatedDate>
             </span>
           </S.PostInfo>
-          <S.Icons>
-            <S.Likes>
-              <S.TotalLikes>{post.totalLikes}</S.TotalLikes>
+          <S.IconsWrapper>
+            <S.LikesWrapper>
+              <S.Likes>{post.totalLikes}</S.Likes>
               <FiHeart size={24} />
-            </S.Likes>
-            <S.Comments>
-              <S.TotalComments>{post.totalComments}</S.TotalComments>
+            </S.LikesWrapper>
+            <S.CommentsWrapper>
+              <S.Comments>{post.totalComments}</S.Comments>
               <FiMessageCircle size={24} onClick={() => openModal(post.id)} />
-            </S.Comments>
-          </S.Icons>
+            </S.CommentsWrapper>
+          </S.IconsWrapper>
         </S.PostInfoWrapper>
       )}
     </S.Wrapper>
