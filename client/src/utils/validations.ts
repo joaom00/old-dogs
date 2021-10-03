@@ -1,6 +1,9 @@
 import joi from 'joi';
 
 const errorMessages = {
+  nameErrors: {
+    'string.empty': 'Nome obrigatório'
+  },
   usernameErrors: {
     'string.empty': 'Nome de usuário obrigatório',
     'string.pattern.base': 'Nome de usuário inválido'
@@ -10,25 +13,41 @@ const errorMessages = {
     'string.email': 'Digite um e-mail válido'
   },
   passwordErrors: {
-    'string.empty': 'Senha obrigatória'
+    'string.empty': 'Senha obrigatória',
+    'string.only': 'Senhas não batem'
   }
 };
 
-const fieldsValidations = {
+const signUpValidations = {
   username: joi
     .string()
     .pattern(/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/)
     .required()
-    .messages({ ...errorMessages.usernameErrors }),
+    .messages(errorMessages.usernameErrors),
   email: joi
     .string()
     .email({ tlds: { allow: false } })
     .required()
-    .messages({ ...errorMessages.emailErrors }),
+    .messages(errorMessages.emailErrors),
+  password: joi.string().required().messages(errorMessages.passwordErrors)
+};
+
+const profileValidations = {
+  name: joi.string().empty('').messages(errorMessages.nameErrors),
+  username: joi
+    .string()
+    .pattern(/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/)
+    .messages(errorMessages.usernameErrors),
+  email: joi
+    .string()
+    .email({ tlds: { allow: false } })
+    .messages(errorMessages.emailErrors),
+  oldPassword: joi.string().empty('').messages(errorMessages.passwordErrors),
   password: joi
     .string()
-    .required()
-    .messages({ ...errorMessages.passwordErrors })
+    .empty('')
+    .equal(joi.ref('oldPassword'))
+    .messages(errorMessages.passwordErrors)
 };
 
 export type TFieldErros = {
@@ -38,7 +57,6 @@ export type TFieldErros = {
 function getFieldErros(objError: joi.ValidationResult) {
   const errors: TFieldErros = {};
 
-  console.log('Erros: ', objError);
   if (objError.error) {
     objError.error.details?.forEach((error) => {
       errors[error.path.join()] = error.message;
@@ -55,7 +73,21 @@ type TSignUpValues = {
 };
 
 export function signUpValidate(values: TSignUpValues) {
-  const schema = joi.object(fieldsValidations);
+  const schema = joi.object(signUpValidations);
+
+  return getFieldErros(schema.validate(values, { abortEarly: false }));
+}
+
+export type TEditProfileValues = {
+  name?: string;
+  username: string;
+  email: string;
+  oldPassword?: string;
+  password?: string;
+};
+
+export function editProfileValidate(values: TEditProfileValues) {
+  const schema = joi.object(profileValidations);
 
   return getFieldErros(schema.validate(values, { abortEarly: false }));
 }

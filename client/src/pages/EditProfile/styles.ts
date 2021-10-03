@@ -1,15 +1,20 @@
 import styled, { css } from 'styled-components';
 
 import Container from '../../components/Container';
+import { Wrapper as ButtonWrapper } from '../../components/Button/styles';
 
 export const Wrapper = styled(Container)``;
 
-export const UserDataFormWrapper = styled.form`
+export const UserDataForm = styled.form`
   ${({ theme }) => css`
-    padding: 0 ${theme.spacings.xxsmall} ${theme.spacings.small}
-      ${theme.spacings.xxsmall};
     display: flex;
     flex-direction: column;
+    padding: 0 ${theme.spacings.xxsmall} ${theme.spacings.small}
+      ${theme.spacings.xxsmall};
+
+    ${ButtonWrapper} {
+      margin-top: 8rem;
+    }
 
     fieldset {
       margin-top: ${theme.spacings.xxlarge};
@@ -35,8 +40,4 @@ export const UserImageWrapper = styled.div`
       border: 1px solid ${theme.colors.gray.line};
     }
   `}
-`;
-
-export const Button = styled.div`
-  margin-top: 8rem;
 `;
