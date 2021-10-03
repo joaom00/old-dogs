@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useState } from 'react';
+import { FormEvent, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FiUpload } from 'react-icons/fi';
 import { useHistory } from 'react-router';
@@ -6,7 +6,7 @@ import Button from '../../components/Button';
 
 import Heading from '../../components/Heading';
 import Textarea from '../../components/Textarea';
-import useCreatePost from '../../hooks/useCreatePost';
+import usePostMutation from '../../hooks/usePostMutation';
 
 import * as S from './styles';
 
@@ -14,8 +14,9 @@ const NewPhoto = () => {
   const [file, setFile] = useState<File>();
   const [filePreview, setFilePreview] = useState('');
   const [description, setDescription] = useState('');
+
   const history = useHistory();
-  const postMutation = useCreatePost();
+  const postMutation = usePostMutation();
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -46,7 +47,6 @@ const NewPhoto = () => {
       history.push('/');
     } catch (err) {
       // TODO: show notification error
-      console.log(err.response);
     }
   }
 

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import userWithoutImage from '../../assets/user.jpg';
-import { useAuth } from '../../contexts/AuthContext';
-
 import { FiHome } from 'react-icons/fi';
 
+import { useAuth } from '../../contexts/AuthContext';
+
 import Logo from '../Logo';
+
+import userWithoutImage from '../../assets/user.jpg';
 
 import * as S from './styles';
 
@@ -48,6 +49,9 @@ const Header = () => {
                     <S.ProfileLink to={`/${user?.username}`}>
                       Perfil
                     </S.ProfileLink>
+                  </li>
+                  <li>
+                    <S.NewPhotoLink to="/new-photo">Nova foto</S.NewPhotoLink>
                   </li>
                   <li>
                     <S.EditProfileLink to="/profile/edit">

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Comment from '../Comment';
 
-import useCreateComment from '../../hooks/useCreateComment';
+import useCommentMutation from '../../hooks/useCommentMutation';
 import usePost from '../../hooks/usePost';
 import usePostComments from '../../hooks/usePostComments';
 import { useModal } from '../../contexts/ModalContext';
@@ -18,7 +18,7 @@ const Modal = () => {
   const postQuery = usePost(postId);
   const commentsQuery = usePostComments(postId);
 
-  const createCommentQuery = useCreateComment();
+  const createCommentQuery = useCommentMutation();
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();

@@ -14,12 +14,9 @@ const creatComment = async ({
   return data;
 };
 
-export default function useCreateComment() {
+export default function useCommentMutation() {
   const queryClient = useQueryClient();
   return useMutation(creatComment, {
-    onError: () => {
-      // TODO: show notification error
-    },
     onSettled: (data) => {
       queryClient.invalidateQueries(['posts', data?.postId, 'comments']);
     }

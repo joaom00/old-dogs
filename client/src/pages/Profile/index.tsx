@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 
@@ -7,7 +7,6 @@ import Modal from '../../components/Modal';
 
 import useUser from '../../hooks/useUser';
 import useUserPosts from '../../hooks/useUserPosts';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { useModal } from '../../contexts/ModalContext';
 
 import userWithoutImage from '../../assets/user.jpg';
@@ -19,14 +18,6 @@ const Profile = () => {
   const { username } = useParams<{ username: string }>();
   const userQuery = useUser(username);
   const userPostsQuery = useUserPosts(userQuery.data?.id);
-
-  const loadMoreRef = useRef<HTMLDivElement>(null);
-
-  useIntersectionObserver({
-    target: loadMoreRef,
-    onIntersect: userPostsQuery.fetchNextPage,
-    enabled: userPostsQuery.hasNextPage
-  });
 
   if (userQuery.isSuccess && userPostsQuery.isSuccess) {
     return (
@@ -40,7 +31,6 @@ const Profile = () => {
             <S.ProfileInfoWrapper>
               <S.Username>
                 {userQuery.data.username}
-                <Link to="/new-photo">Postar foto</Link>
                 <Link to="/profile/edit">
                   <FiSettings size={24} />
                 </Link>
@@ -72,7 +62,6 @@ const Profile = () => {
             </React.Fragment>
           ))}
         </S.Feed>
-        <div ref={loadMoreRef}></div>
       </S.Wrapper>
     );
   }

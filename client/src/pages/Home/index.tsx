@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 
 import Post from '../../components/Post';
 import Modal from '../../components/Modal';
 
 import usePosts from '../../hooks/usePosts';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import { useModal } from '../../contexts/ModalContext';
 
 import * as S from './styles';
@@ -13,19 +12,11 @@ const Home = () => {
   const postsQuery = usePosts();
   const { isOpen, closeModal } = useModal();
 
-  const loadMoreRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     return () => {
       closeModal();
     };
   }, [closeModal]);
-
-  useIntersectionObserver({
-    target: loadMoreRef,
-    onIntersect: postsQuery.fetchNextPage,
-    enabled: postsQuery.hasNextPage
-  });
 
   if (postsQuery.isSuccess) {
     return (
@@ -38,7 +29,6 @@ const Home = () => {
             ))}
           </React.Fragment>
         ))}
-        <div ref={loadMoreRef}></div>
       </S.Wrapper>
     );
   }

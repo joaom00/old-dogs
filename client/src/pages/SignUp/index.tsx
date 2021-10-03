@@ -2,21 +2,22 @@ import { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api';
+import { TFieldErros, signUpValidate } from '../../utils/validations';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
 import * as S from './styles';
-import { TFieldErros, signUpValidate } from '../../utils/validations';
 
 const SignUpForm = () => {
-  const history = useHistory();
   const [fieldError, setFieldError] = useState<TFieldErros>({});
   const [values, setValues] = useState({
     username: '',
     email: '',
     password: ''
   });
+
+  const history = useHistory();
 
   function handleInput(field: string, value: string) {
     setValues((oldValues) => ({ ...oldValues, [field]: value }));
@@ -36,7 +37,7 @@ const SignUpForm = () => {
 
     setFieldError({});
 
-    await api.post('users', { ...values });
+    await api.post('users', values);
 
     history.push('/signin');
   }

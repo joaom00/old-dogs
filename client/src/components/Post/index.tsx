@@ -1,13 +1,24 @@
 import { Link } from 'react-router-dom';
+import { FiHeart, FiMessageCircle } from 'react-icons/fi';
+
 import { parseISO } from 'date-fns';
 import { formatDistanceToNow } from 'date-fns/esm';
 import ptBR from 'date-fns/locale/pt-BR';
-import { FiHeart, FiMessageCircle } from 'react-icons/fi';
 
 import { useModal } from '../../contexts/ModalContext';
-import { TPost } from '../../hooks/usePosts';
+import { TUser } from '../../contexts/AuthContext';
 
 import * as S from './styles';
+
+export type TPost = {
+  id: string;
+  description: string;
+  createdAt: string;
+  totalComments: number;
+  totalLikes: number;
+  photoUrl: string;
+  user: TUser;
+};
 
 type PostProps = {
   withLabel?: boolean;

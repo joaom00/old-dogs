@@ -1,26 +1,15 @@
 import { useInfiniteQuery } from 'react-query';
-
-import { TUser } from '../contexts/AuthContext';
+import { TPost } from '../components/Post';
 
 import api from '../services/api';
 
-export type TPost = {
-  id: string;
-  description: string;
-  createdAt: string;
-  totalComments: number;
-  totalLikes: number;
-  photoUrl: string;
-  user: TUser;
-};
-
-export type TData = {
+type TResponse = {
   currentPage: number;
   totalPages: number;
   posts: TPost[];
 };
 
-const getLatestPosts = async (pageParam: number): Promise<TData> => {
+const getLatestPosts = async (pageParam: number): Promise<TResponse> => {
   const { data } = await api.get(`posts/latest?page=${pageParam}`);
 
   return data;
@@ -28,10 +17,10 @@ const getLatestPosts = async (pageParam: number): Promise<TData> => {
 
 export default function usePosts() {
   return useInfiniteQuery(
-    'posts',
+    ['posts', { type: 'latest' }],
     ({ pageParam = 1 }) => getLatestPosts(pageParam),
     {
-      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 60 * 3, // after 3 minutes data is considered stale
       getNextPageParam: (page) =>
         page.currentPage < page.totalPages ? page.currentPage + 1 : undefined
     }

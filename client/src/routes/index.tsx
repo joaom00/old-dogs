@@ -22,7 +22,7 @@ const Routes = () => {
       <Route exact path="/" component={Home} isPrivate />
       <Route path="/new-photo" component={NewPhoto} isPrivate />
       <Route path="/post/:postId" component={Post} isPrivate />
-      <Route path="/:username" component={Profile} isPrivate />
+      <Route exact path="/:username" component={Profile} isPrivate />
       <Route path="/profile/edit" component={EditProfile} isPrivate />
     </Switch>
   );

@@ -17,11 +17,8 @@ const editProfile = async (userData: TEditProfileData) => {
 export default function useEditProfile() {
   const queryClient = useQueryClient();
   return useMutation(editProfile, {
-    onError: () => {
-      // do something
-    },
     onSettled: () => {
-      queryClient.invalidateQueries(['user']);
+      queryClient.invalidateQueries('user');
     }
   });
 }

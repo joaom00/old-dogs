@@ -1,9 +1,8 @@
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
-
-import { TPost } from './usePosts';
-
 import api from '../services/api';
+
+import { TPost } from '../components/Post';
 
 const getPost = async (postId: string) => {
   const { data } = await api.get(`posts/${postId}`);

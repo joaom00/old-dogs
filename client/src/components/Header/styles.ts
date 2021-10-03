@@ -84,7 +84,7 @@ export const Dropdown = styled.div`
   `}
 `;
 
-export const ProfileLink = styled(Link)`
+const BaseLink = styled(Link)`
   ${({ theme }) => css`
     display: block;
     padding: ${theme.spacings.xsmall};
@@ -92,13 +92,11 @@ export const ProfileLink = styled(Link)`
   `}
 `;
 
-export const EditProfileLink = styled(Link)`
-  ${({ theme }) => css`
-    display: block;
-    padding: ${theme.spacings.xsmall};
-    color: ${theme.colors.gray.label};
-  `}
-`;
+export const ProfileLink = styled(BaseLink)``;
+
+export const EditProfileLink = styled(BaseLink)``;
+
+export const NewPhotoLink = styled(BaseLink)``;
 
 export const LogoutButton = styled.span`
   ${({ theme }) => css`
