@@ -15,7 +15,6 @@
 <p align="center">
   <a href="#package-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#rocket-como-executar">Como Executar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <!-- <a href="#sparkles-features">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; -->
   <a href="https://www.figma.com/file/qZVVZzTWNF4SrAUqDqdiG2/Dogs?node-id=201%3A2">Figma</a>
 </p>
 
@@ -49,6 +48,7 @@ git clone https://github.com/joaom00/dogs.git
 ```
 cd server
 yarn
+yarn typeorm migration:run
 yarn dev
 ```
 
@@ -59,14 +59,3 @@ yarn
 yarn start
 ```
 
-<!-- ## ✨ Features -->
-<!--  -->
-<!-- | Concluído | Feature              |  -->
-<!-- |-----------|----------------------| -->
-<!-- | &#9745;   | Criação de Conta     | -->
-<!-- | &#9745;   | Login                | -->
-<!-- | &#9744;   | Recuperação de senha | -->
-<!-- | &#9745;   | Editar Perfil        | -->
-<!-- | &#9744;   | Postar Foto          | -->
-<!-- | &#9744;   | Curtir Foto          | -->
-<!-- | &#9744;   | Comentar uma Foto    | -->
