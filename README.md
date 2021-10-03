@@ -10,8 +10,6 @@
   <img alt="GitHub Stars" src="https://img.shields.io/github/stars/joaom00/dogs?style=social"> 
 </p>
 
-<p align="center">Projeto ainda está sendo desenvolvido</p>
-
 <p align="center">
   <a href="#package-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#rocket-como-executar">Como Executar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
