@@ -11,7 +11,15 @@ import Routes from './routes';
 
 import GlobalStyles from './styles/global';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false
+    }
+  }
+});
 
 const App = () => {
   return (
