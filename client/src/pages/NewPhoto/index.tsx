@@ -2,11 +2,13 @@ import { FormEvent, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FiUpload } from 'react-icons/fi';
 import { useHistory } from 'react-router';
-import Button from '../../components/Button';
 
+import usePostMutation from '../../hooks/usePostMutation';
+
+import Button from '../../components/Button';
+import DotsLoading from '../../components/DotsLoading';
 import Heading from '../../components/Heading';
 import Textarea from '../../components/Textarea';
-import usePostMutation from '../../hooks/usePostMutation';
 
 import * as S from './styles';
 
@@ -76,7 +78,7 @@ const NewPhoto = () => {
         </fieldset>
 
         <Button type="submit">
-          {postMutation.isLoading ? 'Enviando...' : 'Salvar'}
+          {postMutation.isLoading ? <DotsLoading /> : 'Salvar'}
         </Button>
       </form>
     </S.Wrapper>

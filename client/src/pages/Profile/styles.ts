@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div``;
@@ -96,6 +97,19 @@ export const Data = styled.p`
       flex-direction: row;
       font-size: ${theme.font.sizes.medium};
     }
+  `}
+`;
+
+export const HasNoPosts = styled.p`
+  ${({ theme }) => css`
+    text-align: center;
+    margin-top: ${theme.spacings.xxxlarge};
+  `}
+`;
+
+export const NewPhotoLink = styled(Link)`
+  ${({ theme }) => css`
+    color: ${theme.colors.primary[600]};
   `}
 `;
 

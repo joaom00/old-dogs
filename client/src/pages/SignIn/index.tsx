@@ -1,12 +1,14 @@
 import { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router';
+
 import { useAuth } from '../../contexts/AuthContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Logo from '../../components/Logo';
+import DotsLoading from '../../components/DotsLoading';
 
 import * as S from './styles';
-import Logo from '../../components/Logo';
 
 const SignInForm = () => {
   const { signIn } = useAuth();
@@ -56,7 +58,7 @@ const SignInForm = () => {
           </fieldset>
 
           <Button fullWidth type="submit">
-            {signIn.isLoading ? 'Entrando...' : 'Entrar'}
+            {signIn.isLoading ? <DotsLoading /> : 'Entrar'}
           </Button>
 
           <S.LinksWrapper>

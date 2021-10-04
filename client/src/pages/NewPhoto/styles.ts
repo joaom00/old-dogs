@@ -8,7 +8,9 @@ type DropzoneProps = {
 
 export const Wrapper = styled(Container)`
   ${({ theme }) => css`
+    padding: 0 ${theme.spacings.xxsmall} 0 ${theme.spacings.xxsmall};
     margin-top: ${theme.spacings.xxxlarge};
+    margin-bottom: ${theme.spacings.small};
 
     form {
       display: flex;
@@ -51,8 +53,8 @@ export const Description = styled.p`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.small};
     text-align: center;
-    width: calc(100% - 94px);
-    height: calc(100% - 62px);
+    width: calc(100% - 44px);
+    height: calc(100% - 42px);
     border-radius: 6px;
     border: 2px dashed ${theme.colors.primary[500]};
 
@@ -60,6 +62,11 @@ export const Description = styled.p`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media ${theme.media.greaterThan('medium')} {
+      width: calc(100% - 94px);
+      height: calc(100% - 62px);
+    }
 
     svg {
       margin-bottom: ${theme.spacings.xsmall};

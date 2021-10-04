@@ -1,15 +1,18 @@
 import { FormEvent, useState } from 'react';
+
 import { useAuth } from '../../contexts/AuthContext';
 import useUserMutation from '../../hooks/useUserMutation';
+
+import Button from '../../components/Button';
+import Heading from '../../components/Heading';
+import Input from '../../components/Input';
+import DotsLoading from '../../components/DotsLoading';
+
 import {
   editProfileValidate,
   TEditProfileValues,
   TFieldErros
 } from '../../utils/validations';
-
-import Button from '../../components/Button';
-import Heading from '../../components/Heading';
-import Input from '../../components/Input';
 
 import * as S from './styles';
 
@@ -22,8 +25,6 @@ const EditProfile = () => {
     username: user.username,
     name: user.name || ''
   });
-
-  console.log(values);
 
   const userMutation = useUserMutation();
 
@@ -110,7 +111,9 @@ const EditProfile = () => {
           />
         </fieldset>
 
-        <Button type="submit">Salvar</Button>
+        <Button type="submit">
+          {userMutation.isLoading ? <DotsLoading /> : 'Salvar'}
+        </Button>
       </S.UserDataForm>
     </S.Wrapper>
   );
