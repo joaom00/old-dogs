@@ -13,7 +13,7 @@ export default class DeleteCommentService {
     const comment = await commentsRepositoy.findOne(commentId);
 
     if (!comment) {
-      throw new AppError('Comment not found.', 404);
+      throw new AppError('Comentário não encontrado.', 404);
     }
 
     await commentsRepositoy.delete(comment.id);

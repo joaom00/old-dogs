@@ -26,7 +26,7 @@ export default class UpdateProfileService {
     const user = await usersRepository.findOne(userId);
 
     if (!user) {
-      throw new AppError('User not found.', 404);
+      throw new AppError('Usuário não encontrado.', 404);
     }
 
     const userWithUpdatedEmail = await usersRepository.findOne({
@@ -34,7 +34,7 @@ export default class UpdateProfileService {
     });
 
     if (userWithUpdatedEmail && userWithUpdatedEmail.id !== userId) {
-      throw new AppError('E-mail already in use.');
+      throw new AppError('E-mail já cadastrado.');
     }
 
     user.name = name;
@@ -45,14 +45,14 @@ export default class UpdateProfileService {
     });
 
     if (userWithUpdatedUsername && userWithUpdatedUsername.id !== userId) {
-      throw new AppError('Username already in use.');
+      throw new AppError('Username já cadastrado.');
     }
 
     user.username = username;
 
     if (password && !oldPassword) {
       throw new AppError(
-        'You need to inform the old password to set a new password'
+        'Você precisa informar a senha antiga para criar uma nova.'
       );
     }
 
@@ -60,7 +60,7 @@ export default class UpdateProfileService {
       const checkOldPassword = await compare(oldPassword, user.password);
 
       if (!checkOldPassword) {
-        throw new AppError('Old password does not match.');
+        throw new AppError('Senha antiga incorreta.');
       }
 
       user.password = await hash(password, 8);

@@ -27,13 +27,13 @@ export default class AuthenticateUserService {
     });
 
     if (!user) {
-      throw new AppError('Incorrect credentials combination.', 401);
+      throw new AppError('Credenciais incorretas.', 401);
     }
 
     const passwordMatched = await compare(password, user.password);
 
     if (!passwordMatched) {
-      throw new AppError('Incorrect credentials combination.', 401);
+      throw new AppError('Credenciais incorretas.', 401);
     }
 
     const { secret, expiresIn } = authConfig.jwt;

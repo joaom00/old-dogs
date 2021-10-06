@@ -18,7 +18,7 @@ export default class DeletePostService {
     const post = await postsReposioty.findOne(postId);
 
     if (!post) {
-      throw new AppError('Post not found.', 404);
+      throw new AppError('Publicação não encontrada', 404);
     }
 
     const photoFilePath = path.join(

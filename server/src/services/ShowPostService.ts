@@ -22,7 +22,7 @@ export default class ShowPostService {
       .getOne();
 
     if (!post) {
-      throw new AppError('Post not found.', 404);
+      throw new AppError('Publicação não encontrada.', 404);
     }
 
     return post;
