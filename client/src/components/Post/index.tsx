@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { FiHeart, FiMessageCircle } from 'react-icons/fi';
-
 import { parseISO } from 'date-fns';
 import { formatDistanceToNow } from 'date-fns/esm';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -9,6 +8,8 @@ import { useModal } from '../../contexts/ModalContext';
 import { TUser } from '../../contexts/AuthContext';
 
 import PostWrapper from './PostWrapper';
+
+import userWithoutImage from '../../assets/user.jpg';
 
 import * as S from './styles';
 
@@ -37,7 +38,10 @@ const Post = ({ post, withLabel = true }: TPostProps) => {
   return (
     <S.Wrapper>
       <PostWrapper postId={post.id} openModal={openModal}>
-        <img src={post.photoUrl} alt={`Foto de ${post.user?.name}`} />
+        <img
+          src={post.photoUrl || userWithoutImage}
+          alt={`Foto de ${post.user?.name}`}
+        />
         {!withLabel && (
           <S.IconsWrapper>
             <S.LikesWrapper>
@@ -55,11 +59,7 @@ const Post = ({ post, withLabel = true }: TPostProps) => {
         <S.PostInfoWrapper>
           <S.PostInfo>
             <Link to={`/${post.user.username}`}>
-              <S.UserImage
-                style={{
-                  backgroundImage: `url(${post.user.avatarUrl})`
-                }}
-              />
+              <S.UserImage src={post.user.avatarUrl || userWithoutImage} />
             </Link>
 
             <span>

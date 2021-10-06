@@ -15,7 +15,7 @@ type TResponse = {
   comments: TComment[];
 };
 
-const fetchPostComments = async (
+const fetchComments = async (
   postId: string,
   pageParam: number
 ): Promise<TResponse> => {
@@ -23,11 +23,12 @@ const fetchPostComments = async (
   return data;
 };
 
-export default function usePostComments(postId: string) {
+export default function useComments(postId: string) {
   return useInfiniteQuery(
     ['posts', postId, 'comments'],
-    ({ pageParam = 1 }) => fetchPostComments(postId, pageParam),
+    ({ pageParam = 1 }) => fetchComments(postId, pageParam),
     {
+      staleTime: 1000 * 60 * 60 * 3, // after 3 minutes data is considered stale
       getNextPageParam: (page) =>
         page.currentPage < page.totalPages ? page.currentPage + 1 : undefined
     }

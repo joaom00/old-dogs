@@ -1,14 +1,4 @@
-import styled, { keyframes } from 'styled-components';
-
-const dots = keyframes`
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(0, 30px, 0);
-  }
-`;
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   text-align: center;
@@ -20,7 +10,17 @@ export const Wrapper = styled.div`
     border-radius: 5px;
     background: #664b07;
     margin: 4px;
-    animation: ${dots} 0.6s cubic-bezier(0.6, 0.1, 1, 0.4) infinite alternate;
+    animation: dots 0.6s cubic-bezier(0.6, 0.1, 1, 0.4) infinite alternate;
+
+    @keyframes dots {
+      from {
+        transform: translate3d(0, 0, 0);
+      }
+
+      to {
+        transform: translate3d(0, 30px, 0);
+      }
+    }
 
     &:nth-child(1) {
       animation-delay: 0.1s;

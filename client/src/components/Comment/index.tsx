@@ -5,7 +5,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 
 import { TUser } from '../../contexts/AuthContext';
 
-import deletedUserImage from '../../assets/user.jpg';
+import userWithoutImage from '../../assets/user.jpg';
 
 import * as S from './styles';
 
@@ -24,13 +24,15 @@ const Comment = ({ comment, user, createdAt }: CommentProps) => {
     <S.Wrapper>
       <Link to={`/${user?.username}`}>
         <img
-          src={user ? user.avatarUrl : deletedUserImage}
+          src={user?.avatarUrl ? user.avatarUrl : userWithoutImage}
           alt={user ? `Foto de perfil de ${user.name}` : 'Usuário deletado'}
         />
       </Link>
       <S.Comment>
         <S.Content>
-          <S.Username to={`/${user?.username}`}>{user ? user.username : 'Usuário deletado'}</S.Username>
+          <S.Username to={`/${user?.username}`}>
+            {user ? user.username : 'Usuário deletado'}
+          </S.Username>
           {comment}
         </S.Content>
         <S.CommentInfo>

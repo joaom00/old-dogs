@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -9,12 +10,18 @@ import Logo from '../../components/Logo';
 import DotsLoading from '../../components/DotsLoading';
 
 import * as S from './styles';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignInForm = () => {
   const { signIn } = useAuth();
   const history = useHistory();
 
   const [values, setValues] = useState({ emailOrUsername: '', password: '' });
+
+  const notify = (msg: string) =>
+    toast.error(msg, {
+      position: toast.POSITION.BOTTOM_CENTER
+    });
 
   function handleInput(field: string, value: string) {
     setValues((oldValue) => ({ ...oldValue, [field]: value }));
@@ -27,7 +34,7 @@ const SignInForm = () => {
       await signIn.mutateAsync(values);
       history.push('/');
     } catch (err) {
-      // TODO: show notification error
+      notify(err.response.data.message);
     }
   }
 
@@ -72,6 +79,8 @@ const SignInForm = () => {
         </S.SignInForm>
       </S.SignInFormWrapper>
       <S.Background />
+
+      <ToastContainer />
     </S.Wrapper>
   );
 };

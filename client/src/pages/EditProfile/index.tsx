@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { useAuth } from '../../contexts/AuthContext';
 import useUserMutation from '../../hooks/useUserMutation';
@@ -14,6 +15,8 @@ import {
   TFieldErros
 } from '../../utils/validations';
 
+import userWithoutImage from '../../assets/user.jpg';
+
 import * as S from './styles';
 
 const EditProfile = () => {
@@ -27,6 +30,11 @@ const EditProfile = () => {
   });
 
   const userMutation = useUserMutation();
+
+  const notify = (msg: string) =>
+    toast.error(msg, {
+      position: toast.POSITION.BOTTOM_CENTER
+    });
 
   function handleInput(field: string, value: string) {
     setValues((oldValues) => ({ ...oldValues, [field]: value }));
@@ -49,7 +57,7 @@ const EditProfile = () => {
 
       await userMutation.mutateAsync(values);
     } catch (err) {
-      // TODO: show notification error
+      notify(err.response.data.message);
     }
   }
 
@@ -57,7 +65,7 @@ const EditProfile = () => {
     <S.Wrapper>
       <S.UserDataForm onSubmit={handleSubmit}>
         <S.UserImageWrapper role="button">
-          <img src={user.avatarUrl} />
+          <img src={user.avatarUrl || userWithoutImage} />
         </S.UserImageWrapper>
 
         <fieldset>
@@ -115,6 +123,8 @@ const EditProfile = () => {
           {userMutation.isLoading ? <DotsLoading /> : 'Salvar'}
         </Button>
       </S.UserDataForm>
+
+      <ToastContainer />
     </S.Wrapper>
   );
 };

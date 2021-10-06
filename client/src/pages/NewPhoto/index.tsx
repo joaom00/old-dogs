@@ -2,6 +2,7 @@ import { FormEvent, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FiUpload } from 'react-icons/fi';
 import { useHistory } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
 
 import usePostMutation from '../../hooks/usePostMutation';
 
@@ -19,6 +20,11 @@ const NewPhoto = () => {
 
   const history = useHistory();
   const postMutation = usePostMutation();
+
+  const notify = () =>
+    toast.error('Algo deu errado, por favor tente novamente mais tarde', {
+      position: toast.POSITION.BOTTOM_CENTER
+    });
 
   const onDrop = useCallback((acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -42,13 +48,13 @@ const NewPhoto = () => {
       const data = new FormData();
 
       data.append('description', description);
-      if (file) data.append('photo', file);
+      !!file && data.append('photo', file);
 
       await postMutation.mutateAsync(data);
 
       history.push('/');
-    } catch (err) {
-      // TODO: show notification error
+    } catch {
+      notify();
     }
   }
 
@@ -81,6 +87,8 @@ const NewPhoto = () => {
           {postMutation.isLoading ? <DotsLoading /> : 'Salvar'}
         </Button>
       </form>
+
+      <ToastContainer />
     </S.Wrapper>
   );
 };

@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
   `}
 `;
 
-export const PostContentWrapper = styled.div`
+export const PostContentWrapper = styled.form`
   flex: 1;
 
   display: flex;
@@ -60,7 +60,8 @@ export const PostDescriptions = styled.p`
 export const CommentsWrapper = styled.div`
   ${({ theme }) => css`
     position: relative;
-    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall} ${theme.spacings.xsmall};
+    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall}
+      ${theme.spacings.xsmall};
     overflow-y: scroll;
     scrollbar-width: none;
 

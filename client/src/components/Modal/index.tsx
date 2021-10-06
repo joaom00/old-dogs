@@ -1,30 +1,42 @@
 import React, { FormEvent, useState } from 'react';
-import { FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-
-import Comment from '../Comment';
+import { FiX } from 'react-icons/fi';
+import { ToastContainer, toast } from 'react-toastify';
 
 import useCommentMutation from '../../hooks/useCommentMutation';
 import usePost from '../../hooks/usePost';
-import usePostComments from '../../hooks/usePostComments';
+import useComments from '../../hooks/useComments';
 import { useModal } from '../../contexts/ModalContext';
+
+import Comment from '../Comment';
+import Loading from '../Loading';
+import DotsLoading from '../DotsLoading';
+
+import userWithoutImage from '../../assets/user.jpg';
 
 import * as S from './styles';
 
 const Modal = () => {
-  const { isOpen, postId, closeModal } = useModal();
   const [comment, setComment] = useState('');
 
+  const { isOpen, postId, closeModal } = useModal();
   const postQuery = usePost(postId);
-  const commentsQuery = usePostComments(postId);
+  const commentsQuery = useComments(postId);
+  const commentMutation = useCommentMutation();
 
-  const createCommentQuery = useCommentMutation();
+  const notify = () =>
+    toast.error('Algo deu errado, por favor tente novamente mais tarde', {
+      position: toast.POSITION.BOTTOM_CENTER
+    });
 
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    if (comment) {
-      createCommentQuery.mutate({ postId, comment });
+  async function handleSubmit(event: FormEvent) {
+    try {
+      event.preventDefault();
+
+      await commentMutation.mutateAsync({ postId, comment });
       setComment('');
+    } catch {
+      notify();
     }
   }
 
@@ -46,7 +58,7 @@ const Modal = () => {
               <S.PostHeader>
                 <Link to={`/${postQuery.data.user.username}`}>
                   <img
-                    src={postQuery.data.user.avatarUrl}
+                    src={postQuery.data.user.avatarUrl || userWithoutImage}
                     alt={`Foto de perfil de ${postQuery.data.user.name}`}
                   />
                 </Link>
@@ -70,12 +82,6 @@ const Modal = () => {
                     ))}
                   </React.Fragment>
                 ))}
-                <button
-                  type="button"
-                  onClick={() => commentsQuery.fetchNextPage()}
-                >
-                  Carregar mais
-                </button>
               </S.CommentsWrapper>
 
               <S.NewCommentInputWrapper>
@@ -84,16 +90,18 @@ const Modal = () => {
                   onChange={(event) => setComment(event.target.value)}
                   placeholder="Adicionar comentário"
                 />
-                <S.NewCommentButton>
-                  {createCommentQuery.isLoading ? 'Enviando...' : 'Enviar'}
+                <S.NewCommentButton type="submit">
+                  {commentMutation.isLoading ? <DotsLoading /> : 'Enviar'}
                 </S.NewCommentButton>
               </S.NewCommentInputWrapper>
             </S.PostContentWrapper>
           </>
         ) : (
-          <div>Carregando...</div>
+          <Loading />
         )}
       </S.Modal>
+
+      <ToastContainer />
     </S.Wrapper>
   );
 };

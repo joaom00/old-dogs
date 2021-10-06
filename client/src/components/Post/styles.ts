@@ -32,8 +32,9 @@ export const PostInfo = styled.div`
   `}
 `;
 
-export const UserImage = styled.img`
-  ${({ theme }) => css`
+export const UserImage = styled.img<{ src: string }>`
+  ${({ theme, src }) => css`
+    background-image: url(${src});
     background-size: cover;
     width: ${theme.spacings.medium};
     height: ${theme.spacings.medium};

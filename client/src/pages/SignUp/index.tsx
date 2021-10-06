@@ -1,11 +1,13 @@
 import { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
-import api from '../../services/api';
-import { TFieldErros, signUpValidate } from '../../utils/validations';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+
+import api from '../../services/api';
+import { TFieldErros, signUpValidate } from '../../utils/validations';
 
 import * as S from './styles';
 
@@ -19,27 +21,36 @@ const SignUpForm = () => {
 
   const history = useHistory();
 
+  const notify = (msg: string) =>
+    toast.error(msg, {
+      position: toast.POSITION.BOTTOM_CENTER
+    });
+
   function handleInput(field: string, value: string) {
     setValues((oldValues) => ({ ...oldValues, [field]: value }));
   }
 
   async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    setFieldError({});
+      setFieldError({});
 
-    const errors = signUpValidate(values);
+      const errors = signUpValidate(values);
 
-    if (Object.keys(errors).length) {
-      setFieldError(errors);
-      return;
+      if (Object.keys(errors).length) {
+        setFieldError(errors);
+        return;
+      }
+
+      setFieldError({});
+
+      await api.post('users', values);
+
+      history.push('/signin');
+    } catch (err) {
+      notify(err.response.data.message);
     }
-
-    setFieldError({});
-
-    await api.post('users', values);
-
-    history.push('/signin');
   }
 
   return (
@@ -81,6 +92,8 @@ const SignUpForm = () => {
         </S.SignUpForm>
       </S.SignUpFormWrapper>
       <S.Background />
+
+      <ToastContainer />
     </S.Wrapper>
   );
 };
