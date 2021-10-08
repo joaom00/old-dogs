@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { InView } from 'react-intersection-observer';
 
 import usePosts from '../../hooks/usePosts';
 import { useModal } from '../../contexts/ModalContext';
@@ -20,7 +21,7 @@ const Home = () => {
   }, [closeModal]);
 
   if (postsQuery.isLoading) {
-    return <Loading />;
+    return <Loading fullScreen />;
   }
 
   return (
@@ -34,6 +35,14 @@ const Home = () => {
           ))}
         </React.Fragment>
       ))}
+
+      <InView onChange={(inView) => inView && postsQuery.fetchNextPage()} />
+
+      {postsQuery.isFetchingNextPage ? (
+        <Loading />
+      ) : (
+        <S.NoHasNextPage>Não há mais publicações</S.NoHasNextPage>
+      )}
     </S.Wrapper>
   );
 };

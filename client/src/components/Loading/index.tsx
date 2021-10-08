@@ -2,14 +2,17 @@ import { useEffect, useState } from 'react';
 
 import * as S from './styles';
 
-const Loading = () => {
+type LoadingProps = {
+  fullScreen?: boolean;
+};
+
+const Loading = ({ fullScreen = false }: LoadingProps) => {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
     function updateStep() {
       setStep((step) => {
-        if (step < 3) return step + 1;
-        else return 0;
+        return step < 3 ? step + 1 : 0;
       });
     }
     const interval = setInterval(updateStep, 300);
@@ -25,7 +28,7 @@ const Loading = () => {
   }
 
   return (
-    <S.Wrapper>
+    <S.Wrapper fullScreen={fullScreen}>
       <svg
         width="46"
         height="31"
