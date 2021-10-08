@@ -1,5 +1,8 @@
 import styled, { css } from 'styled-components';
 
+import { Wrapper as LoadingWrapper } from '../Loading/styles';
+import { Wrapper as DotsLoadingWrapper } from '../DotsLoading/styles';
+
 type WrapperProps = {
   isOpen: boolean;
 };
@@ -116,6 +119,13 @@ export const CommentsWrapper = styled.div`
     overflow-y: scroll;
     scrollbar-width: none;
 
+    ${LoadingWrapper} {
+      svg {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -159,5 +169,12 @@ export const NewCommentButton = styled.button`
     color: ${theme.colors.primary[500]};
     font-size: ${theme.font.sizes.xsmall};
     letter-spacing: 0.08em;
+
+    ${DotsLoadingWrapper} {
+      span {
+        width: 8px;
+        height: 8px;
+      }
+    }
   `}
 `;

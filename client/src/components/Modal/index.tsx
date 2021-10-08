@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
 import { ToastContainer, toast } from 'react-toastify';
+import { InView } from 'react-intersection-observer';
 
 import useCommentMutation from '../../hooks/useCommentMutation';
 import usePost from '../../hooks/usePost';
@@ -65,11 +66,13 @@ const Modal = () => {
                 <p>{postQuery.data.user.username}</p>
               </S.PostHeader>
               <S.CommentsWrapper>
-                <Comment
-                  comment={postQuery.data.description}
-                  user={postQuery.data.user}
-                  createdAt={postQuery.data.createdAt}
-                />
+                {!!postQuery.data.description && (
+                  <Comment
+                    comment={postQuery.data.description}
+                    user={postQuery.data.user}
+                    createdAt={postQuery.data.createdAt}
+                  />
+                )}
                 {commentsQuery.data?.pages.map((page, index) => (
                   <React.Fragment key={index}>
                     {page.comments.map((comment) => (
@@ -82,6 +85,11 @@ const Modal = () => {
                     ))}
                   </React.Fragment>
                 ))}
+                <InView
+                  onChange={(inView) => inView && commentsQuery.fetchNextPage()}
+                />
+
+                {commentsQuery.isFetchingNextPage && <Loading />}
               </S.CommentsWrapper>
 
               <S.NewCommentInputWrapper>
@@ -97,7 +105,7 @@ const Modal = () => {
             </S.PostContentWrapper>
           </>
         ) : (
-          <Loading />
+          <Loading fullScreen />
         )}
       </S.Modal>
 

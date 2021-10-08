@@ -10,12 +10,13 @@ export const Wrapper = styled.ul`
     max-width: 61.6rem;
     margin: ${theme.spacings.medium} auto 0 auto;
 
-    display: flex;
-    flex-direction: column;
-
     ${LoadingWrapper} {
-      align-self: center;
       margin-top: ${theme.spacings.medium};
+
+      svg {
+        display: block;
+        margin: 0 auto;
+      }
     }
 
     ${PostWrappper} + ${PostWrappper} {
