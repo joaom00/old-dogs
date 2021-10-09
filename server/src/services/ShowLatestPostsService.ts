@@ -1,5 +1,6 @@
 import { createQueryBuilder } from 'typeorm';
 import Post from '../models/Post';
+import Like from '../models/Like';
 
 type Request = {
   skip: number;
@@ -18,19 +19,27 @@ export default class ShowLatestPostsService {
     ).getManyAndCount();
 
     const totalPages = Math.ceil(totalPosts / 10);
+    let posts: Post[];
 
-    const posts = await createQueryBuilder(Post, 'post')
-      .loadRelationCountAndMap(
-        'post.totalComments',
-        'post.comments',
-        'comments'
-      )
-      .loadRelationCountAndMap('post.totalLikes', 'post.likes', 'likes')
+    posts = await createQueryBuilder(Post, 'post')
+      .loadRelationCountAndMap('post.totalComments', 'post.comments')
+      .loadRelationCountAndMap('post.totalLikes', 'post.likes')
       .leftJoinAndSelect('post.user', 'user')
       .orderBy('post.createdAt', 'DESC')
       .skip(skip)
       .take(10)
       .getMany();
+
+    for (const post of posts) {
+      const hasLiked = await createQueryBuilder(Like, 'like')
+        .where('like.userId = :userId', {
+          userId: post.userId
+        })
+        .andWhere('like.postId = :postId', { postId: post.id })
+        .getOne();
+
+      post.hasLiked = hasLiked !== undefined;
+    }
 
     return {
       totalPages,

@@ -50,6 +50,8 @@ class Post {
   getPhotoUrl(): string | null {
     return this.photo ? `http://localhost:3333/resized/${this.photo}` : null;
   }
+
+  hasLiked: boolean;
 }
 
 export default Post;

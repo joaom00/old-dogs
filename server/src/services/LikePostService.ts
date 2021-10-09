@@ -1,4 +1,4 @@
-import { getRepository, DeleteResult } from 'typeorm';
+import { getRepository } from 'typeorm';
 import Like from '../models/Like';
 
 type Request = {
