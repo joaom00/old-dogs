@@ -1,8 +1,29 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { AiFillHeart } from 'react-icons/ai';
 
 export const Wrapper = styled.li`
   overflow: hidden;
+`;
+
+export const HeartLike = styled(AiFillHeart)`
+  grid-area: 1/1;
+  z-index: 9999;
+  align-self: center;
+  justify-self: center;
+  transform: scale(0);
+  animation: heartAnimation 0.5s ease-in-out backwards;
+
+  @keyframes heartAnimation {
+    from {
+      transform: scale(0);
+      opacity: 1;
+    }
+    to {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
 `;
 
 export const PostInfoWrapper = styled.div`
