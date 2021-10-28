@@ -90,7 +90,7 @@ make
 O script irá:
 
 - Instalar as dependências
-- Executar o client na porta `3000`
+- Executar o cliente na porta `3000`
 
 ##### Para executar o cliente em modo de desenvolvimento
 
