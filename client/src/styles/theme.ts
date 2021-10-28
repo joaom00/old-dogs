@@ -1,4 +1,4 @@
-type DefaultBreakpoints = typeof defaultBreakpoints;
+type DefaultBreakpoints = typeof defaultBreakpoints
 
 const defaultBreakpoints = {
   small: '640px',
@@ -6,14 +6,17 @@ const defaultBreakpoints = {
   large: '1024px',
   xlarge: '1280px',
   huge: '1536px'
-};
+}
 
 const theme = {
   grid: {
     container: '97.5rem'
   },
   border: {
-    radius: '0.8rem'
+    radius: {
+      xsmall: '0.4rem',
+      small: '0.8rem'
+    }
   },
   spacings: {
     xxsmall: '0.8rem',
@@ -42,7 +45,7 @@ const theme = {
     }
   },
   colors: {
-    error: '#FF6347',
+    error: '#ED2E7E',
     gray: {
       titleActive: '#14142B',
       body: '#4E4B66',
@@ -74,15 +77,15 @@ const theme = {
   },
   media: {
     lessThan(breakpoint: keyof DefaultBreakpoints) {
-      return `(max-width: ${defaultBreakpoints[breakpoint]})`;
+      return `(max-width: ${defaultBreakpoints[breakpoint]})`
     },
     greaterThan(breakpoint: keyof DefaultBreakpoints) {
-      return `(min-width: ${defaultBreakpoints[breakpoint]})`;
+      return `(min-width: ${defaultBreakpoints[breakpoint]})`
     },
     between(firstBreakpoint: keyof DefaultBreakpoints, secondBreakpoint: keyof DefaultBreakpoints) {
-      return `(min-width: ${defaultBreakpoints[firstBreakpoint]}) and (max-width: ${defaultBreakpoints[secondBreakpoint]})`;
+      return `(min-width: ${defaultBreakpoints[firstBreakpoint]}) and (max-width: ${defaultBreakpoints[secondBreakpoint]})`
     }
   }
-} as const;
+} as const
 
-export default theme;
+export default theme

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
 @font-face {
@@ -78,6 +78,11 @@ table {
 	border-spacing: 0;
 }
 
+:root {
+  --toastify-color-error: #ED2E7E;
+  --toastify-color-success: #00BA88;
+}
+
 *,
 *:before,
 *:after {
@@ -105,6 +110,6 @@ button {
 a {
   text-decoration: none;
 }
-`;
+`
 
-export default GlobalStyles;
+export default GlobalStyles
