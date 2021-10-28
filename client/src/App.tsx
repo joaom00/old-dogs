@@ -1,15 +1,16 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { QueryClientProvider, QueryClient } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { BrowserRouter as Router } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+import { QueryClientProvider, QueryClient } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { ToastContainer } from 'react-toastify'
 
-import theme from './styles/theme';
+import theme from './styles/theme'
 
-import AppProvider from './contexts';
+import AppProvider from './contexts'
 
-import Routes from './routes';
+import Routes from './routes'
 
-import GlobalStyles from './styles/global';
+import GlobalStyles from './styles/global'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,7 +20,7 @@ const queryClient = new QueryClient({
       refetchOnReconnect: false
     }
   }
-});
+})
 
 const App = () => {
   return (
@@ -28,13 +29,14 @@ const App = () => {
         <Router>
           <AppProvider>
             <Routes />
+            <ToastContainer />
           </AppProvider>
         </Router>
         <GlobalStyles />
       </ThemeProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App
