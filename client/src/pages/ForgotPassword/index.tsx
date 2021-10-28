@@ -1,26 +1,27 @@
-import { FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
-import api from '../../services/api';
+import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { FiArrowLeft } from 'react-icons/fi'
 
-import Button from '../../components/Button';
-import Input from '../../components/Input';
+import api from '../../services/api'
 
-import * as S from './styles';
+import Button from '../../components/Button'
+import Input from '../../components/Input'
+
+import * as S from './styles'
 
 const ForgotPassword = () => {
-  const history = useHistory();
+  const history = useHistory()
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('')
 
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
 
     await api.post('forgot-password', {
       email
-    });
+    })
 
-    history.push('/signin');
+    history.push('/signin')
   }
 
   return (
@@ -32,9 +33,7 @@ const ForgotPassword = () => {
         <S.ForgotPasswordForm onSubmit={handleSubmit}>
           <fieldset>
             <S.Title>Recuperação de Senha</S.Title>
-            <S.Description>
-              Preencha o campo para iniciar o processo de recuperação de senha.
-            </S.Description>
+            <S.Description>Preencha o campo para iniciar o processo de recuperação de senha.</S.Description>
             <Input
               type="email"
               name="email"
@@ -51,7 +50,7 @@ const ForgotPassword = () => {
       </S.ForgotPasswordFormWrapper>
       <S.Background />
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default ForgotPassword;
+export default ForgotPassword

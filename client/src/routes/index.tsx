@@ -1,16 +1,18 @@
-import { Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom'
 
-import Route from './Route';
+import Route from './Route'
 
-import SignUp from '../pages/SignUp';
-import SignIn from '../pages/SignIn';
-import ForgotPassword from '../pages/ForgotPassword';
+import SignUp from '../pages/SignUp'
+import SignIn from '../pages/SignIn'
+import ForgotPassword from '../pages/ForgotPassword'
 
-import Home from '../pages/Home';
-import Profile from '../pages/Profile';
-import EditProfile from '../pages/EditProfile';
-import Post from '../pages/Post';
-import NewPhoto from '../pages/NewPhoto';
+import Home from '../pages/Home'
+import Profile from '../pages/Profile'
+import EditProfile from '../pages/EditProfile'
+import Post from '../pages/Post'
+import NewPhoto from '../pages/NewPhoto'
+import Followers from '../pages/Followers'
+import Following from '../pages/Following'
 
 const Routes = () => {
   return (
@@ -24,8 +26,10 @@ const Routes = () => {
       <Route path="/post/:postId" component={Post} isPrivate />
       <Route exact path="/:username" component={Profile} isPrivate />
       <Route path="/profile/edit" component={EditProfile} isPrivate />
+      <Route path="/:username/followers" component={Followers} isPrivate />
+      <Route path="/:username/following" component={Following} isPrivate />
     </Switch>
-  );
-};
+  )
+}
 
-export default Routes;
+export default Routes

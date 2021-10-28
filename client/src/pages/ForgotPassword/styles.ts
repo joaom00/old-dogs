@@ -1,25 +1,24 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components'
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
-import backgroundImg from '../../assets/login.jpg';
+import backgroundImg from '../../assets/login.jpg'
 
 const animeLeft = keyframes`
   to {
     opacity: 1;
     transform: initial;
   }
-`;
+`
 
 export const Wrapper = styled.section`
   height: 100vh;
   display: flex;
-`;
+`
 
 export const ForgotPasswordFormWrapper = styled.div`
   ${({ theme }) => css`
-    padding: ${theme.spacings.xxxlarge} ${theme.spacings.medium} 0
-      ${theme.spacings.medium};
+    padding: ${theme.spacings.xxxlarge} ${theme.spacings.medium} 0 ${theme.spacings.medium};
 
     width: 100%;
     max-width: 600px;
@@ -41,7 +40,7 @@ export const ForgotPasswordFormWrapper = styled.div`
       padding-left: 0;
     }
   `}
-`;
+`
 
 export const LinkToSignInPage = styled(Link)`
   ${({ theme }) => css`
@@ -67,7 +66,7 @@ export const LinkToSignInPage = styled(Link)`
       margin-left: 8rem;
     }
   `}
-`;
+`
 
 export const ForgotPasswordForm = styled.form`
   ${({ theme }) => css`
@@ -80,7 +79,7 @@ export const ForgotPasswordForm = styled.form`
       margin-left: 8rem;
     }
   `}
-`;
+`
 
 export const Title = styled.legend`
   ${({ theme }) => css`
@@ -105,7 +104,7 @@ export const Title = styled.legend`
       z-index: -1;
     }
   `}
-`;
+`
 
 export const Description = styled.p`
   ${({ theme }) => css`
@@ -116,10 +115,10 @@ export const Description = styled.p`
     line-height: 2.6rem;
     margin-bottom: ${theme.spacings.xlarge};
   `}
-`;
+`
 
 export const Background = styled.div`
   background: url(${backgroundImg}) no-repeat center;
   background-size: cover;
   flex: 1;
-`;
+`

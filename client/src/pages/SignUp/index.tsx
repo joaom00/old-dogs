@@ -1,55 +1,50 @@
-import { FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { FiArrowLeft } from 'react-icons/fi'
 
-import Button from '../../components/Button';
-import Input from '../../components/Input';
+import { notifyError } from '../../services/notify'
+import api from '../../services/api'
+import { TFieldErros, signUpValidate } from '../../utils/validations'
 
-import api from '../../services/api';
-import { TFieldErros, signUpValidate } from '../../utils/validations';
+import Button from '../../components/Button'
+import Input from '../../components/Input'
 
-import * as S from './styles';
+import * as S from './styles'
 
 const SignUpForm = () => {
-  const [fieldError, setFieldError] = useState<TFieldErros>({});
+  const [fieldError, setFieldError] = useState<TFieldErros>({})
   const [values, setValues] = useState({
     username: '',
     email: '',
     password: ''
-  });
+  })
 
-  const history = useHistory();
-
-  const notify = (msg: string) =>
-    toast.error(msg, {
-      position: toast.POSITION.BOTTOM_CENTER
-    });
+  const history = useHistory()
 
   function handleInput(field: string, value: string) {
-    setValues((oldValues) => ({ ...oldValues, [field]: value }));
+    setValues((oldValues) => ({ ...oldValues, [field]: value }))
   }
 
-  async function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: React.FormEvent) {
     try {
-      event.preventDefault();
+      event.preventDefault()
 
-      setFieldError({});
+      setFieldError({})
 
-      const errors = signUpValidate(values);
+      const errors = signUpValidate(values)
 
       if (Object.keys(errors).length) {
-        setFieldError(errors);
-        return;
+        setFieldError(errors)
+        return
       }
 
-      setFieldError({});
+      setFieldError({})
 
-      await api.post('users', values);
+      await api.post('users', values)
 
-      history.push('/signin');
+      history.push('/signin')
     } catch (err) {
-      notify(err.response.data.message);
+      notifyError(err.response.data.message)
     }
   }
 
@@ -92,10 +87,8 @@ const SignUpForm = () => {
         </S.SignUpForm>
       </S.SignUpFormWrapper>
       <S.Background />
-
-      <ToastContainer />
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default SignUpForm;
+export default SignUpForm

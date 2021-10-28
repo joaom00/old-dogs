@@ -1,77 +1,97 @@
-import { FormEvent, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useState } from 'react'
 
-import { useAuth } from '../../contexts/AuthContext';
-import useUserMutation from '../../hooks/useUserMutation';
+import { notifyError, notifySuccess } from '../../services/notify'
+import { editProfileValidate, TFieldErros } from '../../utils/validations'
 
-import Button from '../../components/Button';
-import Heading from '../../components/Heading';
-import Input from '../../components/Input';
-import DotsLoading from '../../components/DotsLoading';
+import { TUser } from '../../contexts/AuthContext'
+import { TUpdateUserData, useGetUserLogged, useUpdateAvatarMutation, useUpdateUserMutation } from '../../hooks'
 
-import {
-  editProfileValidate,
-  TEditProfileValues,
-  TFieldErros
-} from '../../utils/validations';
+import Button from '../../components/Button'
+import Heading from '../../components/Heading'
+import Input from '../../components/Input'
+import CircleLoading from '../../components/CircleLoading'
 
-import userWithoutImage from '../../assets/user.jpg';
+import userWithoutImage from '../../assets/user.jpg'
 
-import * as S from './styles';
+import * as S from './styles'
 
 const EditProfile = () => {
-  const { user } = useAuth();
+  const user = useGetUserLogged()
 
-  const [fieldError, setFieldError] = useState<TFieldErros>({});
-  const [values, setValues] = useState<TEditProfileValues>({
-    email: user.email,
-    username: user.username,
-    name: user.name || ''
-  });
+  const [fieldError, setFieldError] = useState<TFieldErros>({})
+  const [file, setFile] = useState<File>()
+  const [filePreview, setFilePreview] = useState('')
+  const [values, setValues] = useState<TUpdateUserData>(() => {
+    if (user) {
+      return {
+        username: user.username,
+        email: user.email,
+        name: user.name || ''
+      }
+    }
 
-  const userMutation = useUserMutation();
+    return {} as TUser
+  })
 
-  const notify = (msg: string) =>
-    toast.error(msg, {
-      position: toast.POSITION.BOTTOM_CENTER
-    });
+  const updateUser = useUpdateUserMutation()
+  const updateAvatar = useUpdateAvatarMutation()
 
   function handleInput(field: string, value: string) {
-    setValues((oldValues) => ({ ...oldValues, [field]: value }));
+    setValues((oldValues) => ({ ...oldValues, [field]: value }))
   }
 
-  async function handleSubmit(event: FormEvent) {
-    try {
-      event.preventDefault();
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
 
-      setFieldError({});
+    setFieldError({})
 
-      const errors = editProfileValidate(values);
+    const errors = editProfileValidate(values)
 
-      if (Object.keys(errors).length) {
-        setFieldError(errors);
-        return;
-      }
-
-      setFieldError({});
-
-      await userMutation.mutateAsync(values);
-    } catch (err) {
-      notify(err.response.data.message);
+    if (Object.keys(errors).length) {
+      setFieldError(errors)
+      return
     }
+
+    setFieldError({})
+
+    updateUser.mutate(values, {
+      onSuccess: () => notifySuccess('Perfil atualizado!'),
+      onError: (error) => notifyError(error.response?.data.message)
+    })
+
+    if (file) {
+      const data = new FormData()
+      data.append('avatar', file)
+
+      updateAvatar.mutate(data, {
+        onError: () => notifyError()
+      })
+    }
+  }
+
+  function fileHandle(event: React.ChangeEvent<HTMLInputElement>) {
+    let file
+    if (event.target.files) file = event.target.files[0]
+
+    const fileUrl = URL.createObjectURL(file)
+    setFile(file)
+    setFilePreview(fileUrl)
   }
 
   return (
     <S.Wrapper>
       <S.UserDataForm onSubmit={handleSubmit}>
         <S.UserImageWrapper role="button">
-          <img src={user.avatarUrl || userWithoutImage} />
+          <label htmlFor="avatar">
+            <img src={filePreview || user?.avatarUrl || userWithoutImage} />
+          </label>
+          <input type="file" id="avatar" name="avatar" onChange={fileHandle} />
         </S.UserImageWrapper>
 
         <fieldset>
           <Heading as="legend">Seus dados</Heading>
           <Input
-            initialValue={user.username}
+            initialValue={user?.username}
             type="text"
             name="username"
             label="Nome de usuário"
@@ -80,7 +100,7 @@ const EditProfile = () => {
             error={fieldError.username}
           />
           <Input
-            initialValue={user.email}
+            initialValue={user?.email}
             type="text"
             name="email"
             label="E-mail"
@@ -89,7 +109,7 @@ const EditProfile = () => {
             error={fieldError.email}
           />
           <Input
-            initialValue={user.name || ''}
+            initialValue={user?.name || ''}
             type="text"
             name="name"
             label="Nome"
@@ -119,14 +139,10 @@ const EditProfile = () => {
           />
         </fieldset>
 
-        <Button type="submit">
-          {userMutation.isLoading ? <DotsLoading /> : 'Salvar'}
-        </Button>
+        <Button type="submit">{updateUser.isLoading ? <CircleLoading /> : 'Salvar'}</Button>
       </S.UserDataForm>
-
-      <ToastContainer />
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default EditProfile;
+export default EditProfile

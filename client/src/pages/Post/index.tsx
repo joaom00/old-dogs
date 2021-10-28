@@ -1,48 +1,40 @@
-import React, { FormEvent, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 
-import usePost from '../../hooks/usePost';
-import useComments from '../../hooks/useComments';
-import useCommentMutation from '../../hooks/useCommentMutation';
+import { notifyError } from '../../services/notify'
 
-import Comment from '../../components/Comment';
-import DotsLoading from '../../components/DotsLoading';
+import { usePost, useComments, useCreateCommentMutation } from '../../hooks'
 
-import userWithoutImage from '../../assets/user.jpg';
+import Comment from '../../components/Comment'
+import CircleLoading from '../../components/CircleLoading'
 
-import * as S from './styles';
+import userWithoutImage from '../../assets/user.jpg'
+
+import * as S from './styles'
 
 const Post = () => {
-  const [comment, setComment] = useState('');
+  const { postId } = useParams<{ postId: string }>()
+  const [comment, setComment] = useState('')
 
-  const { postId } = useParams<{ postId: string }>();
-  const postQuery = usePost(postId);
-  const commentsQuery = useComments(postId);
-  const commentMutation = useCommentMutation();
+  const postQuery = usePost(postId)
+  const commentsQuery = useComments(postId)
+  const createComment = useCreateCommentMutation()
 
-  const notify = () =>
-    toast.error('Algo deu errado, por favor tente novamente mais tarde', {
-      position: toast.POSITION.BOTTOM_CENTER
-    });
+  function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
 
-  async function handleSubmit(event: FormEvent) {
-    try {
-      event.preventDefault();
-
-      await commentMutation.mutateAsync({ postId, comment });
-      setComment('');
-    } catch {
-      notify();
-    }
+    createComment.mutate(
+      { postId, comment },
+      {
+        onSuccess: () => setComment(''),
+        onError: () => notifyError()
+      }
+    )
   }
 
   return (
     <S.Wrapper>
-      <img
-        src={postQuery.data?.photoUrl}
-        alt={`Foto de ${postQuery.data?.user.name}`}
-      />
+      <img src={postQuery.data?.photoUrl} alt={`Foto de ${postQuery.data?.user.name}`} />
       <S.PostContentWrapper onSubmit={handleSubmit}>
         <S.PostHeader>
           <Link to={`/${postQuery.data?.user.username}`}>
@@ -59,12 +51,7 @@ const Post = () => {
           {commentsQuery.data?.pages.map((page, index) => (
             <React.Fragment key={index}>
               {page.comments.map((comment) => (
-                <Comment
-                  key={comment.id}
-                  comment={comment.comment}
-                  user={comment.user}
-                  createdAt={comment.createdAt}
-                />
+                <Comment key={comment.id} comment={comment.comment} user={comment.user} createdAt={comment.createdAt} />
               ))}
             </React.Fragment>
           ))}
@@ -77,14 +64,12 @@ const Post = () => {
             placeholder="Adicionar comentário"
           />
           <S.NewCommentButton type="submit">
-            {commentMutation.isLoading ? <DotsLoading /> : 'Enviar'}
+            {createComment.isLoading ? <CircleLoading /> : 'Enviar'}
           </S.NewCommentButton>
         </S.NewCommentInputWrapper>
       </S.PostContentWrapper>
-
-      <ToastContainer />
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post

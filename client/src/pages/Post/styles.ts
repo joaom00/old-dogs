@@ -1,11 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`
     max-width: ${theme.grid.container};
     margin: 0 auto;
     z-index: ${theme.layers.modal};
-    height: 60rem;
 
     display: flex;
     flex-direction: column;
@@ -13,15 +12,19 @@ export const Wrapper = styled.div`
     > img {
       object-fit: cover;
     }
+
+    @media ${theme.media.greaterThan('medium')} {
+      height: 60rem;
+    }
   `}
-`;
+`
 
 export const PostContentWrapper = styled.form`
   flex: 1;
 
   display: flex;
   flex-direction: column;
-`;
+`
 
 export const PostHeader = styled.header`
   ${({ theme }) => css`
@@ -46,7 +49,7 @@ export const PostHeader = styled.header`
       color: ${theme.colors.gray.titleActive};
     }
   `}
-`;
+`
 
 export const PostDescriptions = styled.p`
   ${({ theme }) => css`
@@ -55,13 +58,12 @@ export const PostDescriptions = styled.p`
     line-height: 2.2rem;
     margin-top: ${theme.spacings.small};
   `}
-`;
+`
 
 export const CommentsWrapper = styled.div`
   ${({ theme }) => css`
     position: relative;
-    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall}
-      ${theme.spacings.xsmall};
+    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall} ${theme.spacings.xsmall};
     overflow-y: scroll;
     scrollbar-width: none;
 
@@ -73,12 +75,12 @@ export const CommentsWrapper = styled.div`
       margin-top: ${theme.spacings.small};
     }
   `}
-`;
+`
 
 export const NewCommentInputWrapper = styled.div`
   margin-top: auto;
   position: relative;
-`;
+`
 
 export const NewCommentInput = styled.input`
   ${({ theme }) => css`
@@ -92,7 +94,7 @@ export const NewCommentInput = styled.input`
       color: ${theme.colors.gray.placeholder};
     }
   `}
-`;
+`
 
 export const NewCommentButton = styled.button`
   ${({ theme }) => css`
@@ -109,4 +111,4 @@ export const NewCommentButton = styled.button`
     font-size: ${theme.font.sizes.xsmall};
     letter-spacing: 0.08em;
   `}
-`;
+`

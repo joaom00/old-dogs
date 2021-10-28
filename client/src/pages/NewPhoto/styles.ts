@@ -1,10 +1,10 @@
-import styled, { css } from 'styled-components';
-import Container from '../../components/Container';
-import { Wrapper as ButtonWrapper } from '../../components/Button/styles';
+import styled, { css } from 'styled-components'
+
+import Container from '../../components/Container'
 
 type DropzoneProps = {
-  hasFile: string;
-};
+  hasFile: string
+}
 
 export const Wrapper = styled(Container)`
   ${({ theme }) => css`
@@ -15,13 +15,9 @@ export const Wrapper = styled(Container)`
     form {
       display: flex;
       flex-direction: column;
-
-      ${ButtonWrapper} {
-        align-self: flex-end;
-      }
     }
   `}
-`;
+`
 
 export const Dropzone = styled.div<DropzoneProps>`
   ${({ theme, hasFile }) => css`
@@ -47,7 +43,7 @@ export const Dropzone = styled.div<DropzoneProps>`
       margin: 0 auto;
     }
   `}
-`;
+`
 
 export const Description = styled.p`
   ${({ theme }) => css`
@@ -73,4 +69,4 @@ export const Description = styled.p`
       color: ${theme.colors.primary[500]};
     }
   `}
-`;
+`

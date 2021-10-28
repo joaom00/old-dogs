@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom'
+import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div``
 
 export const ProfileWrapper = styled.div`
   ${({ theme }) => css`
@@ -12,7 +12,7 @@ export const ProfileWrapper = styled.div`
       padding: ${theme.spacings.xxlarge};
     }
   `}
-`;
+`
 
 export const Profile = styled.div`
   ${({ theme }) => css`
@@ -24,6 +24,10 @@ export const Profile = styled.div`
     align-items: center;
     gap: ${theme.spacings.small};
 
+    > input {
+      display: none;
+    }
+
     @media ${theme.media.greaterThan('medium')} {
       justify-content: flex-start;
       align-items: flex-start;
@@ -31,7 +35,7 @@ export const Profile = styled.div`
       gap: ${theme.spacings.xxlarge};
     }
   `}
-`;
+`
 
 export const ProfileImage = styled.img`
   ${({ theme }) => css`
@@ -39,13 +43,14 @@ export const ProfileImage = styled.img`
     height: 8.4rem;
     border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;
 
     @media ${theme.media.greaterThan('medium')} {
       width: 18.4rem;
       height: 18.4rem;
     }
   `}
-`;
+`
 
 export const ProfileInfoWrapper = styled.div`
   ${({ theme }) => css`
@@ -53,27 +58,22 @@ export const ProfileInfoWrapper = styled.div`
     flex-direction: column;
     gap: ${theme.spacings.small};
   `}
-`;
+`
 
 export const Username = styled.h3`
   ${({ theme }) => css`
     font-weight: ${theme.font.bold};
-    font-size: ${theme.font.sizes.large};
+    font-size: ${theme.font.sizes.xlarge};
     color: ${theme.colors.gray.titleActive};
-
-    svg {
-      margin-left: ${theme.spacings.small};
-      color: ${theme.colors.gray.label};
-    }
   `}
-`;
+`
 
 export const ProfileInfo = styled.div`
   ${({ theme }) => css`
     display: flex;
     gap: ${theme.spacings.xsmall};
   `}
-`;
+`
 
 export const Strong = styled.strong`
   ${({ theme }) => css`
@@ -82,7 +82,7 @@ export const Strong = styled.strong`
     font-size: ${theme.font.sizes.medium};
     margin-right: 0.4rem;
   `}
-`;
+`
 
 export const Data = styled.p`
   ${({ theme }) => css`
@@ -98,20 +98,20 @@ export const Data = styled.p`
       font-size: ${theme.font.sizes.medium};
     }
   `}
-`;
+`
 
 export const HasNoPosts = styled.p`
   ${({ theme }) => css`
     text-align: center;
     margin-top: ${theme.spacings.xxxlarge};
   `}
-`;
+`
 
 export const NewPhotoLink = styled(Link)`
   ${({ theme }) => css`
     color: ${theme.colors.primary[600]};
   `}
-`;
+`
 
 export const Feed = styled.ul`
   ${({ theme }) => css`
@@ -127,4 +127,23 @@ export const Feed = styled.ul`
       width: 100%;
     }
   `}
-`;
+`
+
+export const ErrorHeading = styled.h1`
+  ${({ theme }) => css`
+    font-size: ${theme.font.sizes.large};
+    font-weight: ${theme.font.bold};
+    text-align: center;
+    color: ${theme.colors.gray.titleActive};
+    margin-top: ${theme.spacings.xxxlarge};
+  `}
+`
+
+export const ErrorDescription = styled.p`
+  ${({ theme }) => css`
+    font-size: ${theme.font.sizes.medium};
+    text-align: center;
+    color: ${theme.colors.gray.label};
+    margin-top: ${theme.spacings.large};
+  `}
+`

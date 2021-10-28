@@ -1,41 +1,35 @@
-import { FormEvent, useState } from 'react';
-import { useHistory } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 
-import { useAuth } from '../../contexts/AuthContext';
+import { notifyError } from '../../services/notify'
 
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-import Logo from '../../components/Logo';
-import DotsLoading from '../../components/DotsLoading';
+import { useAuth } from '../../contexts/AuthContext'
 
-import * as S from './styles';
-import 'react-toastify/dist/ReactToastify.css';
+import Input from '../../components/Input'
+import Button from '../../components/Button'
+import Logo from '../../components/Logo'
+import CircleLoading from '../../components/CircleLoading'
+
+import * as S from './styles'
+import 'react-toastify/dist/ReactToastify.css'
 
 const SignInForm = () => {
-  const { signIn } = useAuth();
-  const history = useHistory();
+  const { signIn } = useAuth()
+  const history = useHistory()
 
-  const [values, setValues] = useState({ emailOrUsername: '', password: '' });
-
-  const notify = (msg: string) =>
-    toast.error(msg, {
-      position: toast.POSITION.BOTTOM_CENTER
-    });
+  const [values, setValues] = useState({ emailOrUsername: '', password: '' })
 
   function handleInput(field: string, value: string) {
-    setValues((oldValue) => ({ ...oldValue, [field]: value }));
+    setValues((oldValue) => ({ ...oldValue, [field]: value }))
   }
 
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+  function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
 
-    try {
-      await signIn.mutateAsync(values);
-      history.push('/');
-    } catch (err) {
-      notify(err.response.data.message);
-    }
+    signIn.mutate(values, {
+      onSuccess: () => history.push('/'),
+      onError: (error) => notifyError(error.response?.data.message)
+    })
   }
 
   return (
@@ -47,9 +41,7 @@ const SignInForm = () => {
         <S.SignInForm onSubmit={handleSubmit}>
           <fieldset>
             <S.Title>Iniciar sessão</S.Title>
-            <S.Description>
-              Já possui uma conta? Faça login aqui embaixo.
-            </S.Description>
+            <S.Description>Já possui uma conta? Faça login aqui embaixo.</S.Description>
             <Input
               type="text"
               name="emailOrUsername"
@@ -65,24 +57,20 @@ const SignInForm = () => {
           </fieldset>
 
           <Button fullWidth type="submit">
-            {signIn.isLoading ? <DotsLoading /> : 'Entrar'}
+            {signIn.isLoading ? <CircleLoading /> : 'Entrar'}
           </Button>
 
           <S.LinksWrapper>
             <p>
               Não tem conta? <S.SignUpLink to="/signup">Crie uma</S.SignUpLink>
             </p>
-            <S.ForgotPasswordLink to="/forgot-password">
-              Esqueci minha senha
-            </S.ForgotPasswordLink>
+            <S.ForgotPasswordLink to="/forgot-password">Esqueci minha senha</S.ForgotPasswordLink>
           </S.LinksWrapper>
         </S.SignInForm>
       </S.SignInFormWrapper>
       <S.Background />
-
-      <ToastContainer />
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default SignInForm;
+export default SignInForm

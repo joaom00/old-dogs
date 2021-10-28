@@ -1,26 +1,17 @@
-import {
-  Route as ReactDOMRoute,
-  RouteProps as ReactDOMRouteProps,
-  Redirect
-} from 'react-router-dom';
+import { Route as ReactDOMRoute, RouteProps as ReactDOMRouteProps, Redirect } from 'react-router-dom'
 
-import Header from '../components/Header';
+import Header from '../components/Header'
 
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext'
 
 interface RouteProps extends ReactDOMRouteProps {
-  isPrivate?: boolean;
-  noHeader?: boolean;
-  component: React.ComponentType;
+  isPrivate?: boolean
+  noHeader?: boolean
+  component: React.ComponentType
 }
 
-const Route = ({
-  isPrivate = false,
-  noHeader = false,
-  component: Component,
-  ...rest
-}: RouteProps) => {
-  const { user } = useAuth();
+const Route = ({ isPrivate = false, noHeader = false, component: Component, ...rest }: RouteProps) => {
+  const { user } = useAuth()
 
   return (
     <ReactDOMRoute
@@ -38,10 +29,10 @@ const Route = ({
               state: { from: location }
             }}
           />
-        );
+        )
       }}
     />
-  );
-};
+  )
+}
 
-export default Route;
+export default Route
