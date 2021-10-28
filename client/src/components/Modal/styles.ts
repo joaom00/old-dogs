@@ -1,11 +1,8 @@
-import styled, { css } from 'styled-components';
-
-import { Wrapper as LoadingWrapper } from '../Loading/styles';
-import { Wrapper as DotsLoadingWrapper } from '../DotsLoading/styles';
+import styled, { css } from 'styled-components'
 
 type WrapperProps = {
-  isOpen: boolean;
-};
+  isOpen: boolean
+}
 
 const modifiers = {
   open: () => css`
@@ -16,7 +13,7 @@ const modifiers = {
     opacity: 0;
     pointer-events: none;
   `
-};
+}
 
 export const Wrapper = styled.div<WrapperProps>`
   ${({ theme, isOpen }) => css`
@@ -35,7 +32,7 @@ export const Wrapper = styled.div<WrapperProps>`
     ${isOpen && modifiers.open}
     ${!isOpen && modifiers.close}
   `}
-`;
+`
 
 export const Close = styled.div`
   ${({ theme }) => css`
@@ -53,7 +50,7 @@ export const Close = styled.div`
       cursor: pointer;
     }
   `}
-`;
+`
 
 export const Modal = styled.div`
   ${({ theme }) => css`
@@ -68,14 +65,14 @@ export const Modal = styled.div`
       object-fit: cover;
     }
   `}
-`;
+`
 
 export const PostContentWrapper = styled.form`
   flex: 1;
 
   display: flex;
   flex-direction: column;
-`;
+`
 
 export const PostHeader = styled.header`
   ${({ theme }) => css`
@@ -100,7 +97,15 @@ export const PostHeader = styled.header`
       color: ${theme.colors.gray.titleActive};
     }
   `}
-`;
+`
+
+export const TrashIconWrapper = styled.div`
+  ${({ theme }) => css`
+    color: ${theme.colors.error};
+    margin-left: auto;
+    cursor: pointer;
+  `}
+`
 
 export const PostDescriptions = styled.p`
   ${({ theme }) => css`
@@ -109,22 +114,14 @@ export const PostDescriptions = styled.p`
     line-height: 2.2rem;
     margin-top: ${theme.spacings.small};
   `}
-`;
+`
 
 export const CommentsWrapper = styled.div`
   ${({ theme }) => css`
     position: relative;
-    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall}
-      ${theme.spacings.xsmall};
+    padding: 0 ${theme.spacings.xsmall} ${theme.spacings.xsmall} ${theme.spacings.xsmall};
     overflow-y: scroll;
     scrollbar-width: none;
-
-    ${LoadingWrapper} {
-      svg {
-        display: block;
-        margin: 0 auto;
-      }
-    }
 
     &::-webkit-scrollbar {
       display: none;
@@ -134,12 +131,65 @@ export const CommentsWrapper = styled.div`
       margin-top: ${theme.spacings.small};
     }
   `}
-`;
+`
+
+export const DescriptionWrapper = styled.div`
+  ${({ theme }) => css`
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    grid-template-areas: 'img comment' 'x commentInfo';
+    margin-top: ${theme.spacings.medium};
+
+    img {
+      grid-area: img;
+      width: ${theme.spacings.medium};
+      height: ${theme.spacings.medium};
+      border-radius: 50%;
+      object-fit: cover;
+      border-color: ${theme.colors.gray.line};
+    }
+  `}
+`
+
+export const Description = styled.div`
+  ${({ theme }) => css`
+    grid-area: comment;
+    display: flex;
+    align-items: center;
+    align-self: start;
+
+    a {
+      font-size: ${theme.font.sizes.small};
+      font-weight: ${theme.font.bold};
+      margin-right: 0.4rem;
+      color: ${theme.colors.gray.titleActive};
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    p {
+      font-size: ${theme.font.sizes.xsmall};
+      color: ${theme.colors.gray.titleActive};
+      font-weight: ${theme.font.normal};
+      line-height: 2.2rem;
+    }
+  `}
+`
+
+export const DescriptionDateInfo = styled.span`
+  ${({ theme }) => css`
+    grid-area: commentInfo;
+    font-size: ${theme.font.sizes.xsmall};
+    color: ${theme.colors.gray.placeholder};
+  `}
+`
 
 export const NewCommentInputWrapper = styled.div`
   margin-top: auto;
   position: relative;
-`;
+`
 
 export const NewCommentInput = styled.input`
   ${({ theme }) => css`
@@ -153,7 +203,7 @@ export const NewCommentInput = styled.input`
       color: ${theme.colors.gray.placeholder};
     }
   `}
-`;
+`
 
 export const NewCommentButton = styled.button`
   ${({ theme }) => css`
@@ -169,12 +219,5 @@ export const NewCommentButton = styled.button`
     color: ${theme.colors.primary[500]};
     font-size: ${theme.font.sizes.xsmall};
     letter-spacing: 0.08em;
-
-    ${DotsLoadingWrapper} {
-      span {
-        width: 8px;
-        height: 8px;
-      }
-    }
   `}
-`;
+`

@@ -1,9 +1,9 @@
-import styled, { css, DefaultTheme } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components'
 
-import { SignInFormWrapper } from '../../pages/SignIn/styles';
+import { SignInFormWrapper } from '../../pages/SignIn/styles'
 
-import { LogoProps } from '.';
-import { Link } from 'react-router-dom';
+import { LogoProps } from '.'
+import { Link } from 'react-router-dom'
 
 const modifiers = {
   black: (theme: DefaultTheme) => css`
@@ -21,7 +21,7 @@ const modifiers = {
   large: () => css`
     height: 3.4rem;
   `
-};
+}
 
 export const Wrapper = styled(Link)<LogoProps>`
   ${({ theme, color, size }) => css`
@@ -54,4 +54,4 @@ export const Wrapper = styled(Link)<LogoProps>`
       }
     }
   `}
-`;
+`

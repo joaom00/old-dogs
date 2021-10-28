@@ -1,34 +1,32 @@
-import { useEffect, useRef, useState } from 'react';
-import { FiHome } from 'react-icons/fi';
+import { useEffect, useRef, useState } from 'react'
+import { FiHome } from 'react-icons/fi'
 
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext'
 
-import Logo from '../Logo';
+import Logo from '../Logo'
 
-import userWithoutImage from '../../assets/user.jpg';
+import userWithoutImage from '../../assets/user.jpg'
 
-import * as S from './styles';
+import * as S from './styles'
 
 const Header = () => {
-  const { user, signOut } = useAuth();
-  const [showMenu, setShowMenu] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user, signOut } = useAuth()
+
+  const [showMenu, setShowMenu] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   function handleClickOutside(event: MouseEvent) {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current?.contains(event.target as Node)
-    ) {
-      setShowMenu(false);
+    if (dropdownRef.current && !dropdownRef.current?.contains(event.target as Node)) {
+      setShowMenu(false)
     }
   }
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   return (
     <S.Wrapper>
@@ -39,24 +37,18 @@ const Header = () => {
             <FiHome size={24} />
           </S.Home>
           <S.Profile ref={dropdownRef} onClick={() => setShowMenu(!showMenu)}>
-            <S.UserImage
-              src={user?.avatarUrl ? user.avatarUrl : userWithoutImage}
-            />
+            <S.UserImage src={user?.avatarUrl ? user.avatarUrl : userWithoutImage} />
             {showMenu && (
               <S.Dropdown>
                 <ul>
                   <li>
-                    <S.ProfileLink to={`/${user?.username}`}>
-                      Perfil
-                    </S.ProfileLink>
+                    <S.ProfileLink to={`/${user?.username}`}>Perfil</S.ProfileLink>
                   </li>
                   <li>
                     <S.NewPhotoLink to="/new-photo">Nova foto</S.NewPhotoLink>
                   </li>
                   <li>
-                    <S.EditProfileLink to="/profile/edit">
-                      Editar perfil
-                    </S.EditProfileLink>
+                    <S.EditProfileLink to="/profile/edit">Editar perfil</S.EditProfileLink>
                   </li>
                   <li>
                     <S.LogoutButton onClick={signOut}>Sair</S.LogoutButton>
@@ -68,7 +60,7 @@ const Header = () => {
         </ul>
       </S.HeaderWrapper>
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

@@ -1,17 +1,20 @@
-import { ButtonHTMLAttributes } from 'react';
-import * as S from './styles';
+import { ButtonHTMLAttributes } from 'react'
 
-type ButtonProps = {
-  fullWidth?: boolean;
-  children: React.ReactNode;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+import * as S from './styles'
 
-const Button = ({ fullWidth = false, children, ...props }: ButtonProps) => {
+type TButtonProps = {
+  variant?: 'primary' | 'secondary'
+  size?: 'xsmall' | 'small' | 'medium' | 'large'
+  fullWidth?: boolean
+  children: React.ReactNode
+} & ButtonHTMLAttributes<HTMLButtonElement>
+
+const Button = ({ variant = 'primary', size = 'large', fullWidth = false, children, ...props }: TButtonProps) => {
   return (
-    <S.Wrapper fullWidth={fullWidth} type="button" {...props}>
+    <S.Wrapper type="button" variant={variant} size={size} fullWidth={fullWidth} {...props}>
       {children}
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

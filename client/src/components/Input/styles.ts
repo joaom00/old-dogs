@@ -1,18 +1,18 @@
-import styled, { css, DefaultTheme } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components'
 
 type WrapperProps = {
-  sideBySide: boolean;
-};
+  sideBySide: boolean
+}
 
 const modifiers = {
   sideBySide: (theme: DefaultTheme) => css`
     @media ${theme.media.greaterThan('medium')} {
       display: grid;
-      grid-template-columns: 41rem 39.7rem;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
     }
   `
-};
+}
 
 export const Wrapper = styled.div<WrapperProps>`
   ${({ theme, sideBySide }) => css`
@@ -25,7 +25,7 @@ export const Wrapper = styled.div<WrapperProps>`
 
     ${sideBySide && modifiers.sideBySide(theme)};
   `}
-`;
+`
 
 export const Label = styled.label`
   ${({ theme }) => css`
@@ -33,7 +33,7 @@ export const Label = styled.label`
     color: ${theme.colors.gray.label};
     margin-bottom: ${theme.spacings.xxsmall};
   `}
-`;
+`
 
 export const Error = styled.span`
   ${({ theme }) => css`
@@ -41,11 +41,11 @@ export const Error = styled.span`
     color: ${theme.colors.error};
     margin-left: ${theme.spacings.xxsmall};
   `}
-`;
+`
 
 export const InputWrapper = styled.div`
   position: relative;
-`;
+`
 
 export const ShowHidePasswordButton = styled.span`
   ${({ theme }) => css`
@@ -60,17 +60,17 @@ export const ShowHidePasswordButton = styled.span`
     letter-spacing: 0.08em;
     cursor: pointer;
   `}
-`;
+`
 
 type InputStyleProps = {
-  error?: boolean;
-};
+  error?: boolean
+}
 
 const inputModifiers = {
   error: (theme: DefaultTheme) => css`
     border-color: ${theme.colors.error};
   `
-};
+}
 
 export const Input = styled.input<InputStyleProps>`
   ${({ theme, error }) => css`
@@ -90,4 +90,4 @@ export const Input = styled.input<InputStyleProps>`
 
     ${error && inputModifiers.error(theme)}
   `}
-`;
+`

@@ -1,19 +1,14 @@
-import {
-  InputHTMLAttributes,
-  ChangeEvent,
-  useState,
-  useRef,
-  useEffect
-} from 'react';
-import * as S from './styles';
+import { useState, useRef, useEffect } from 'react'
+
+import * as S from './styles'
 
 export type InputProps = {
-  label: string;
-  initialValue?: string;
-  onInputChange?: (value: string) => void;
-  error?: string;
-  sideBySide?: boolean;
-} & InputHTMLAttributes<HTMLInputElement>;
+  label: string
+  initialValue?: string
+  onInputChange?: (value: string) => void
+  error?: string
+  sideBySide?: boolean
+} & React.InputHTMLAttributes<HTMLInputElement>
 
 const Input = ({
   name,
@@ -25,23 +20,23 @@ const Input = ({
   sideBySide = false,
   ...rest
 }: InputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [value, setValue] = useState(initialValue);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [showPassword, setShowPassword] = useState(false)
+  const [value, setValue] = useState(initialValue)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  const isPasswordInput = type === 'password';
+  const isPasswordInput = type === 'password'
 
   useEffect(() => {
     if (inputRef.current && isPasswordInput) {
-      inputRef.current.type = showPassword ? 'text' : 'password';
+      inputRef.current.type = showPassword ? 'text' : 'password'
     }
-  }, [showPassword, isPasswordInput]);
+  }, [showPassword, isPasswordInput])
 
-  function onChange(event: ChangeEvent<HTMLInputElement>) {
-    const newValue = event.currentTarget.value;
-    setValue(newValue);
+  function onChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = event.currentTarget.value
+    setValue(newValue)
 
-    !!onInputChange && onInputChange(newValue);
+    !!onInputChange && onInputChange(newValue)
   }
 
   return (
@@ -62,15 +57,13 @@ const Input = ({
           {...rest}
         />
         {isPasswordInput && (
-          <S.ShowHidePasswordButton
-            onClick={() => setShowPassword(!showPassword)}
-          >
+          <S.ShowHidePasswordButton onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? 'esconder' : 'mostrar'}
           </S.ShowHidePasswordButton>
         )}
       </S.InputWrapper>
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

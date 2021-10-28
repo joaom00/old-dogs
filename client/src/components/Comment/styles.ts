@@ -1,11 +1,14 @@
-import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`
-    display: flex;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    grid-template-areas: 'img comment' 'x commentInfo';
     margin-top: ${theme.spacings.medium};
     img {
+      grid-area: img;
       width: ${theme.spacings.medium};
       height: ${theme.spacings.medium};
       border-radius: 50%;
@@ -13,13 +16,22 @@ export const Wrapper = styled.div`
       border-color: ${theme.colors.gray.line};
     }
   `}
-`;
+`
 
-export const Comment = styled.div`
+export const ContentWrapper = styled.div`
   ${({ theme }) => css`
-    margin-left: ${theme.spacings.xsmall};
+    grid-area: comment;
+    display: flex;
+    align-items: center;
+    align-self: start;
+
+    svg {
+      margin-left: auto;
+      cursor: pointer;
+      color: ${theme.colors.error};
+    }
   `}
-`;
+`
 
 export const Content = styled.p`
   ${({ theme }) => css`
@@ -28,10 +40,11 @@ export const Content = styled.p`
     font-weight: ${theme.font.normal};
     line-height: 2.2rem;
   `}
-`;
+`
 
 export const Username = styled(Link)`
   ${({ theme }) => css`
+    font-size: ${theme.font.sizes.small};
     font-weight: ${theme.font.bold};
     margin-right: 0.4rem;
     color: ${theme.colors.gray.titleActive};
@@ -40,14 +53,12 @@ export const Username = styled(Link)`
       text-decoration: underline;
     }
   `}
-`;
+`
 
-export const CommentInfo = styled.div`
+export const CommentDateInfo = styled.span`
   ${({ theme }) => css`
-    margin-top: ${theme.spacings.xxsmall};
+    grid-area: commentInfo;
     font-size: ${theme.font.sizes.xsmall};
     color: ${theme.colors.gray.placeholder};
   `}
-`;
-
-export const CommentDate = styled.span``;
+`

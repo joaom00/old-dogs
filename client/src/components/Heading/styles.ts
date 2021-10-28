@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.h2`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.large};
     font-family: ${theme.font.heading};
     color: ${theme.colors.gray.titleActive};
-    padding-bottom: ${theme.spacings.xsmall};
+    padding-bottom: ${theme.spacings.xxsmall};
     border-bottom: 1px solid ${theme.colors.gray.line};
     margin-bottom: ${theme.spacings.medium};
     width: 100%;
@@ -22,7 +22,6 @@ export const Wrapper = styled.h2`
       font-family: ${theme.font.family};
       color: ${theme.colors.gray.placeholder};
       align-self: flex-end;
-      margin-bottom: -1.1rem;
     }
   `}
-`;
+`

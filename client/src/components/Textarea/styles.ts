@@ -1,17 +1,17 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`
     margin-top: ${theme.spacings.large};
   `}
-`;
+`
 
 export const Label = styled.label`
   ${({ theme }) => css`
     font-size: ${theme.font.sizes.medium};
     color: ${theme.colors.gray.label};
   `}
-`;
+`
 
 export const TextArea = styled.textarea`
   ${({ theme }) => css`
@@ -26,11 +26,10 @@ export const TextArea = styled.textarea`
     width: 100%;
     height: 14.1rem;
     margin-top: ${theme.spacings.xsmall};
-    margin-bottom: ${theme.spacings.xlarge};
 
     &:focus {
       outline: none;
       border-color: ${theme.colors.primary[500]};
     }
   `}
-`;
+`

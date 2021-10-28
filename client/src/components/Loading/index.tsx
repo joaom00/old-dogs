@@ -1,41 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
-import * as S from './styles';
+import * as S from './styles'
 
 type LoadingProps = {
-  fullScreen?: boolean;
-};
+  fullScreen?: boolean
+}
 
 const Loading = ({ fullScreen = false }: LoadingProps) => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(0)
 
   useEffect(() => {
     function updateStep() {
       setStep((step) => {
-        return step < 3 ? step + 1 : 0;
-      });
+        return step < 3 ? step + 1 : 0
+      })
     }
-    const interval = setInterval(updateStep, 300);
+    const interval = setInterval(updateStep, 300)
     return () => {
-      clearInterval(interval);
-    };
-  }, []);
+      clearInterval(interval)
+    }
+  }, [])
 
   function displayStep(i: number) {
     return {
       display: step === i ? 'block' : 'none'
-    };
+    }
   }
 
   return (
     <S.Wrapper fullScreen={fullScreen}>
-      <svg
-        width="46"
-        height="31"
-        viewBox="0 0 46 31"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="46" height="31" viewBox="0 0 46 31" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g style={displayStep(0)}>
           <path
             fillRule="evenodd"
@@ -106,7 +100,7 @@ const Loading = ({ fullScreen = false }: LoadingProps) => {
         </g>
       </svg>
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default Loading;
+export default Loading

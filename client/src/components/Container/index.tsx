@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
 
 const Container = styled.div`
   ${({ theme }) => css`
@@ -6,6 +6,6 @@ const Container = styled.div`
     margin-left: auto;
     margin-right: auto;
   `}
-`;
+`
 
-export default Container;
+export default Container

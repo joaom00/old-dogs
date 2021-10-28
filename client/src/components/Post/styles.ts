@@ -1,30 +1,27 @@
-import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
-import { AiFillHeart } from 'react-icons/ai';
+import { Link } from 'react-router-dom'
+import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.li`
-  overflow: hidden;
-`;
+  display: grid;
+  grid-template-columns: 1fr;
+`
 
-export const HeartLike = styled(AiFillHeart)`
+export const ImageWrapper = styled.div`
   grid-area: 1/1;
-  z-index: 9999;
-  align-self: center;
-  justify-self: center;
-  transform: scale(0);
-  animation: heartAnimation 0.5s ease-in-out backwards;
+  width: 100%;
+  background: #f6f7f8;
+  background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  animation: placeholderShimmer 1s linear infinite forwards;
 
-  @keyframes heartAnimation {
-    from {
-      transform: scale(0);
-      opacity: 1;
+  @keyframes placeholderShimmer {
+    0% {
+      background-position: -40rem 0;
     }
-    to {
-      transform: scale(1);
-      opacity: 0;
+    100% {
+      background-position: 40rem 0;
     }
   }
-`;
+`
 
 export const PostInfoWrapper = styled.div`
   ${({ theme }) => css`
@@ -36,7 +33,7 @@ export const PostInfoWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
   `}
-`;
+`
 
 export const PostInfo = styled.div`
   ${({ theme }) => css`
@@ -51,7 +48,7 @@ export const PostInfo = styled.div`
       }
     }
   `}
-`;
+`
 
 export const UserImage = styled.img<{ src: string }>`
   ${({ theme, src }) => css`
@@ -61,7 +58,7 @@ export const UserImage = styled.img<{ src: string }>`
     height: ${theme.spacings.medium};
     border-radius: 50%;
   `}
-`;
+`
 
 export const Username = styled(Link)`
   ${({ theme }) => css`
@@ -74,7 +71,7 @@ export const Username = styled(Link)`
       text-decoration: underline;
     }
   `}
-`;
+`
 
 export const PostCreatedDate = styled.p`
   ${({ theme }) => css`
@@ -84,7 +81,7 @@ export const PostCreatedDate = styled.p`
     color: ${theme.colors.gray.placeholder};
     margin-top: 0.4rem;
   `}
-`;
+`
 
 export const IconsWrapper = styled.div`
   ${({ theme }) => css`
@@ -98,7 +95,7 @@ export const IconsWrapper = styled.div`
       margin-left: ${theme.spacings.xsmall};
     }
   `}
-`;
+`
 
 export const LikesWrapper = styled.div`
   ${({ theme }) => css`
@@ -107,7 +104,7 @@ export const LikesWrapper = styled.div`
     align-items: center;
     color: ${theme.colors.gray.body};
   `}
-`;
+`
 
 export const Likes = styled.span`
   ${({ theme }) => css`
@@ -116,7 +113,7 @@ export const Likes = styled.span`
     font-weight: ${theme.font.medium};
     color: ${theme.colors.gray.label};
   `}
-`;
+`
 
 export const CommentsWrapper = styled.div`
   ${({ theme }) => css`
@@ -124,7 +121,7 @@ export const CommentsWrapper = styled.div`
     display: flex;
     align-items: center;
   `}
-`;
+`
 
 export const Comments = styled.span`
   ${({ theme }) => css`
@@ -133,4 +130,4 @@ export const Comments = styled.span`
     font-weight: ${theme.font.medium};
     color: ${theme.colors.gray.label};
   `}
-`;
+`

@@ -1,12 +1,12 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components'
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 export const Wrapper = styled.header`
   ${({ theme }) => css`
     border-bottom: 1px solid ${theme.colors.gray.line};
   `}
-`;
+`
 
 export const HeaderWrapper = styled.nav`
   ${({ theme }) => css`
@@ -20,7 +20,7 @@ export const HeaderWrapper = styled.nav`
 
     padding: ${theme.spacings.small} ${theme.spacings.xxsmall};
   `}
-`;
+`
 
 export const Home = styled(Link)`
   ${({ theme }) => css`
@@ -34,7 +34,7 @@ export const Home = styled(Link)`
       color: ${theme.colors.gray.body};
     }
   `}
-`;
+`
 
 export const Profile = styled.div`
   ${({ theme }) => css`
@@ -43,16 +43,17 @@ export const Profile = styled.div`
     display: inline-block;
     cursor: pointer;
   `}
-`;
+`
 
 export const UserImage = styled.img`
   ${({ theme }) => css`
-    width: ${theme.spacings.small};
-    height: ${theme.spacings.small};
+    width: ${theme.spacings.medium};
+    height: ${theme.spacings.medium};
+    object-fit: cover;
     border-radius: 50%;
     border: 1px solid ${theme.colors.gray.line};
   `}
-`;
+`
 
 const slideDown = keyframes`
   from {
@@ -63,7 +64,7 @@ const slideDown = keyframes`
     transform: initial;
     opacity: 1;
   }
-`;
+`
 
 export const Dropdown = styled.div`
   ${({ theme }) => css`
@@ -82,7 +83,7 @@ export const Dropdown = styled.div`
       right: 0;
     }
   `}
-`;
+`
 
 const BaseLink = styled(Link)`
   ${({ theme }) => css`
@@ -90,13 +91,13 @@ const BaseLink = styled(Link)`
     padding: ${theme.spacings.xsmall};
     color: ${theme.colors.gray.label};
   `}
-`;
+`
 
-export const ProfileLink = styled(BaseLink)``;
+export const ProfileLink = styled(BaseLink)``
 
-export const EditProfileLink = styled(BaseLink)``;
+export const EditProfileLink = styled(BaseLink)``
 
-export const NewPhotoLink = styled(BaseLink)``;
+export const NewPhotoLink = styled(BaseLink)``
 
 export const LogoutButton = styled.span`
   ${({ theme }) => css`
@@ -106,4 +107,4 @@ export const LogoutButton = styled.span`
     color: ${theme.colors.gray.label};
     cursor: pointer;
   `}
-`;
+`

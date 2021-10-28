@@ -1,46 +1,71 @@
-import { Link } from 'react-router-dom';
-import { parseISO } from 'date-fns';
-import { formatDistanceToNow } from 'date-fns/esm';
-import ptBR from 'date-fns/locale/pt-BR';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { FiTrash } from 'react-icons/fi'
+import { parseISO } from 'date-fns'
+import { formatDistanceToNow } from 'date-fns/esm'
+import ptBR from 'date-fns/locale/pt-BR'
 
-import { TUser } from '../../contexts/AuthContext';
+import { notifyError, notifySuccess } from '../../services/notify'
 
-import userWithoutImage from '../../assets/user.jpg';
+import { TUser } from '../../contexts/AuthContext'
+import { useDeleteCommentMutation } from '../../hooks'
 
-import * as S from './styles';
+import Dialog from '../Dialog'
 
-type CommentProps = {
-  comment: string;
-  user: TUser | null;
-  createdAt: string;
-};
+import userWithoutImage from '../../assets/user.jpg'
 
-const Comment = ({ comment, user, createdAt }: CommentProps) => {
-  const formatDate = formatDistanceToNow(parseISO(createdAt), {
+import * as S from './styles'
+
+type TCommentProps = {
+  commentId?: number
+  comment: string
+  user: TUser | null
+  createdAt: string
+}
+
+const Comment = ({ commentId = 1, comment, user, createdAt }: TCommentProps) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+  const deleteComment = useDeleteCommentMutation()
+
+  const dateFormatted = formatDistanceToNow(parseISO(createdAt), {
     locale: ptBR
-  });
+  })
+
+  function handleDeleteComment() {
+    deleteComment.mutate(commentId, {
+      onSuccess: () => {
+        setIsDialogOpen(false)
+        notifySuccess('Comentário deletado!')
+      },
+      onError: () => notifyError()
+    })
+  }
 
   return (
     <S.Wrapper>
+      {isDialogOpen && (
+        <Dialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} handleOnConfirm={handleDeleteComment} />
+      )}
+
       <Link to={`/${user?.username}`}>
         <img
-          src={user?.avatarUrl ? user.avatarUrl : userWithoutImage}
+          src={user?.avatarUrl || userWithoutImage}
           alt={user ? `Foto de perfil de ${user.name}` : 'Usuário deletado'}
         />
       </Link>
-      <S.Comment>
-        <S.Content>
-          <S.Username to={`/${user?.username}`}>
-            {user ? user.username : 'Usuário deletado'}
-          </S.Username>
-          {comment}
-        </S.Content>
-        <S.CommentInfo>
-          <S.CommentDate>{formatDate}</S.CommentDate>
-        </S.CommentInfo>
-      </S.Comment>
-    </S.Wrapper>
-  );
-};
 
-export default Comment;
+      <S.ContentWrapper>
+        <S.Username to={`/${user?.username}`}>{user ? user.username : 'Usuário deletado'}</S.Username>
+
+        <S.Content>{comment}</S.Content>
+
+        <FiTrash onClick={() => setIsDialogOpen(true)} />
+      </S.ContentWrapper>
+
+      <S.CommentDateInfo>{dateFormatted}</S.CommentDateInfo>
+    </S.Wrapper>
+  )
+}
+
+export default Comment

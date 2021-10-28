@@ -1,21 +1,15 @@
-import * as S from './styles';
+import * as S from './styles'
 
 export type LogoProps = {
-  color?: 'black' | 'yellow';
-  size?: 'normal' | 'large';
-  children?: React.ReactNode;
-};
+  color?: 'black' | 'yellow'
+  size?: 'normal' | 'large'
+  children?: React.ReactNode
+}
 
 const Logo = ({ color = 'black', size = 'normal', children }: LogoProps) => {
   return (
     <S.Wrapper to="/" color={color} size={size}>
-      <svg
-        viewBox="0 0 28 22"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        role="img"
-        aria-label="Dogs"
-      >
+      <svg viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dogs">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -28,7 +22,7 @@ const Logo = ({ color = 'black', size = 'normal', children }: LogoProps) => {
 
       {children ? <p>{children}</p> : null}
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default Logo;
+export default Logo
