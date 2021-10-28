@@ -24,9 +24,12 @@ class Comment {
   @Exclude()
   userId: string;
 
+  @Column({ name: 'post_id' })
+  postId: string;
+
   @ManyToOne(() => Post)
   @JoinColumn({ name: 'post_id' })
-  postId: string;
+  post: Post;
 
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'user_id' })

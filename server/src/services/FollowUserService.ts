@@ -1,17 +1,26 @@
 import { getRepository } from 'typeorm';
 import Follow from '../models/Follow';
+import User from '../models/User';
 
 type Request = {
-  userId: string;
+  username: string;
   followerId: string;
 };
 
 export default class FollowUserService {
-  public async execute({ userId, followerId }: Request): Promise<Follow> {
+  public async execute({ username, followerId }: Request): Promise<Follow> {
     const followRepository = getRepository(Follow);
+    const userRepository = getRepository(User);
+
+    const userLogged = await userRepository.findOne({
+      where: { id: followerId }
+    });
 
     const followAlreadyExists = await followRepository.findOne({
-      where: { followerId, userId }
+      where: {
+        followerUsername: userLogged?.username,
+        userUsername: username
+      }
     });
 
     if (followAlreadyExists) {
@@ -20,8 +29,8 @@ export default class FollowUserService {
     }
 
     const newFollow = followRepository.create({
-      userId,
-      followerId
+      followerUsername: userLogged?.username,
+      userUsername: username
     });
 
     await followRepository.save(newFollow);

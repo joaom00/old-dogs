@@ -34,7 +34,7 @@ class Post {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToMany(() => Comment, 'postId')
+  @OneToMany(() => Comment, 'post')
   comments: Comment[];
 
   @OneToMany(() => Like, 'postId')

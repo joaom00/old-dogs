@@ -36,10 +36,10 @@ class User {
   @OneToMany(() => Post, 'user')
   posts: Post[];
 
-  @OneToMany(() => Follow, 'userId')
+  @OneToMany(() => Follow, 'user')
   followers: Follow[];
 
-  @OneToMany(() => Follow, 'followerId')
+  @OneToMany(() => Follow, 'follower')
   following: Follow[];
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
@@ -52,6 +52,8 @@ class User {
   getAvatarUrl(): string | null {
     return this.avatar ? `http://localhost:3333/files/${this.avatar}` : null;
   }
+
+  isFollowed: boolean;
 }
 
 export default User;

@@ -9,28 +9,29 @@ import UpdateProfileService from '../services/UpdateProfileService';
 export default class UsersController {
   async index(request: Request, response: Response): Promise<Response> {
     const { userId } = request.params;
-    const { page } = request.query;
+    const { page = 1 } = request.query;
 
     const skip = (Number(page) - 1) * 9;
 
     const showUserPosts = new ShowUserPostsService();
 
-    const { posts, totalPages } = await showUserPosts.execute({
+    const { posts, total_pages } = await showUserPosts.execute({
       userId,
       skip
     });
 
     return response.json(
-      classToClass({ currentPage: Number(page), totalPages, posts })
+      classToClass({ current_page: Number(page), total_pages, posts })
     );
   }
 
   async show(request: Request, response: Response): Promise<Response> {
     const { username } = request.params;
+    const userId = request.user.id;
 
     const showProfile = new ShowProfileService();
 
-    const user = await showProfile.execute({ username });
+    const user = await showProfile.execute({ userLoggedId: userId, username });
 
     return response.json(classToClass(user));
   }

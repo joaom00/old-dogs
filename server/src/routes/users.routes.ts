@@ -18,7 +18,7 @@ usersRouter.get('/:userId/posts', ensureAuthenticated, usersController.index);
 usersRouter.get('/:username', ensureAuthenticated, usersController.show);
 usersRouter.post('/', usersController.create);
 usersRouter.post(
-  '/:userId/follow',
+  '/:username/follow',
   ensureAuthenticated,
   followController.create
 );
@@ -27,6 +27,18 @@ usersRouter.patch(
   ensureAuthenticated,
   upload.single('avatar'),
   usersAvatarController.update
+);
+
+usersRouter.get(
+  '/:username/following',
+  ensureAuthenticated,
+  followController.following
+);
+
+usersRouter.get(
+  '/:username/followers',
+  ensureAuthenticated,
+  followController.followers
 );
 
 export default usersRouter;

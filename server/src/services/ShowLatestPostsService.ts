@@ -7,7 +7,7 @@ type Request = {
 };
 
 type Response = {
-  totalPages: number;
+  total_pages: number;
   posts: Post[];
 };
 
@@ -18,7 +18,7 @@ export default class ShowLatestPostsService {
       'post'
     ).getManyAndCount();
 
-    const totalPages = Math.ceil(totalPosts / 10);
+    const total_pages = Math.ceil(totalPosts / 10);
     let posts: Post[];
 
     posts = await createQueryBuilder(Post, 'post')
@@ -42,7 +42,7 @@ export default class ShowLatestPostsService {
     }
 
     return {
-      totalPages,
+      total_pages,
       posts
     };
   }

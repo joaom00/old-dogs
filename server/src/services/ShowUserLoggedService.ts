@@ -10,9 +10,9 @@ export default class ShowUserLoggedService {
   public async execute({ userId }: Request): Promise<User> {
     const user = await createQueryBuilder(User, 'user')
       .where('user.id = :userId', { userId })
-      .loadRelationCountAndMap('user.posts', 'user.posts')
-      .loadRelationCountAndMap('user.followers', 'user.followers')
-      .loadRelationCountAndMap('user.following', 'user.following')
+      .loadRelationCountAndMap('user.posts_count', 'user.posts')
+      .loadRelationCountAndMap('user.followers_count', 'user.followers')
+      .loadRelationCountAndMap('user.following_count', 'user.following')
       .getOne();
 
     if (!user) {

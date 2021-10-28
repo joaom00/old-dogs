@@ -8,19 +8,19 @@ import ShowPostCommentsService from '../services/ShowPostCommentsService';
 export default class CommentsController {
   async index(request: Request, response: Response): Promise<Response> {
     const { postId } = request.params;
-    const { page } = request.query;
+    const { page = 1 } = request.query;
 
     const skip = (Number(page) - 1) * 10;
 
     const showPostComments = new ShowPostCommentsService();
 
-    const { comments, totalPages } = await showPostComments.execute({
+    const { comments, total_pages } = await showPostComments.execute({
       postId,
       skip
     });
 
     return response.json(
-      classToClass({ currentPage: Number(page), totalPages, comments })
+      classToClass({ current_page: Number(page), total_pages, comments })
     );
   }
 

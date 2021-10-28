@@ -1,4 +1,6 @@
+import { Exclude } from 'class-transformer';
 import {
+  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -13,19 +15,29 @@ class Follow {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
-  userId: string;
+  @Column({ name: 'user_username' })
+  @Exclude()
+  userUsername: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'follower_id' })
-  followerId: string;
+  @Column({ name: 'follower_username' })
+  @Exclude()
+  followerUsername: string;
+
+  @ManyToOne(() => User, 'following')
+  @JoinColumn({ name: 'user_username', referencedColumnName: 'username' })
+  user: User;
+
+  @ManyToOne(() => User, 'followers')
+  @JoinColumn({ name: 'follower_username', referencedColumnName: 'username' })
+  follower: User;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp with time zone' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp with time zone' })
   updatedAt: Date;
+
+  hasFollowed: boolean;
 }
 
 export default Follow;

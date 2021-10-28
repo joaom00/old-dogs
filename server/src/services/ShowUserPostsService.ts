@@ -7,7 +7,7 @@ type Request = {
 };
 
 type Response = {
-  totalPages: number;
+  total_pages: number;
   posts: Post[];
 };
 
@@ -17,7 +17,7 @@ export default class ShowPostCommentsService {
       .where('post.userId = :userId', { userId })
       .getManyAndCount();
 
-    const totalPages = Math.ceil(totalPosts / 9);
+    const total_pages = Math.ceil(totalPosts / 9);
 
     const posts = await createQueryBuilder(Post, 'post')
       .where('post.userId = :userId', { userId })
@@ -33,7 +33,7 @@ export default class ShowPostCommentsService {
       .getMany();
 
     return {
-      totalPages,
+      total_pages,
       posts
     };
   }

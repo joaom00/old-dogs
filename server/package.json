@@ -6,12 +6,15 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "db:create": "ts-node-dev ./node_modules/typeorm-extension/dist/cli/index.js db:create",
+    "db:drop": "ts-node-dev ./node_modules/typeorm-extension/dist/cli/index.js db:drop"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.4.0",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
@@ -19,7 +22,8 @@
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "sharp": "^0.28.3",
-    "typeorm": "^0.2.32"
+    "typeorm": "^0.2.32",
+    "typeorm-extension": "^0.3.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

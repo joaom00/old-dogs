@@ -11,18 +11,18 @@ import ShowPostService from '../services/ShowPostService';
 
 export default class PostsController {
   async index(request: Request, response: Response): Promise<Response> {
-    const { page } = request.query;
+    const { page = 1 } = request.query;
 
     const skip = (Number(page) - 1) * 10;
 
     const showLatestPosts = new ShowLatestPostsService();
 
-    const { posts, totalPages } = await showLatestPosts.execute({
+    const { posts, total_pages } = await showLatestPosts.execute({
       skip
     });
 
     return response.json(
-      classToClass({ currentPage: Number(page), totalPages, posts })
+      classToClass({ current_page: Number(page), total_pages, posts })
     );
   }
 

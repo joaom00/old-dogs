@@ -19,12 +19,12 @@ export class CreateFollows1621461868385 implements MigrationInterface {
             generationStrategy: 'increment'
           },
           {
-            name: 'user_id',
-            type: 'uuid'
+            name: 'user_username',
+            type: 'varchar'
           },
           {
-            name: 'follower_id',
-            type: 'uuid'
+            name: 'follower_username',
+            type: 'varchar'
           },
           {
             name: 'created_at',
@@ -44,9 +44,9 @@ export class CreateFollows1621461868385 implements MigrationInterface {
       'follows',
       new TableForeignKey({
         name: 'FollowingUser',
-        columnNames: ['user_id'],
+        columnNames: ['user_username'],
         referencedTableName: 'users',
-        referencedColumnNames: ['id'],
+        referencedColumnNames: ['username'],
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       })
@@ -56,9 +56,9 @@ export class CreateFollows1621461868385 implements MigrationInterface {
       'follows',
       new TableForeignKey({
         name: 'FollowerUser',
-        columnNames: ['follower_id'],
+        columnNames: ['follower_username'],
         referencedTableName: 'users',
-        referencedColumnNames: ['id'],
+        referencedColumnNames: ['username'],
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       })
