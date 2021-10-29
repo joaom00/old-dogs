@@ -44,9 +44,7 @@ const Comment = ({ commentId = 1, comment, user, createdAt }: TCommentProps) => 
 
   return (
     <S.Wrapper>
-      {isDialogOpen && (
-        <Dialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} handleOnConfirm={handleDeleteComment} />
-      )}
+      {isDialogOpen && <Dialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} onConfirm={handleDeleteComment} />}
 
       <Link to={`/${user?.username}`}>
         <img

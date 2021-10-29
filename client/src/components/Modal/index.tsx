@@ -61,7 +61,7 @@ const Modal = () => {
 
   return (
     <S.Wrapper aria-hidden={!isOpen} aria-label="modal" isOpen={isOpen}>
-      {isDialogOpen && <Dialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} handleOnConfirm={handleDeletePost} />}
+      {isDialogOpen && <Dialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} onConfirm={handleDeletePost} />}
 
       <S.Close role="button" aria-label="fechar modal" onClick={closeModal}>
         <FiX size={32} />

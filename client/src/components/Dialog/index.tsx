@@ -5,10 +5,10 @@ import * as S from './styles'
 type DialogProps = {
   isOpen: boolean
   setIsOpen: (value: boolean) => void
-  handleOnConfirm?: () => void
+  onConfirm?: () => void
 }
 
-const Dialog = ({ handleOnConfirm, isOpen = false, setIsOpen }: DialogProps) => {
+const Dialog = ({ onConfirm, isOpen = false, setIsOpen }: DialogProps) => {
   return (
     <S.Wrapper aria-hidden={!isOpen} aria-label="dialog" isOpen={isOpen}>
       <S.DialogWrapper>
@@ -17,7 +17,7 @@ const Dialog = ({ handleOnConfirm, isOpen = false, setIsOpen }: DialogProps) => 
           <Button variant="secondary" size="small" onClick={() => setIsOpen(false)}>
             Cancelar
           </Button>
-          <Button size="small" onClick={handleOnConfirm}>
+          <Button size="small" onClick={onConfirm}>
             Confirmar
           </Button>
         </div>

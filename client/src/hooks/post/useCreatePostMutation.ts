@@ -2,14 +2,8 @@ import { useMutation, useQueryClient } from 'react-query'
 
 import api from '../../services/api'
 
-type TResponse = {
-  description: string
-  file: File
-}
-
-const createPost = async (postData: FormData): Promise<TResponse> => {
-  const { data } = await api.post('posts', postData)
-  return data
+const createPost = async (postData: FormData) => {
+  await api.post('posts', postData)
 }
 
 export const useCreatePostMutation = () => {
@@ -18,6 +12,7 @@ export const useCreatePostMutation = () => {
   return useMutation(createPost, {
     onSuccess: () => {
       queryClient.invalidateQueries(['posts', { type: 'profile' }])
+      queryClient.invalidateQueries(['posts', { type: 'latest' }])
       queryClient.invalidateQueries('user')
     }
   })

@@ -37,7 +37,7 @@ const Post = ({ id, photoUrl, totalComments, totalLikes, hasLiked, user, created
   const [likes, setLikes] = useState(totalLikes)
   const { openModal } = useModal()
 
-  const formatDate = formatDistanceToNow(parseISO(createdAt), {
+  const dateFormatted = formatDistanceToNow(parseISO(createdAt), {
     locale: ptBR
   })
 
@@ -76,7 +76,7 @@ const Post = ({ id, photoUrl, totalComments, totalLikes, hasLiked, user, created
 
             <span>
               <S.Username to={`/${user.username}`}>{user.username}</S.Username>
-              <S.PostCreatedDate>{formatDate}</S.PostCreatedDate>
+              <S.PostCreatedDate>{dateFormatted}</S.PostCreatedDate>
             </span>
           </S.PostInfo>
 
