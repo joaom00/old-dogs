@@ -1,6 +1,6 @@
-import 'dotenv/config';
 import 'reflect-metadata';
 
+import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
