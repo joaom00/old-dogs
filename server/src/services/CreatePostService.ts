@@ -17,7 +17,7 @@ export default class CreatePostService {
 
     if (!user) {
       throw new AppError(
-        'Somente usuários autenticados podem trocar o avatar.',
+        'Somente usuários autenticados podem criar uma publicação.',
         401
       );
     }
