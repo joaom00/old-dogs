@@ -1,6 +1,9 @@
 module.exports = {
   type: 'postgres',
-  ssl: false,
+  ssl:
+    process.env.NODE_ENV === 'production'
+      ? { rejectUnauthorized: false }
+      : false,
   host: process.env.TYPEORM_HOST,
   port: process.env.TYPEORM_PORT,
   username: process.env.TYPEORM_USERNAME,
