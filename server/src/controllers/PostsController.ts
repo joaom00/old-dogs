@@ -40,6 +40,9 @@ export default class PostsController {
 
   async create(request: Request, response: Response): Promise<Response> {
     const userId = request.user.id;
+    if (!request.file) {
+      return response.send('File was not found');
+    }
     const photo = request.file.filename;
     const { description } = request.body;
 
